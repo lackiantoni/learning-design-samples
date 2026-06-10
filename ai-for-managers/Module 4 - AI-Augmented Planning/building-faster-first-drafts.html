@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Faster, More Complete First Drafts</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.draft-types{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.dt-row{display:grid;grid-template-columns:1fr 2fr;gap:16px;background:#fff;border-radius:var(--radius-card);padding:22px 24px;align-items:flex-start;transition:transform .2s,box-shadow .2s}
+.dt-row:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(99,102,241,0.1)}
+.dt-type{font-size:22px;font-weight:700;color:var(--text-body)}
+.dt-rule{font-size:22px;color:#4a4a6a;line-height:1.6}
+@media(max-width:640px){.dt-row{grid-template-columns:1fr}}
+.highlight-box{background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(99,102,241,0.15));border:1.5px solid rgba(255,107,53,0.35);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.highlight-box p{font-size:22px;color:#fff;line-height:1.75}
+.highlight-box strong{color:#ff6b35}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">First Drafts</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Building Faster, <span style="color:#ff6b35">More Complete First Drafts</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">A blank page is expensive. Reacting to a draft is cheap. AI flips planning from "create from nothing" to "react and improve," which is faster and produces better plans because you spend your energy editing judgment in rather than generating structure from scratch.</p>
+    </div>
+  </div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Four Draft Types</p>
+      <h2>What AI Supplies and What You Add</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="draft-types">
+      <div class="dt-row reveal"><span class="dt-type">Project plan</span><span class="dt-rule">AI drafts the structure, milestones, and dependencies. You add the organizational reality: what the team can actually deliver, the political constraints, and the non-negotiable dependencies.</span></div>
+      <div class="dt-row reveal"><span class="dt-type">OKR set</span><span class="dt-rule">AI generates candidate objectives and measurable key results from your rough priorities. You judge whether the objective reflects what actually matters for your strategy, context, and team capacity. That assessment is yours every time.</span></div>
+      <div class="dt-row reveal"><span class="dt-type">Status report</span><span class="dt-rule">AI compresses your bullet points into a coherent narrative. You verify the framing before sending and add the political context that shapes how leadership will read it.</span></div>
+      <div class="dt-row reveal"><span class="dt-type">Stakeholder communication</span><span class="dt-rule">AI drafts the same message in multiple tones for different audiences. You select and personalize based on the relationship, the history, and what each stakeholder most needs to hear.</span></div>
+    </div>
+    <div class="highlight-box reveal">
+      <p><strong>The general rule:</strong> AI supplies structure and breadth. You supply organizational context, relationship history, and political reality. The draft is a starting point, never a plan you can ship unread.</p>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Sam's story</p>
+      <p>Sam needs quarterly OKRs and has always dreaded the blank page. Sam gives AI a paragraph of rough priorities and asks for three candidate objectives, each with measurable key results. The AI returns a solid first draft in seconds. Sam keeps one objective nearly intact, rewrites another because it optimizes for something the team is already good at instead of what the org actually needs, and cuts the third entirely because it ignores a capacity constraint the AI had no way to know about. Thirty minutes total, versus the two hours Sam used to spend just getting started.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>React to a draft instead of starting from scratch</h3>
+      <p>Take one planning artifact you owe (a status report, a plan outline, an OKR set), give AI a rough-input prompt, and edit the draft rather than writing from scratch. Note the time difference.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>What did the AI draft get structurally right that saved you time?</li>
+        <li>What did you have to change because the AI did not know your strategy, capacity, or politics?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

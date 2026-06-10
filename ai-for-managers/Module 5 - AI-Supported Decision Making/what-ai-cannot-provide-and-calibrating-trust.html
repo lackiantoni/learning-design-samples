@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>What AI Cannot Provide and Calibrating Trust</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2,.dark h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.light h2{color:var(--text-body)}.dark h2{color:#fff}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.inputs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px}
+.inp-card{background:#fff;border-radius:var(--radius-card);padding:24px;border-top:4px solid;transition:transform .2s}
+.inp-card:hover{transform:translateY(-5px)}
+.inp-card:nth-child(1){border-color:#ff6b35}.inp-card:nth-child(2){border-color:#6366f1}
+.inp-card:nth-child(3){border-color:#ef4444}.inp-card:nth-child(4){border-color:#f59e0b}
+.inp-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.inp-card:nth-child(1) h3{color:#c9460f}.inp-card:nth-child(2) h3{color:#4338ca}
+.inp-card:nth-child(3) h3{color:#b91c1c}.inp-card:nth-child(4) h3{color:#b45309}
+.inp-card p{font-size:22px;color:#4a4a6a;line-height:1.6}
+.calib-list{margin-top:32px;display:flex;flex-direction:column;gap:14px}
+.calib-row{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:22px 24px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.calib-row:hover{border-color:rgba(255,107,53,0.35)}
+.calib-q{font-size:22px;font-weight:700;color:#ff6b35;flex-shrink:0;width:2em}
+.calib-body h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.calib-body p{font-size:22px;color:rgba(255,255,255,0.75);line-height:1.6}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style></head><body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container"><div class="reveal">
+    <p class="hero-tag">Trust Calibration</p>
+    <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">What AI Cannot Provide <span style="color:#ff6b35">and Calibrating Trust</span></h1>
+    <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Every decision has a swing factor: the thing that actually determines the right call. Sometimes AI can help with it. Often it cannot, because the swing factor is human. Knowing which of the four human inputs is decisive, and running a quick trust calibration, is what keeps you from deciding on a confident answer that was missing the one thing that mattered.</p>
+  </div></div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Four Human Inputs</p>
+      <h2>What AI Cannot Supply, No Matter How Fluent It Sounds</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="inputs-grid">
+      <div class="inp-card reveal"><h3>Organizational context</h3><p>What is actually happening here: the politics, the history, the unwritten rules. AI knows only what you typed.</p></div>
+      <div class="inp-card reveal"><h3>Relationship dynamics</h3><p>Who trusts whom, who will champion or resist, the human reality the decision lands in.</p></div>
+      <div class="inp-card reveal"><h3>Ethical accountability</h3><p>The responsibility for the outcome. This is yours and cannot be delegated to a tool, ever.</p></div>
+      <div class="inp-card reveal"><h3>Implementation reality</h3><p>Whether this can actually be executed given your real constraints: capacity, team, budget, timing.</p></div>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Calibration Routine</p>
+      <h2>Three Questions Before Acting on Any AI Recommendation</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="calib-list">
+      <div class="calib-row reveal">
+        <span class="calib-q">Q1</span>
+        <div class="calib-body"><h3>Is this a well-documented domain?</h3><p>AI is more reliable on common, well-documented topics. Less reliable on novel, niche, or interpersonal situations specific to your organization.</p></div>
+      </div>
+      <div class="calib-row reveal">
+        <span class="calib-q">Q2</span>
+        <div class="calib-body"><h3>Is this a low-stakes output?</h3><p>The higher the stakes, the more verification it needs before you act on it. Match scrutiny to consequence.</p></div>
+      </div>
+      <div class="calib-row reveal">
+        <span class="calib-q">Q3</span>
+        <div class="calib-body"><h3>Am I under time pressure?</h3><p>Time pressure is exactly when automation bias strikes. Flag it and slow down deliberately. Rushing past this question is the mechanism of the bias itself.</p></div>
+      </div>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Sam's story</p>
+      <p>Sam is deciding how to restructure responsibilities on the team and gets a clean, confident AI recommendation. Sam runs the calibration: the domain is this specific team (not well-documented for the AI), the stakes are high (people's roles), and Sam is rushing before a deadline: all three flags up. Then Sam checks the swing factor and realizes it is relationship dynamics. One of the people the AI proposes to shift responsibilities onto is already overloaded and quietly looking to leave, which the AI had no way to know. The recommendation looked complete and was missing the one thing that mattered. Sam supplies it and decides differently.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Name the swing factor</h3>
+      <p>On your next AI-assisted decision, run the three-question calibration out loud, then name the one human input that is the swing factor. Make sure it is supplied by a human.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which of the four human inputs is most often the swing factor in your decisions?</li>
+        <li>When has time pressure pushed you to accept an answer you would otherwise have questioned?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script></body></html>

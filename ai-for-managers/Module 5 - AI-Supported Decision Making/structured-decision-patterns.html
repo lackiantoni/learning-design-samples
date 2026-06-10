@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Structured AI-Assisted Decision Patterns</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2,.dark h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.light h2{color:var(--text-body)}.dark h2{color:#fff}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.pattern-cards{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.pc{background:#fff;border-radius:var(--radius-card);padding:28px 24px;border-left:5px solid;transition:transform .2s,box-shadow .2s}
+.pc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(99,102,241,0.1)}
+.pc:nth-child(1){border-color:#ff6b35}.pc:nth-child(2){border-color:#6366f1}
+.pc:nth-child(3){border-color:#22c55e}.pc:nth-child(4){border-color:#f59e0b}
+.pc-num{font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.pc:nth-child(1) .pc-num{color:#c9460f}.pc:nth-child(2) .pc-num{color:#4338ca}
+.pc:nth-child(3) .pc-num{color:#15803d}.pc:nth-child(4) .pc-num{color:#b45309}
+.pc h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.pc .prompt{font-size:22px;color:#4a4a6a;font-style:italic;background:rgba(99,102,241,0.06);border-radius:8px;padding:12px 14px;margin:8px 0;line-height:1.6}
+.pc p{font-size:22px;color:#4a4a6a;line-height:1.6}
+.rule-box{background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(99,102,241,0.15));border:1.5px solid rgba(255,107,53,0.35);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.rule-box p{font-size:22px;color:#fff;line-height:1.75}.rule-box strong{color:#ff6b35}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style></head><body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container"><div class="reveal">
+    <p class="hero-tag">Decision Patterns</p>
+    <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Structured <span style="color:#ff6b35">AI-Assisted Decision Patterns</span></h1>
+    <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Used as an answer machine, AI degrades your decisions by inviting automation bias. Used as a thinking partner, it sharpens them. The difference is in what you ask for. These four patterns are established decision-quality techniques, not AI inventions, which is exactly why they work.</p>
+  </div></div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Four Patterns</p>
+      <h2>None of These Ask the AI to Decide</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">Each pattern asks AI to make your own thinking better. The decision stays yours.</p>
+    </div>
+    <div class="pattern-cards">
+      <div class="pc reveal"><p class="pc-num">Pattern 1</p><h3>Option generation</h3>
+        <p class="prompt">"Generate four distinct approaches to this, each with a different tradeoff. Do not recommend one."</p>
+        <p>Counters the narrow default of considering only the obvious paths. AI widens; you evaluate.</p></div>
+      <div class="pc reveal"><p class="pc-num">Pattern 2</p><h3>Pre-mortem</h3>
+        <p class="prompt">"Assume this failed badly six months from now. Why?"</p>
+        <p>Klein's pre-mortem uses prospective hindsight, which increased accurate risk identification by roughly 30% in the research he cites (HBR, 2007). Imagining failure has already happened unlocks risks you were avoiding.</p></div>
+      <div class="pc reveal"><p class="pc-num">Pattern 3</p><h3>Devil's advocate</h3>
+        <p class="prompt">"Argue the strongest case against this decision, specific to this situation."</p>
+        <p>A deliberate System 2 override against your own confirmation bias. Most useful when you are already sure you are right.</p></div>
+      <div class="pc reveal"><p class="pc-num">Pattern 4</p><h3>Assumption audit</h3>
+        <p class="prompt">"What assumptions is this decision resting on, and which is shakiest?"</p>
+        <p>Lists what you are taking for granted. The shakiest assumption is where the decision is most fragile.</p></div>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="rule-box reveal">
+      <p><strong>The framing that matters:</strong> These patterns are cognitive discipline that AI assists, not authority that AI provides. That framing is what keeps automation bias at bay.</p>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Reza's story</p>
+      <p>Reza is deciding whether to cut a struggling project. Instead of asking AI "should I cut this?", Reza runs three patterns. Option generation surfaces a middle path (scale down rather than cut) Reza had not considered. The pre-mortem reveals that the most likely failure of cutting it is losing a key person who is emotionally invested. The assumption audit exposes that Reza was assuming stakeholder support that has not actually been confirmed. None of this decided anything. All of it made Reza's decision visibly better, and the final call stayed Reza's.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run two patterns on one real decision</h3>
+      <p>Take one real decision and run two of the four patterns (option generation plus pre-mortem is a strong pair). Notice what each surfaces that you had not considered.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which pattern would most improve the way you currently decide?</li>
+        <li>On your last decision, what assumption were you treating as a fact?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script></body></html>

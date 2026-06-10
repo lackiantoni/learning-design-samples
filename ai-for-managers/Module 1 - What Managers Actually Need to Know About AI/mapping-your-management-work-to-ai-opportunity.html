@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapping Your Management Work to AI Opportunity</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero{background:var(--bg-dark)}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.hero h1{font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px}
+.hero h1 span{color:#ff6b35}
+.hero-lead{font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light);color:var(--text-body)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--text-body)}
+.dark h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#fff}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.zones{display:flex;flex-direction:column;gap:20px;margin-top:32px}
+.zone{border-radius:var(--radius-card);padding:28px 28px;display:flex;gap:20px;align-items:flex-start}
+.zone-green{background:#f0fdf4;border-left:5px solid #22c55e}
+.zone-yellow{background:#fffbeb;border-left:5px solid #f59e0b}
+.zone-red{background:#fef2f2;border-left:5px solid #ef4444}
+.zone-badge{font-size:17px;font-weight:700;padding:6px 16px;border-radius:100px;flex-shrink:0;margin-top:2px;line-height:1.4}
+.zone-green .zone-badge{background:#dcfce7;color:#15803d}
+.zone-yellow .zone-badge{background:#fef9c3;color:#b45309}
+.zone-red .zone-badge{background:#fee2e2;color:#b91c1c}
+.zone-content h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.zone-content p{font-size:22px;color:#4a4a6a;line-height:1.7}
+.zone-content ul{margin-top:10px;padding-left:24px;display:flex;flex-direction:column;gap:6px}
+.zone-content li{font-size:22px;color:#4a4a6a;line-height:1.6}
+/* Quiz */
+.quiz-section{margin-top:40px}
+.quiz-intro{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:28px;max-width:720px}
+.q-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-bottom:20px}
+.q-text{font-size:22px;font-weight:600;color:#fff;margin-bottom:20px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:22px;color:#fff;cursor:pointer;text-align:left;transition:background .2s,border-color .2s;min-height:54px;line-height:1.5}
+.q-opt:hover{background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.35)}
+.q-opt:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:12px}
+.q-opt.correct{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#86efac}
+.q-opt.wrong{background:rgba(239,68,68,0.12);border-color:#ef4444;color:#fca5a5}
+.q-opt.reveal-correct{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#86efac}
+.q-opt:disabled{cursor:default}
+.q-feedback{font-size:22px;color:#86efac;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 20px;margin-top:14px;display:none;line-height:1.6}
+.q-feedback.wrong{color:#fca5a5;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2)}
+.q-feedback.visible{display:block}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+/* Module quiz */
+.module-quiz{background:var(--bg-dark);padding:64px 24px}
+.quiz-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}.zone{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Task Audit</p>
+      <h1>Mapping Your Work <span>to AI Opportunity</span></h1>
+      <p class="hero-lead">You have limited time and attention. The payoff comes from pointing AI at the right tasks and keeping it away from the wrong ones. A quick audit of your own recurring work tells you where to start and where not to go, so you are not guessing task by task.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THREE ZONES -->
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Framework</p>
+      <h2>Three Zones for Every Management Task</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">Sort your recurring management tasks along one practical axis: how much does this task depend on context, relationship, and judgment that only a human in your seat can supply? That gives three rough zones, and you can place almost any task in one of them.</p>
+    </div>
+    <div class="zones reveal">
+      <div class="zone zone-green">
+        <div class="zone-badge">Augment freely</div>
+        <div class="zone-content">
+          <h3>High-volume, lower-stakes, text-heavy</h3>
+          <p>AI's speed helps and a mistake is cheap and easy to catch. Start here.</p>
+          <ul>
+            <li>First drafts of routine status updates</li>
+            <li>Summarizing your own notes</li>
+            <li>Generating options to consider</li>
+            <li>Restructuring a rough plan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="zone zone-yellow">
+        <div class="zone-badge">Augment with care</div>
+        <div class="zone-content">
+          <h3>Stakes or relationship are real</h3>
+          <p>AI can prepare or draft but a human must own the final output.</p>
+          <ul>
+            <li>Feedback drafts</li>
+            <li>Coaching prep and development questions</li>
+            <li>Decision options on operational calls</li>
+          </ul>
+        </div>
+      </div>
+      <div class="zone zone-red">
+        <div class="zone-badge">Keep human</div>
+        <div class="zone-content">
+          <h3>Relationship, trust, emotion, or accountability</h3>
+          <p>AI can help you think beforehand, but the task itself stays yours.</p>
+          <ul>
+            <li>Delivering hard news</li>
+            <li>Navigating conflict</li>
+            <li>Repairing trust</li>
+            <li>High-stakes people or legal decisions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIO -->
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In Practice</p>
+      <h2>Dana's Fifteen-Minute Audit</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Dana's story</p>
+      <p>Dana lists a week of recurring tasks and sorts them. Status report drafts and meeting-note summaries go in "augment freely," and Dana starts there, reclaiming a few hours. Drafting a tricky stakeholder message goes in "augment with care," AI drafts, Dana owns the tone. A conversation with a teammate who is frustrated about being passed over goes firmly in "keep human." The audit took fifteen minutes and gave Dana a map: where to push AI hard, where to keep a hand on the wheel, and where to keep AI out of the room.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE CHECK -->
+<section class="dark" style="padding-top:0">
+  <div class="container">
+    <div class="quiz-section reveal">
+      <div class="quiz-badge">Knowledge Check</div>
+      <h2 style="color:#fff;margin-bottom:8px">AI Fit by Scenario</h2>
+      <div class="divider"></div>
+      <p class="quiz-intro">For each situation below, select which zone it belongs in: augment freely, augment with care, or keep human. You will get instant feedback on each.</p>
+
+      <!-- Q1 -->
+      <div class="q-block">
+        <p class="q-text">A manager needs to draft the weekly project status report from their own bullet-point notes.</p>
+        <div class="q-options" role="group" aria-label="Question 1 options">
+          <button class="q-opt" data-correct="true">Augment freely: high-volume, low-stakes, text-heavy task where AI saves real time</button>
+          <button class="q-opt">Augment with care: requires human ownership because the stakes are high</button>
+          <button class="q-opt">Keep human: the relationship dimension makes AI inappropriate</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-block">
+        <p class="q-text">A manager is about to deliver feedback to an employee who has been underperforming for three months and is visibly frustrated.</p>
+        <div class="q-options" role="group" aria-label="Question 2 options">
+          <button class="q-opt">Augment freely: feedback is text-heavy, so AI handles it well</button>
+          <button class="q-opt">Augment with care: AI can help draft and prepare, but the conversation itself stays with the manager</button>
+          <button class="q-opt" data-correct="true">Keep human: this is a trust-repair and emotionally loaded conversation that requires full human presence</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-block">
+        <p class="q-text">A manager wants to prepare three candidate development questions for an upcoming one-on-one with a strong performer.</p>
+        <div class="q-options" role="group" aria-label="Question 3 options">
+          <button class="q-opt">Keep human: development questions must come entirely from the manager</button>
+          <button class="q-opt" data-correct="true">Augment with care: AI can generate candidate questions from sanitized notes, but the manager must adapt them to the real person and context</button>
+          <button class="q-opt">Augment freely: this is pure text generation with no risk</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-block">
+        <p class="q-text">Two team members are in open conflict after a project failure. The manager needs to facilitate a resolution conversation.</p>
+        <div class="q-options" role="group" aria-label="Question 4 options">
+          <button class="q-opt">Augment freely: AI can script the conversation so the manager stays calm</button>
+          <button class="q-opt">Augment with care: AI drafts the agenda, manager runs the meeting</button>
+          <button class="q-opt" data-correct="true">Keep human: conflict resolution requires real-time emotional reading and relational trust that AI cannot provide</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-block">
+        <p class="q-text">A manager needs to generate four possible approaches to restructuring a team workflow, each with different tradeoffs, to bring to a planning meeting.</p>
+        <div class="q-options" role="group" aria-label="Question 5 options">
+          <button class="q-opt" data-correct="true">Augment freely: option generation is exactly where AI's breadth pays off at low risk, the manager evaluates and decides</button>
+          <button class="q-opt">Keep human: any structural decision belongs entirely to the manager</button>
+          <button class="q-opt">Augment with care: this is high-stakes so heavy verification is required before using any output</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE QUIZ -->
+<section class="module-quiz">
+  <div class="container">
+    <div class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Check Your Understanding</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">1. Why can an AI tool sound completely confident while giving you a wrong answer?</p>
+      <div class="q-options" role="group" aria-label="Module quiz question 1">
+        <button class="q-opt">It is lying on purpose</button>
+        <button class="q-opt" data-correct="true">It generates the most statistically likely text, and fluency is not the same as accuracy</button>
+        <button class="q-opt">It only happens with old models</button>
+        <button class="q-opt">It always warns you when it is unsure</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">2. A manager asks an AI tool for their company's specific headcount policy and gets a detailed, professional answer that turns out to be invented. This is an example of:</p>
+      <div class="q-options" role="group" aria-label="Module quiz question 2">
+        <button class="q-opt">Automation bias</button>
+        <button class="q-opt">Context blindness only</button>
+        <button class="q-opt" data-correct="true">Hallucination</button>
+        <button class="q-opt">Representational bias</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">3. In the human-AI partnership model, which of these is the manager's responsibility, not the AI's?</p>
+      <div class="q-options" role="group" aria-label="Module quiz question 3">
+        <button class="q-opt">Generating a broad set of options quickly</button>
+        <button class="q-opt">Drafting a first version of a routine update</button>
+        <button class="q-opt" data-correct="true">Supplying organizational context, judgment, and accountability</button>
+        <button class="q-opt">Summarizing a long document</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">4. According to McKinsey (2023), the technical potential to automate management and talent-development tasks rose from 16% in 2017 to roughly what figure in 2023?</p>
+      <div class="q-options" role="group" aria-label="Module quiz question 4">
+        <button class="q-opt">20%</button>
+        <button class="q-opt">35%</button>
+        <button class="q-opt" data-correct="true">49%</button>
+        <button class="q-opt">80%</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">5. Which type of task is the best place for a manager to start using AI?</p>
+      <div class="q-options" role="group" aria-label="Module quiz question 5">
+        <button class="q-opt">Delivering difficult news to an employee</button>
+        <button class="q-opt" data-correct="true">High-volume, lower-stakes text tasks like summarizing your own notes or drafting routine updates</button>
+        <button class="q-opt">Final high-stakes people decisions</button>
+        <button class="q-opt">Repairing damaged trust on the team</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run your task audit</h3>
+      <p>List five recurring tasks from your real week and drop each into one of the three zones. Pick the single "augment freely" task you will try with AI first, and do it before your next one-on-one.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which task surprised you by landing in a different zone than you expected?</li>
+        <li>What is one task you have been doing the slow way that clearly belongs in "augment freely"?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const correctMsg = "Correct. ";
+const wrongMsg = "Not quite. ";
+const explanations = {
+  // Scenario check
+  0: { c: "Drafting from your own notes is a classic augment-freely task: text-heavy, low-stakes, and the AI is reshaping input you already have rather than inventing facts.", w: "Drafting a routine status report from your own notes is low-stakes and text-heavy, the ideal augment-freely territory." },
+  1: { c: "A charged underperformance conversation with visible frustration is exactly where emotional reading and relational trust matter most. AI cannot read the room.", w: "Delivering feedback in a high-emotion context requires full human presence. AI prep may help beforehand, but the conversation itself stays yours." },
+  2: { c: "Generating candidate questions with AI (from sanitized notes) then adapting them to the real person is the augment-with-care pattern: AI drafts, you personalize.", w: "Development questions can be AI-drafted from your notes, but you must adapt them to the real person. That is the augment-with-care zone." },
+  3: { c: "Active team conflict involves real-time emotional reading and relational trust, which are precisely what AI cannot supply. This stays fully human.", w: "Conflict resolution requires you to read the room in real time. No AI script can substitute for that presence." },
+  4: { c: "Option generation is AI's core strength: broad, fast, low-stakes. You evaluate and decide. The task fits augment-freely perfectly.", w: "Generating options for a planning discussion is exactly where AI's breadth helps without risk. You evaluate and decide which to pursue." }
+};
+const moduleExplanations = {
+  5: { c: "AI generates the most statistically likely text. Fluency and accuracy are separate properties, and the model has no internal warning signal for uncertainty.", w: "Confidence is a property of the format, not of the truth. The model produces fluent text regardless of whether it is accurate." },
+  6: { c: "When AI invents a specific answer to a question it has no access to (like internal company policy), that is hallucination: confident, plausible, and fabricated.", w: "This is hallucination. The model generated a plausible-sounding answer for a question it could not possibly know the real answer to." },
+  7: { c: "Organizational context, judgment, and accountability are exactly what only the manager can supply. AI covers breadth and drafting; humans cover meaning and accountability.", w: "Summarizing, drafting, and generating options are AI contributions. Context, judgment, and accountability are always yours." },
+  8: { c: "McKinsey's 2023 report on the economic potential of generative AI found the automation potential for management tasks jumped from 16% to 49% between 2017 and 2023.", w: "The McKinsey figure is 49%. That jump from 16% in six years is why learning to direct AI well matters now." },
+  9: { c: "High-volume, lower-stakes, text-heavy tasks are exactly where AI saves real time with minimal risk. That is the 'augment freely' zone, and it is the right starting point.", w: "Hard conversations, trust repair, and high-stakes people decisions all require human presence. The right starting point is low-stakes, text-heavy work." }
+};
+
+function wireQuestions(startIndex) {
+  document.querySelectorAll('.q-block').forEach((block, i) => {
+    const idx = startIndex + i;
+    const opts = block.querySelectorAll('.q-opt');
+    const fb = block.querySelector('.q-feedback');
+    const exp = idx < 5 ? explanations[idx] : moduleExplanations[idx];
+    opts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (block.dataset.answered) return;
+        block.dataset.answered = '1';
+        const isCorrect = opt.dataset.correct === 'true';
+        opts.forEach(o => {
+          o.disabled = true;
+          if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+        });
+        opt.classList.add(isCorrect ? 'correct' : 'wrong');
+        fb.textContent = (isCorrect ? correctMsg : wrongMsg) + (exp ? (isCorrect ? exp.c : exp.w) : '');
+        fb.className = 'q-feedback visible' + (isCorrect ? '' : ' wrong');
+      });
+    });
+  });
+}
+wireQuestions(0);
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

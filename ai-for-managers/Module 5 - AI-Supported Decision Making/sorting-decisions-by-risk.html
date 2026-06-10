@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sorting Decisions by Risk Before You Reach for AI</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.tier-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.tier{border-radius:var(--radius-card);padding:24px;border-left:5px solid}
+.tier-green{background:#f0fdf4;border-color:#22c55e}
+.tier-yellow{background:#fffbeb;border-color:#f59e0b}
+.tier-red{background:#fef2f2;border-color:#ef4444}
+.tier-badge{display:inline-block;font-size:17px;font-weight:700;padding:4px 14px;border-radius:100px;margin-bottom:10px}
+.tier-green .tier-badge{background:#dcfce7;color:#15803d}
+.tier-yellow .tier-badge{background:#fef9c3;color:#b45309}
+.tier-red .tier-badge{background:#fee2e2;color:#b91c1c}
+.tier h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.tier-green h3{color:#15803d}
+.tier-yellow h3{color:#b45309}
+.tier-red h3{color:#b91c1c}
+.tier p{font-size:22px;line-height:1.6}
+.tier-green p{color:#166534}
+.tier-yellow p{color:#92400e}
+.tier-red p{color:#991b1b}
+.tier .example{font-size:22px;font-style:italic;margin-top:8px}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style></head><body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container"><div class="reveal">
+    <p class="hero-tag">Risk Sorting</p>
+    <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Sorting Decisions by Risk <span style="color:#ff6b35">Before You Reach for AI</span></h1>
+    <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Not all decisions deserve the same scrutiny. Treating a meeting-agenda choice with the rigor of a promotion decision wastes time. Treating a promotion decision with the casualness of a meeting agenda is dangerous. A quick risk-sort tells you how much verification a decision needs before you involve AI at all.</p>
+  </div></div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Three Tiers</p>
+      <h2>Sort Before You Prompt</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="tier-list">
+      <div class="tier tier-green reveal">
+        <span class="tier-badge">Low-stakes, reversible</span>
+        <h3>AI input with little verification</h3>
+        <p>Cheap to get wrong, easy to undo. Use AI freely and move on.</p>
+        <p class="example">Example: "Which two themes should I emphasize in this week's team meeting opening?"</p>
+      </div>
+      <div class="tier tier-yellow reveal">
+        <span class="tier-badge">Medium-stakes, operational</span>
+        <h3>AI input with organizational context applied before deciding</h3>
+        <p>Real consequences but recoverable. AI can summarize and flag; you apply organizational context and relationship knowledge before deciding.</p>
+        <p class="example">Example: "Should I approve or defer this vendor contract renewal?"</p>
+      </div>
+      <div class="tier tier-red reveal">
+        <span class="tier-badge">High-stakes, people or legal</span>
+        <h3>Own the decision, document the reasoning, check for bias</h3>
+        <p>Consequential, hard to reverse, and accountability-heavy. AI can synthesize and flag consistency, but you must own the call. No AI recommendation gets accepted without independent review.</p>
+        <p class="example">Example: "Which candidate should I advance to the final round?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Dana's story</p>
+      <p>Dana faces three decisions in one week. Which themes to open the team meeting with: low-stakes, reversible, so Dana brainstorms with AI and moves on in two minutes. Whether to renew a vendor contract: medium-stakes, so Dana uses AI to summarize the terms and flag risky clauses, then applies what Dana knows about the relationship and the budget before deciding. Whether to advance a particular candidate: high-stakes people decision, so Dana uses AI only to check the interview notes for consistency, then owns the call personally, documents the reasoning, and screens for bias before acting. Same tool, three completely different levels of scrutiny.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Sort your next three decisions</h3>
+      <p>Take the next three decisions on your plate and sort them into the three tiers. Match your verification effort to the tier, not to how busy you happen to be.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which tier do you most often misjudge: treating a high-stakes call as routine, or over-scrutinizing a trivial one?</li>
+        <li>What high-stakes decision are you currently under-verifying because you are short on time?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script></body></html>

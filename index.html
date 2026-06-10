@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antoni Lacki · Learning Design Samples</title>
+  <meta name="description" content="Interactive learning-design samples by Antoni Lacki, Senior Learning Experience Designer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#1E293B; --navy-deep:#0F172A; --teal:#14B8A6; --teal-text:#0F766E;
+      --teal-bright:#2DD4BF; --bg:#F8FAFC; --card:#FFFFFF; --border:#E2E8F0;
+      --muted:#64748B; --secondary:#334155; --soft:#E6FAF7;
+      --fh:'Poppins',sans-serif; --fb:'Open Sans',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--fb);background:var(--bg);color:#0F172A;line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:880px;margin:0 auto;padding:0 22px;}
+
+    .hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 65%,#243449 100%);color:#E2E8F0;padding:56px 0 46px;}
+    .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-bright);border:1px solid #2D3F57;border-radius:999px;padding:5px 13px;margin-bottom:18px;}
+    h1{font-family:var(--fh);font-weight:700;font-size:38px;line-height:1.08;letter-spacing:-.02em;color:#fff;margin-bottom:8px;}
+    .role{font-family:var(--fh);font-weight:500;font-size:16px;color:var(--teal-bright);margin-bottom:16px;}
+    .hero p{font-size:16px;color:#CBD5E1;max-width:620px;}
+
+    .samples{padding:46px 0 30px;}
+    .section-label{font-family:var(--fh);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:18px;}
+
+    .card{display:block;text-decoration:none;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:12px;padding:24px 26px;box-shadow:0 6px 24px rgba(15,23,42,.06);transition:box-shadow .18s,transform .18s,border-color .18s;}
+    .card:hover{box-shadow:0 12px 34px rgba(15,23,42,.12);transform:translateY(-2px);border-left-color:var(--teal-bright);}
+    .card .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-text);background:var(--soft);border:1px solid #A7E8DE;border-radius:6px;padding:3px 9px;margin-bottom:12px;}
+    .card h2{font-family:var(--fh);font-weight:700;font-size:22px;color:var(--navy);line-height:1.2;letter-spacing:-.01em;margin-bottom:8px;}
+    .card p{font-size:15px;color:var(--secondary);margin-bottom:16px;}
+    .stats{display:flex;flex-wrap:wrap;gap:24px;margin-bottom:18px;}
+    .stat .n{font-family:var(--fh);font-weight:700;font-size:26px;color:var(--teal-text);line-height:1;}
+    .stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;}
+    .open{display:inline-flex;align-items:center;gap:7px;font-family:var(--fh);font-weight:600;font-size:14px;color:#0F172A;background:var(--teal-bright);padding:9px 15px;border-radius:8px;}
+    .card:hover .open{background:#5FE0D4;}
+
+    .note{font-size:13.5px;color:var(--muted);margin-top:18px;}
+
+    footer{background:var(--navy-deep);color:#94A3B8;padding:28px 0;font-size:14px;margin-top:30px;}
+    footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;}
+    footer a{color:var(--teal-bright);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+
+    @media (max-width:640px){h1{font-size:30px;}.card{padding:20px;}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Learning Design Samples</span>
+      <h1>Antoni Lacki</h1>
+      <div class="role">Senior Learning Experience Designer · Customer Education</div>
+      <p>A small, public set of interactive learning samples. Open a card below to explore the live, clickable course exactly as a learner would.</p>
+    </div>
+  </header>
+
+  <main class="samples">
+    <div class="wrap">
+      <div class="section-label">Interactive course</div>
+
+      <a class="card" href="ai-for-managers/index.html">
+        <span class="tag">Anonymized work sample</span>
+        <h2>AI for Managers: Coaching, Planning &amp; Decision Support</h2>
+        <p>A role-based course that teaches people managers to use AI in their real workflow without over-relying on it. Built on adult-learning theory, with scenario-based knowledge checks and automation bias woven through every module.</p>
+        <div class="stats">
+          <div class="stat"><div class="n">7</div><div class="l">Modules</div></div>
+          <div class="stat"><div class="n">31</div><div class="l">Lessons</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">Knowledge checks</div></div>
+        </div>
+        <span class="open">Open the live course
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg>
+        </span>
+      </a>
+
+      <p class="note">This is an anonymized sample of my own instructional-design work, shared to show how I structure analysis, learning paths, and assessment. More samples and case studies live at <a href="https://antonilacki.com/portfolio" style="color:var(--teal-text);font-weight:600;text-decoration:none;">antonilacki.com/portfolio</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Antoni Lacki · Senior Learning Experience Designer</span>
+      <span><a href="mailto:antoni.lacki@gmail.com">antoni.lacki@gmail.com</a> &nbsp;·&nbsp; <a href="https://antonilacki.com/portfolio">antonilacki.com/portfolio</a></span>
+    </div>
+  </footer>
+</body>
+</html>

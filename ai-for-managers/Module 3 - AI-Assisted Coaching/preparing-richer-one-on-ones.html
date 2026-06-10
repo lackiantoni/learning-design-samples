@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparing Richer One-on-Ones With AI Support</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.acc-list{margin-top:32px;display:flex;flex-direction:column;gap:12px}
+.acc-item{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);overflow:hidden}
+.acc-trigger{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;gap:16px;min-height:64px}
+.acc-trigger:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:var(--radius-card)}
+.acc-title{font-size:22px;font-weight:600;color:#fff;flex:1}
+.acc-chevron{width:24px;height:24px;flex-shrink:0;transition:transform .3s;color:#ff6b35}
+.acc-item.open .acc-chevron{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.acc-item.open .acc-body{max-height:400px}
+.acc-body-inner{padding:0 24px 24px;font-size:22px;color:rgba(255,255,255,0.8);line-height:1.75}
+.highlight-box{background:linear-gradient(135deg,rgba(255,107,53,0.12),rgba(99,102,241,0.12));border:1.5px solid rgba(255,107,53,0.45);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.highlight-box p{font-size:22px;color:#292943;line-height:1.75}
+.highlight-box strong{color:#c2470f}
+.privacy-box{background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(99,102,241,0.12));border:1.5px solid rgba(239,68,68,0.3);border-radius:var(--radius-card);padding:24px;margin-top:24px}
+.privacy-label{font-size:17px;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.privacy-box p{font-size:22px;color:#fff;line-height:1.75}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">One-on-One Prep</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Preparing Richer One-on-Ones <span style="color:#ff6b35">With AI Support</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">The one-on-one is your highest-leverage recurring conversation, and most are under-prepared because prep takes time you do not have. AI gives you a way to review history, spot what is recurring, and arrive with questions that go somewhere, in minutes instead of the half-hour you would never spend.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Workflow</p>
+      <h2>Four Steps From Notes to Prep Brief</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="acc-list">
+      <div class="acc-item" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="acc-trigger" role="button" aria-expanded="false" tabindex="0" style="background:#fff">
+          <span class="acc-title" style="color:var(--text-body)">1. Pull your sanitized notes</span>
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#6366f1"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="acc-body" aria-hidden="true">
+          <div class="acc-body-inner" style="color:#4a4a6a">Gather notes from recent sessions with this direct report. Strip names and identifying details before they go anywhere. You are working from behavioral observations, not personal data.</div>
+        </div>
+      </div>
+      <div class="acc-item" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="acc-trigger" role="button" aria-expanded="false" tabindex="0" style="background:#fff">
+          <span class="acc-title" style="color:var(--text-body)">2. Ask for recurring themes and escalations</span>
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#6366f1"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="acc-body" aria-hidden="true">
+          <div class="acc-body-inner" style="color:#4a4a6a">Prompt: "What pattern do you see across these notes, and what are three coaching questions I could ask to help them identify the root cause themselves?" This surfaces what you would miss in a five-minute pre-meeting scan.</div>
+        </div>
+      </div>
+      <div class="acc-item" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="acc-trigger" role="button" aria-expanded="false" tabindex="0" style="background:#fff">
+          <span class="acc-title" style="color:var(--text-body)">3. Add context the AI does not have</span>
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#6366f1"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="acc-body" aria-hidden="true">
+          <div class="acc-body-inner" style="color:#4a4a6a">Add the team vacancy, the workload situation, the relationship history, and anything else the AI had no access to. This is the non-negotiable step that turns a draft into a plan.</div>
+        </div>
+      </div>
+      <div class="acc-item" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="acc-trigger" role="button" aria-expanded="false" tabindex="0" style="background:#fff">
+          <span class="acc-title" style="color:var(--text-body)">4. Adapt the questions to the actual person</span>
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#6366f1"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="acc-body" aria-hidden="true">
+          <div class="acc-body-inner" style="color:#4a4a6a">Rewrite at least one AI-generated question to fit the real person and their real situation. If a question would feel like a corner rather than an opening, change it. The AI prepped you. You run the conversation.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box reveal">
+      <p><strong>The rule stated plainly:</strong> AI preps the manager. The manager runs the conversation. No AI-generated question should go into a one-on-one unread and unadapted.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="privacy-box reveal">
+      <p class="privacy-label">Privacy Checkpoint</p>
+      <p>Same as always, and worth repeating because this is where people slip: sanitize before you paste. No names, no IDs, no private disclosures. Describe the pattern, not the person's identity.</p>
+    </div>
+
+    <div class="scenario reveal" style="margin-top:32px">
+      <p class="scenario-label">Sam's story</p>
+      <p>Sam has notes from six monthly one-on-ones with a report who keeps missing documentation deadlines. Sam sanitizes them and asks for the pattern plus three coaching questions. The AI names the pattern (recurring low urgency, no personal deadline-tracking system) and offers good questions. Sam adds the missing context: this report is overloaded because the team is short a person, and reshapes the questions to open a conversation about workload rather than to corner someone about discipline. The AI prepared Sam in five minutes. Sam runs a conversation that actually helps.</p>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run the pattern-plus-questions prompt</h3>
+      <p>For your next one-on-one, run the pattern-plus-questions prompt on sanitized notes, then rewrite at least one question to fit the real person and their real situation.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>What recurring theme might be hiding in your notes that you have not connected yet?</li>
+        <li>Which of your usual one-on-one questions are you answering for the person instead of helping them answer for themselves?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.acc-trigger').forEach(trigger => {
+  const item = trigger.closest('.acc-item');
+  const body = item.querySelector('.acc-body');
+  function toggle() {
+    const open = item.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', open);
+    body.setAttribute('aria-hidden', !open);
+  }
+  trigger.addEventListener('click', toggle);
+  trigger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

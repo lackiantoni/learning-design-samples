@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When to Bring in a Human Coach and When AI Is Enough</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.approach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:32px}
+@media(max-width:600px){.approach-grid{grid-template-columns:1fr}}
+.approach-card{border-radius:var(--radius-card);padding:24px;border:2px solid;transition:transform .2s}
+.approach-card:hover{transform:translateY(-3px)}
+.approach-card.green{background:#f0fdf4;border-color:#22c55e}
+.approach-card.orange{background:#fff7ed;border-color:#f97316}
+.approach-card.red{background:#fef2f2;border-color:#ef4444}
+.approach-card.purple{background:#f5f3ff;border-color:#8b5cf6}
+.approach-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.approach-card.green h3{color:#15803d}
+.approach-card.orange h3{color:#c2410c}
+.approach-card.red h3{color:#b91c1c}
+.approach-card.purple h3{color:#6d28d9}
+.approach-card p{font-size:22px;line-height:1.6}
+.approach-card.green p{color:#166534}
+.approach-card.orange p{color:#9a3412}
+.approach-card.red p{color:#991b1b}
+.approach-card.purple p{color:#5b21b6}
+/* Knowledge check */
+.quiz-section{margin-top:40px}
+.quiz-intro{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:28px;max-width:720px}
+.q-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-bottom:20px}
+.q-text{font-size:22px;font-weight:600;color:#fff;margin-bottom:20px;line-height:1.6}
+.q-context{font-size:22px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:20px;padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:10px}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:22px;color:#fff;cursor:pointer;text-align:left;transition:background .2s,border-color .2s;min-height:54px;line-height:1.5}
+.q-opt:hover{background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.35)}
+.q-opt:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:12px}
+.q-opt.correct{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#86efac}
+.q-opt.wrong{background:rgba(239,68,68,0.12);border-color:#ef4444;color:#fca5a5}
+.q-opt.reveal-correct{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#86efac}
+.q-opt:disabled{cursor:default}
+.q-feedback{font-size:22px;color:#86efac;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 20px;margin-top:14px;display:none;line-height:1.6}
+.q-feedback.wrong{color:#fca5a5;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2)}
+.q-feedback.visible{display:block}
+/* Module quiz */
+.quiz-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;margin-bottom:24px}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Coaching Decisions</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">When to Bring In a Human Coach <span style="color:#ff6b35">and When AI Is Enough</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">The most damaging coaching mistake is using the wrong level of help for the situation. AI-prepared prep is plenty for routine development. It is dangerously insufficient for a trust crisis or a conflict. Knowing which situation you are in tells you what to do.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Four Approaches</p>
+      <h2>Match the Tool to the Situation</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card green reveal">
+        <h3>AI-prepared manager</h3>
+        <p>Routine development, skill building, recurring performance patterns, ordinary growth conversations. AI preps. You lead.</p>
+      </div>
+      <div class="approach-card orange reveal">
+        <h3>Manager without AI</h3>
+        <p>Emotionally sensitive or complex situations where a script would make things worse. You are fully present, with no AI intermediary.</p>
+      </div>
+      <div class="approach-card red reveal">
+        <h3>Escalate to HR</h3>
+        <p>Performance crises, formal disciplinary processes, legal risk, and any situation where policy or documentation requirements apply.</p>
+      </div>
+      <div class="approach-card purple reveal">
+        <h3>External coach</h3>
+        <p>Leadership transitions, trust repair, conflict between a manager and report, and transformational development that exceeds the manager's scope.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Uncomfortable Scenario</p>
+      <h2>When Your Lower Confidence Is the Warning</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Sam's story</p>
+      <p>A report Sam promoted two weeks ago to lead a team including her former peers comes to Sam upset: one former peer is openly undermining her in meetings. This is not a prep-with-AI situation. It involves trust repair, the report's confidence at a career inflection point, team political dynamics AI knows nothing about, and real-time emotional reading. Sam can use AI to think through questions beforehand, but the conversation itself demands full human presence. If the undermining continues, the right move is to involve HR, not to ask AI for a script. AI can help Sam prepare. AI cannot have this conversation.</p>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div class="quiz-section">
+      <div class="reveal">
+        <p class="quiz-badge">Knowledge Check</p>
+        <h2 style="color:#fff;margin-bottom:8px">Choose the Coaching Approach</h2>
+        <div class="divider"></div>
+      </div>
+      <p class="quiz-intro reveal">For each situation, select the right approach. You will get instant feedback.</p>
+
+      <div class="q-block reveal">
+        <p class="q-context">A strong individual contributor is preparing to take on their first team lead role next month. They are excited but have never managed before.</p>
+        <p class="q-text">What is the right coaching approach?</p>
+        <div class="q-options" role="group">
+          <button class="q-opt" data-correct="true">AI-prepared manager conversation: this is a routine development situation. AI helps prepare questions on the IC-to-manager transition. The manager leads the conversation.</button>
+          <button class="q-opt">Escalate to HR: leadership transitions always require HR involvement</button>
+          <button class="q-opt">External coach only: the manager cannot handle this situation</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <div class="q-block reveal">
+        <p class="q-context">Two senior engineers on your team have been in ongoing, openly hostile conflict for six weeks. Both are top performers. Neither has escalated it formally.</p>
+        <p class="q-text">What is the right coaching approach?</p>
+        <div class="q-options" role="group">
+          <button class="q-opt">AI-prepared manager: use AI to script the resolution conversation</button>
+          <button class="q-opt" data-correct="true">Escalate to HR, potentially also involve an external mediator: active conflict at this level requires support beyond what AI-prepped conversations can address</button>
+          <button class="q-opt">Manager without AI: just have a direct conversation with both parties separately</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <div class="q-block reveal">
+        <p class="q-context">A report has been with the team two years and is ready to discuss career growth. They have expressed interest in moving toward a more senior technical role.</p>
+        <p class="q-text">What is the right coaching approach?</p>
+        <div class="q-options" role="group">
+          <button class="q-opt">External coach only: career conversations are too complex for the manager</button>
+          <button class="q-opt">Escalate to HR immediately</button>
+          <button class="q-opt" data-correct="true">AI-prepared manager: use AI to map skill adjacencies and prepare development questions, then run the career conversation yourself</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+
+      <div class="q-block reveal">
+        <p class="q-context">An employee discovers they were passed over for a promotion they strongly expected. They feel blindsided, are visibly angry, and have gone quiet with the team.</p>
+        <p class="q-text">What is the right coaching approach?</p>
+        <div class="q-options" role="group">
+          <button class="q-opt">AI-prepared manager: generate empathy phrases with AI and deliver them in the next scheduled one-on-one</button>
+          <button class="q-opt" data-correct="true">Manager without AI, with HR awareness: this requires full human presence and real-time emotional reading. Check in immediately. Involve HR if the anger persists or becomes a performance issue.</button>
+          <button class="q-opt">External coach referral: this is always above the manager's scope</button>
+        </div>
+        <div class="q-feedback" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div style="margin-top:48px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Check Your Understanding</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">1. According to the ICF (2024) and the Frontiers in Psychology study (2024), what is the part of coaching that AI is least able to replace?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Scheduling and reminders</button>
+        <button class="q-opt">Pattern recognition across notes</button>
+        <button class="q-opt" data-correct="true">The working alliance: the relational bond between coach and person</button>
+        <button class="q-opt">Generating goal-setting questions</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">2. The core rule for AI-assisted one-on-ones in this module is:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Let the AI run the conversation through a script</button>
+        <button class="q-opt" data-correct="true">AI preps the manager, the manager runs the conversation</button>
+        <button class="q-opt">Avoid AI in coaching entirely</button>
+        <button class="q-opt">Send the AI summary directly to the employee</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">3. The SBI feedback model reduces defensiveness because it:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Avoids giving any negative feedback</button>
+        <button class="q-opt" data-correct="true">Anchors feedback to specific observable behavior rather than character</button>
+        <button class="q-opt">Is generated entirely by AI</button>
+        <button class="q-opt">Focuses on the person's personality traits</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">4. Which of these situations should be escalated to HR rather than handled with AI-assisted prep alone?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">A routine skill-building goal</button>
+        <button class="q-opt">A recurring documentation-deadline pattern</button>
+        <button class="q-opt" data-correct="true">A trust-repair situation after a peer undermines a newly promoted lead</button>
+        <button class="q-opt">Preparing standard development questions</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">5. In career conversations, "skill adjacency" refers to:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">How close two employees sit to each other</button>
+        <button class="q-opt" data-correct="true">The overlap between skills in a current role and skills required for an adjacent role</button>
+        <button class="q-opt">The AI's confidence score</button>
+        <button class="q-opt">The number of years in a role</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Sort your current coaching situations</h3>
+      <p>Look at your current coaching situations and sort each into one of the four buckets. Flag any that you have been trying to handle alone that actually need HR or an external coach.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Are you currently handling any high-stakes situation (conflict, trust, crisis) as if it were routine?</li>
+        <li>When did your own lower confidence in a conversation turn out to be an accurate warning?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const explanations = [
+  { c: "Routine development conversations are the ideal AI-prep scenario. The manager uses AI to prepare, then runs the conversation. Leadership transitions are exactly where AI-prep pays off.", w: "This is a routine development situation: AI prep is appropriate. The manager leads the conversation. External coach or HR is not needed here." },
+  { c: "Active, prolonged interpersonal conflict at this level requires HR involvement and potentially a professional mediator. AI cannot read the room or navigate real-time hostility.", w: "Sustained active conflict between senior team members goes beyond AI-prepped conversation territory. HR involvement is appropriate here." },
+  { c: "Career conversations with growth-ready reports are exactly where skill-adjacency mapping pays off. AI preps the frame. The manager and report decide together.", w: "Career growth conversations for engaged, growth-ready reports are a good fit for AI-prepared manager-led conversations." },
+  { c: "A blindsided, emotionally activated employee needs full human presence immediately, not a scheduled conversation with AI-generated empathy phrases. Real-time emotional reading is the skill needed.", w: "This situation requires immediate, fully present human response. AI-generated phrases would feel cold and scripted in a high-emotion moment." }
+];
+const modExp = [
+  { c: "The ICF framework and the controlled study both identified the working alliance (relational bond) as what AI cannot replace. AI scored acceptably on goal-setting and accessibility but not on relational dimensions.", w: "The working alliance is the relational bond between coach and person. Both the ICF framework and the Frontiers in Psychology study identified this as what AI cannot replace." },
+  { c: "AI preps the manager. The manager runs the conversation. This rule holds across every coaching situation in the module.", w: "AI prepares. Humans lead the conversation. That split is the core rule of the module." },
+  { c: "SBI anchors feedback to Situation, Behavior, and Impact, all observable, specific, and behavior-focused rather than character-focused. That specificity reduces defensiveness.", w: "SBI works because it focuses on observable behavior (Situation, Behavior, Impact) rather than character judgments, which reduces the defensiveness response." },
+  { c: "Trust repair after being undermined by a peer involves real-time emotional reading, political dynamics, and relationship stakes that AI-prepared conversation cannot address. HR involvement is appropriate.", w: "Peer undermining after a promotion is a trust-repair situation with high emotional and political complexity. That belongs in the escalate-to-HR bucket." },
+  { c: "Skill adjacency is the overlap between current skills and the skills an adjacent role requires. It gives career conversations a concrete structure.", w: "Skill adjacency is the degree of overlap between current and target role skills, providing a concrete, non-threatening frame for career conversations." }
+];
+
+let idx = 0;
+document.querySelectorAll('.q-block').forEach(block => {
+  const i = idx++;
+  const opts = block.querySelectorAll('.q-opt');
+  const fb = block.querySelector('.q-feedback');
+  const exp = i < 4 ? explanations[i] : modExp[i - 4];
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (block.dataset.answered) return;
+      block.dataset.answered = '1';
+      const ok = opt.dataset.correct === 'true';
+      opts.forEach(o => { o.disabled = true; if (o.dataset.correct === 'true') o.classList.add('reveal-correct'); });
+      opt.classList.add(ok ? 'correct' : 'wrong');
+      fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (exp ? (ok ? exp.c : exp.w) : '');
+      fb.className = 'q-feedback visible' + (ok ? '' : ' wrong');
+    });
+  });
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

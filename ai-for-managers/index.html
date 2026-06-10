@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Managers: Coaching, Planning, and Decision Support</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--accent-soft:#fff0ea;--purple:#6366f1;--purple-soft:#eff0ff;--text-body:#1a1a2e;--text-muted:#8b8fba;--border:rgba(255,255,255,0.1);--radius-card:16px;--radius-btn:100px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px;min-height:100vh}
+a{text-decoration:none}
+
+/* HERO */
+.hero{background:var(--bg-dark);padding:80px 24px 64px;position:relative;overflow:hidden;min-height:60vh;display:flex;align-items:center}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:520px;height:520px;background:rgba(99,102,241,0.2);top:-120px;right:-100px;animation:float1 8s ease-in-out infinite}
+.orb2{width:360px;height:360px;background:rgba(255,107,53,0.14);bottom:-80px;left:-80px;animation:float2 10s ease-in-out infinite}
+.orb3{width:240px;height:240px;background:rgba(99,102,241,0.1);top:40%;left:40%;animation:float1 11s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(14px) scale(0.95)}}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,53,0.15);color:#ff6b35;font-size:17px;font-weight:600;padding:8px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:28px}
+.hero h1{font-size:clamp(32px,6vw,56px);font-weight:800;line-height:1.15;margin-bottom:24px;max-width:760px}
+.hero h1 span{color:#ff6b35}
+.hero-desc{font-size:22px;color:rgba(255,255,255,0.8);max-width:680px;line-height:1.8;margin-bottom:36px}
+.hero-personas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.persona{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:100px;padding:8px 18px;font-size:17px;color:rgba(255,255,255,0.8);font-weight:500}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-n{font-size:clamp(28px,5vw,40px);font-weight:800;color:#ff6b35;line-height:1}
+.hero-stat-l{font-size:17px;color:rgba(255,255,255,0.6);margin-top:4px;line-height:1.4}
+
+/* PROGRESS BAR */
+.progress-section{background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 24px}
+.progress-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px}
+.progress-label{font-size:17px;font-weight:600;color:rgba(255,255,255,0.6);white-space:nowrap}
+.progress-bar-wrap{flex:1;background:rgba(255,255,255,0.1);border-radius:100px;height:8px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#ff6b35,#e8541f);border-radius:100px;width:0%;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.progress-count{font-size:17px;font-weight:700;color:#ff6b35;white-space:nowrap}
+
+/* INTRO PROMISE */
+.intro-section{padding:64px 24px;background:var(--bg-light);color:var(--text-body)}
+.intro-inner{max-width:900px;margin:0 auto}
+.intro-eyebrow{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.intro-inner h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:12px}
+.intro-divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 28px}
+.intro-inner p{font-size:22px;color:#4a4a6a;line-height:1.8;max-width:720px}
+.intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px}
+.ig-card{background:#fff;border-radius:var(--radius-card);padding:22px 18px;border-top:3px solid;transition:transform .2s,box-shadow .2s}
+.ig-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(99,102,241,0.1)}
+.ig-card:nth-child(1){border-color:#ff6b35}
+.ig-card:nth-child(2){border-color:#6366f1}
+.ig-card:nth-child(3){border-color:#22c55e}
+.ig-card:nth-child(4){border-color:#f59e0b}
+.ig-card:nth-child(5){border-color:#ef4444}
+.ig-card:nth-child(6){border-color:#8b5cf6}
+.ig-card:nth-child(7){border-color:#0ea5e9}
+.ig-label{font-size:17px;font-weight:700;margin-bottom:6px}
+.ig-card:nth-child(1) .ig-label{color:#c9460f}
+.ig-card:nth-child(2) .ig-label{color:#4338ca}
+.ig-card:nth-child(3) .ig-label{color:#15803d}
+.ig-card:nth-child(4) .ig-label{color:#d97706}
+.ig-card:nth-child(5) .ig-label{color:#dc2626}
+.ig-card:nth-child(6) .ig-label{color:#7c3aed}
+.ig-card:nth-child(7) .ig-label{color:#0284c7}
+.ig-card h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:6px}
+.ig-card p{font-size:22px;color:#5c5f80;line-height:1.6}
+
+/* MODULE SECTIONS */
+.modules-section{padding:64px 24px;background:var(--bg-dark)}
+.modules-inner{max-width:900px;margin:0 auto}
+.ms-eyebrow{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.ms-h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.ms-divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 40px}
+
+.module-block{margin-bottom:40px}
+.module-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.mod-num{font-size:17px;font-weight:700;color:#fff;background:#ff6b35;padding:4px 14px;border-radius:100px;flex-shrink:0}
+.mod-title{font-size:22px;font-weight:700;color:#fff}
+.mod-desc{font-size:22px;color:rgba(255,255,255,0.6);margin-top:4px}
+.lessons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.lesson-link{display:block;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:22px 22px;transition:border-color .2s,transform .2s,box-shadow .2s;text-decoration:none}
+.lesson-link:hover{border-color:rgba(255,107,53,0.45);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.lesson-link:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:var(--radius-card)}
+.ll-tag{font-size:17px;font-weight:600;color:rgba(255,255,255,0.4);margin-bottom:8px}
+.ll-title{font-size:22px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:8px}
+.ll-meta{font-size:17px;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:6px}
+.ll-meta span{color:#ff6b35;font-weight:600}
+.lesson-link.has-quiz .ll-meta::after{content:'· Quiz';color:#6366f1;font-weight:600;margin-left:4px}
+.lesson-link.completed{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.06)}
+.lesson-link.completed .ll-title{color:#86efac}
+
+/* MODULE COLOR ACCENTS */
+.module-block:nth-child(1) .mod-num{background:#ff6b35}
+.module-block:nth-child(2) .mod-num{background:#6366f1}
+.module-block:nth-child(3) .mod-num{background:#22c55e}
+.module-block:nth-child(4) .mod-num{background:#f59e0b}
+.module-block:nth-child(5) .mod-num{background:#ef4444}
+.module-block:nth-child(6) .mod-num{background:#8b5cf6}
+.module-block:nth-child(7) .mod-num{background:#0ea5e9}
+.module-block:nth-child(1) .lesson-link:hover{border-color:rgba(255,107,53,.45)}
+.module-block:nth-child(2) .lesson-link:hover{border-color:rgba(99,102,241,.45)}
+.module-block:nth-child(3) .lesson-link:hover{border-color:rgba(34,197,94,.45)}
+.module-block:nth-child(4) .lesson-link:hover{border-color:rgba(245,158,11,.45)}
+.module-block:nth-child(5) .lesson-link:hover{border-color:rgba(239,68,68,.45)}
+.module-block:nth-child(6) .lesson-link:hover{border-color:rgba(139,92,246,.45)}
+.module-block:nth-child(7) .lesson-link:hover{border-color:rgba(14,165,233,.45)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){
+  .hero{padding:56px 16px 48px}
+  .intro-section,.modules-section{padding:48px 16px}
+  .lessons-grid{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="#ff6b35" stroke-width="2"/><path d="M9 6v3l2 2" stroke="#ff6b35" stroke-width="2" stroke-linecap="round"/></svg>
+      Professional Development
+    </p>
+    <h1>AI for Managers: <span>Coaching, Planning, and Decision Support</span></h1>
+    <p class="hero-desc">Not a tools tour. A practical system for making your real management work faster and sharper with AI, while keeping judgment, accountability, and relationships where they belong: with you.</p>
+    <div class="hero-personas">
+      <span class="persona">Frontline Managers</span>
+      <span class="persona">Operations Leads</span>
+      <span class="persona">People Managers</span>
+      <span class="persona">Team Leads</span>
+      <span class="persona">Senior ICs Moving into Management</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">7</div>
+        <div class="hero-stat-l">Modules</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">31</div>
+        <div class="hero-stat-l">Lessons</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">7</div>
+        <div class="hero-stat-l">Knowledge Checks</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-inner">
+    <span class="progress-label">Progress</span>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <span class="progress-count" id="progressCount">0 / 31 lessons</span>
+  </div>
+</div>
+
+<!-- INTRO PROMISE -->
+<section class="intro-section">
+  <div class="intro-inner">
+    <div class="reveal">
+      <p class="intro-eyebrow">What You Will Be Able to Do</p>
+      <h2>Seven Capabilities by the Final Lesson</h2>
+      <div class="intro-divider"></div>
+    </div>
+    <div class="intro-grid">
+      <div class="ig-card reveal">
+        <p class="ig-label">Understand</p>
+        <h3>How AI Actually Works</h3>
+        <p>The mental model that tells you when to trust output, when to verify, and when to keep AI out of the room</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Direct</p>
+        <h3>AI With Clear Prompts</h3>
+        <p>Turn your delegation skill into a repeatable system for coaching, planning, and decision prep</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Prepare</p>
+        <h3>Richer Conversations</h3>
+        <p>Use AI to surface patterns and questions before one-on-ones and coaching sessions, without scripting the conversation</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Compress</p>
+        <h3>The Planning Grind</h3>
+        <p>First drafts, scenario stress-tests, and synthesis at speed, while keeping the judgment of what matters entirely yours</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Counter</p>
+        <h3>Automation Bias</h3>
+        <p>Procedural habits that keep you from over-trusting fluent, confident AI output on decisions that matter</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Protect</p>
+        <h3>Privacy and Fairness</h3>
+        <p>Built-in checks for data protection and bias that happen in the moment of the task, not saved for a compliance review</p>
+      </div>
+      <div class="ig-card reveal">
+        <p class="ig-label">Build</p>
+        <h3>Team AI Norms</h3>
+        <p>A 15-minute conversation that sets shared expectations and makes responsible AI use a daily team habit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE MAP -->
+<section class="modules-section">
+  <div class="modules-inner">
+    <div class="reveal">
+      <p class="ms-eyebrow">Course Map</p>
+      <h2 class="ms-h2">Seven Modules, 31 Lessons</h2>
+      <div class="ms-divider"></div>
+    </div>
+
+    <!-- MODULE 1 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">1</span>
+        <div>
+          <p class="mod-title">What Managers Actually Need to Know About AI</p>
+          <p class="mod-desc">The accurate mental model, the four failure modes, and a first win before the module ends</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%201%20-%20What%20Managers%20Actually%20Need%20to%20Know%20About%20AI/your-first-win-the-one-on-one-note-triage.html" class="lesson-link" data-lesson="1">
+          <p class="ll-tag">Lesson 1.1</p>
+          <p class="ll-title">Your First Win: the One-on-One Note Triage</p>
+          <p class="ll-meta">Proof of value before the theory</p>
+        </a>
+        <a href="Module%201%20-%20What%20Managers%20Actually%20Need%20to%20Know%20About%20AI/how-large-language-models-work.html" class="lesson-link" data-lesson="2">
+          <p class="ll-tag">Lesson 1.2</p>
+          <p class="ll-title">How Large Language Models Work</p>
+          <p class="ll-meta">The version that matters for managers</p>
+        </a>
+        <a href="Module%201%20-%20What%20Managers%20Actually%20Need%20to%20Know%20About%20AI/the-four-failure-modes.html" class="lesson-link" data-lesson="3">
+          <p class="ll-tag">Lesson 1.3</p>
+          <p class="ll-title">The Four Failure Modes Every Manager Must Recognize</p>
+          <p class="ll-meta">Hallucination, automation bias, representational bias, context blindness</p>
+        </a>
+        <a href="Module%201%20-%20What%20Managers%20Actually%20Need%20to%20Know%20About%20AI/ai-as-a-thinking-partner.html" class="lesson-link" data-lesson="4">
+          <p class="ll-tag">Lesson 1.4</p>
+          <p class="ll-title">AI as a Thinking Partner, Not an Oracle</p>
+          <p class="ll-meta">The human-AI division of labor that works</p>
+        </a>
+        <a href="Module%201%20-%20What%20Managers%20Actually%20Need%20to%20Know%20About%20AI/mapping-your-management-work-to-ai-opportunity.html" class="lesson-link has-quiz" data-lesson="5">
+          <p class="ll-tag">Lesson 1.5</p>
+          <p class="ll-title">Mapping Your Management Work to AI Opportunity</p>
+          <p class="ll-meta">Augment freely, augment with care, keep human <span>+ Task audit</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">2</span>
+        <div>
+          <p class="mod-title">The Manager's Prompting Toolkit</p>
+          <p class="mod-desc">Prompting as a delegation skill, working from the messy inputs you actually have</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%202%20-%20The%20Managers%20Prompting%20Toolkit/prompting-is-a-management-skill.html" class="lesson-link" data-lesson="6">
+          <p class="ll-tag">Lesson 2.1</p>
+          <p class="ll-title">Why Prompting Is a Management Skill, Not a Technical Skill</p>
+          <p class="ll-meta">The five-element prompt</p>
+        </a>
+        <a href="Module%202%20-%20The%20Managers%20Prompting%20Toolkit/working-from-messy-inputs.html" class="lesson-link" data-lesson="7">
+          <p class="ll-tag">Lesson 2.2</p>
+          <p class="ll-title">Working From Messy Inputs</p>
+          <p class="ll-meta">What to include, cut, anonymize, and verify</p>
+        </a>
+        <a href="Module%202%20-%20The%20Managers%20Prompting%20Toolkit/prompting-for-people-management.html" class="lesson-link" data-lesson="8">
+          <p class="ll-tag">Lesson 2.3</p>
+          <p class="ll-title">Prompting for People Management</p>
+          <p class="ll-meta">One-on-ones, feedback, development, career conversations</p>
+        </a>
+        <a href="Module%202%20-%20The%20Managers%20Prompting%20Toolkit/prompting-for-planning-and-decisions.html" class="lesson-link" data-lesson="9">
+          <p class="ll-tag">Lesson 2.4</p>
+          <p class="ll-title">Prompting for Planning and Decisions</p>
+          <p class="ll-meta">Options, pre-mortem, devil's advocate, reframe</p>
+        </a>
+        <a href="Module%202%20-%20The%20Managers%20Prompting%20Toolkit/building-your-prompt-library.html" class="lesson-link has-quiz" data-lesson="10">
+          <p class="ll-tag">Lesson 2.5</p>
+          <p class="ll-title">Building a Personal Prompt Library</p>
+          <p class="ll-meta">Three starter prompts you can use today <span>+ Diagnose the prompt</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">3</span>
+        <div>
+          <p class="mod-title">AI-Assisted Coaching</p>
+          <p class="mod-desc">Better preparation for one-on-ones and feedback, with the conversation firmly in your hands</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%203%20-%20AI-Assisted%20Coaching/what-ai-can-and-cannot-do-in-coaching.html" class="lesson-link" data-lesson="11">
+          <p class="ll-tag">Lesson 3.1</p>
+          <p class="ll-title">What AI Can and Cannot Do in a Coaching Context</p>
+          <p class="ll-meta">Where the line sits, and why it matters</p>
+        </a>
+        <a href="Module%203%20-%20AI-Assisted%20Coaching/preparing-richer-one-on-ones.html" class="lesson-link" data-lesson="12">
+          <p class="ll-tag">Lesson 3.2</p>
+          <p class="ll-title">Preparing Richer One-on-Ones With AI Support</p>
+          <p class="ll-meta">Patterns, questions, and the non-negotiable human step</p>
+        </a>
+        <a href="Module%203%20-%20AI-Assisted%20Coaching/drafting-feedback-specific-fair-actionable.html" class="lesson-link" data-lesson="13">
+          <p class="ll-tag">Lesson 3.3</p>
+          <p class="ll-title">Drafting Feedback That Is Specific, Fair, and Actionable</p>
+          <p class="ll-meta">SBI structure <span>+ Bias checkpoint</span></p>
+        </a>
+        <a href="Module%203%20-%20AI-Assisted%20Coaching/career-conversations-in-an-ai-transformed-workplace.html" class="lesson-link" data-lesson="14">
+          <p class="ll-tag">Lesson 3.4</p>
+          <p class="ll-title">Career Conversations in an AI-Transformed Workplace</p>
+          <p class="ll-meta">Skill adjacency, durable skills, automation risk</p>
+        </a>
+        <a href="Module%203%20-%20AI-Assisted%20Coaching/when-to-bring-in-a-human-coach.html" class="lesson-link has-quiz" data-lesson="15">
+          <p class="ll-tag">Lesson 3.5</p>
+          <p class="ll-title">When to Bring in a Human Coach and When AI Tools Are Enough</p>
+          <p class="ll-meta">The four-and-four boundary <span>+ Choose the coaching approach</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">4</span>
+        <div>
+          <p class="mod-title">AI-Augmented Planning</p>
+          <p class="mod-desc">Compress the planning grind without outsourcing the judgment of what matters</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%204%20-%20AI-Augmented%20Planning/planning-bottlenecks-ai-can-solve.html" class="lesson-link" data-lesson="16">
+          <p class="ll-tag">Lesson 4.1</p>
+          <p class="ll-title">The Planning Bottlenecks AI Is Best Positioned to Solve</p>
+          <p class="ll-meta">Blank pages, narrow options, stakeholder drafts, risk gaps</p>
+        </a>
+        <a href="Module%204%20-%20AI-Augmented%20Planning/building-faster-first-drafts.html" class="lesson-link" data-lesson="17">
+          <p class="ll-tag">Lesson 4.2</p>
+          <p class="ll-title">Building Faster, More Complete First Drafts</p>
+          <p class="ll-meta">OKRs, plans, status reports, stakeholder updates</p>
+        </a>
+        <a href="Module%204%20-%20AI-Augmented%20Planning/scenario-planning-expanding-what-you-consider.html" class="lesson-link" data-lesson="18">
+          <p class="ll-tag">Lesson 4.3</p>
+          <p class="ll-title">Scenario Planning: Expanding What You Consider</p>
+          <p class="ll-meta">Four scenarios in under an hour</p>
+        </a>
+        <a href="Module%204%20-%20AI-Augmented%20Planning/synthesizing-large-inputs-with-verification.html" class="lesson-link has-quiz" data-lesson="19">
+          <p class="ll-tag">Lesson 4.4</p>
+          <p class="ll-title">Synthesizing Large Inputs, With Verification Discipline</p>
+          <p class="ll-meta">The lost-in-the-middle effect, the spot-check habit <span>+ Match the planning move</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">5</span>
+        <div>
+          <p class="mod-title">AI-Supported Decision Making</p>
+          <p class="mod-desc">Structured patterns to sharpen decisions, and the counter-habits that prevent automation bias</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%205%20-%20AI-Supported%20Decision%20Making/how-ai-changes-decision-making.html" class="lesson-link" data-lesson="20">
+          <p class="ll-tag">Lesson 5.1</p>
+          <p class="ll-title">How AI Changes the Decision-Making Environment</p>
+          <p class="ll-meta">Automation bias, fluent output, and System 1 risk</p>
+        </a>
+        <a href="Module%205%20-%20AI-Supported%20Decision%20Making/sorting-decisions-by-risk.html" class="lesson-link" data-lesson="21">
+          <p class="ll-tag">Lesson 5.2</p>
+          <p class="ll-title">Sorting Decisions by Risk Before You Reach for AI</p>
+          <p class="ll-meta">Low, medium, and high-stakes tiers</p>
+        </a>
+        <a href="Module%205%20-%20AI-Supported%20Decision%20Making/structured-decision-patterns.html" class="lesson-link" data-lesson="22">
+          <p class="ll-tag">Lesson 5.3</p>
+          <p class="ll-title">Structured AI-Assisted Decision Patterns</p>
+          <p class="ll-meta">Option generation, pre-mortem, devil's advocate, assumption audit</p>
+        </a>
+        <a href="Module%205%20-%20AI-Supported%20Decision%20Making/what-ai-cannot-provide-and-calibrating-trust.html" class="lesson-link" data-lesson="23">
+          <p class="ll-tag">Lesson 5.4</p>
+          <p class="ll-title">What AI Cannot Provide, and Calibrating Trust</p>
+          <p class="ll-meta">Four human inputs, three-question trust calibration</p>
+        </a>
+        <a href="Module%205%20-%20AI-Supported%20Decision%20Making/building-a-culture-of-healthy-ai-skepticism.html" class="lesson-link has-quiz" data-lesson="24">
+          <p class="ll-tag">Lesson 5.5</p>
+          <p class="ll-title">Building a Team Culture of Healthy AI Skepticism</p>
+          <p class="ll-meta">Modeling verification, naming the drift <span>+ Decision audit</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 6 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">6</span>
+        <div>
+          <p class="mod-title">Responsible AI Practice for Managers</p>
+          <p class="mod-desc">Privacy, bias, transparency, and team norms: the accountability layer that only you can close</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%206%20-%20Responsible%20AI%20Practice%20for%20Managers/managers-are-the-accountability-layer.html" class="lesson-link" data-lesson="25">
+          <p class="ll-tag">Lesson 6.1</p>
+          <p class="ll-title">Why Managers Are the Accountability Layer for AI</p>
+          <p class="ll-meta">From principles on paper to daily practice on the team</p>
+        </a>
+        <a href="Module%206%20-%20Responsible%20AI%20Practice%20for%20Managers/privacy-and-data-protection.html" class="lesson-link" data-lesson="26">
+          <p class="ll-tag">Lesson 6.2</p>
+          <p class="ll-title">Privacy and Data Protection in Everyday AI Use</p>
+          <p class="ll-meta">Data minimization, the noticeboard test, GDPR in practice</p>
+        </a>
+        <a href="Module%206%20-%20Responsible%20AI%20Practice%20for%20Managers/bias-in-ai-assisted-people-decisions.html" class="lesson-link" data-lesson="27">
+          <p class="ll-tag">Lesson 6.3</p>
+          <p class="ll-title">Bias in AI-Assisted People Decisions</p>
+          <p class="ll-meta">How bias gets embedded, three verification habits</p>
+        </a>
+        <a href="Module%206%20-%20Responsible%20AI%20Practice%20for%20Managers/transparency-with-your-team.html" class="lesson-link" data-lesson="28">
+          <p class="ll-tag">Lesson 6.4</p>
+          <p class="ll-title">Transparency With Your Team About AI Use</p>
+          <p class="ll-meta">What to disclose, how to frame it, the transparency dilemma</p>
+        </a>
+        <a href="Module%206%20-%20Responsible%20AI%20Practice%20for%20Managers/setting-team-norms-for-ai-use.html" class="lesson-link has-quiz" data-lesson="29">
+          <p class="ll-tag">Lesson 6.5</p>
+          <p class="ll-title">Setting Team Norms for AI Use</p>
+          <p class="ll-meta">The 15-minute conversation that changes daily behavior <span>+ Policy application</span></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE 7 -->
+    <div class="module-block reveal">
+      <div class="module-header">
+        <span class="mod-num">7</span>
+        <div>
+          <p class="mod-title">Putting It Together</p>
+          <p class="mod-desc">The through-line in your own words, and the small set of habits that will actually change next week</p>
+        </div>
+      </div>
+      <div class="lessons-grid">
+        <a href="Module%207%20-%20Putting%20It%20Together/the-through-line.html" class="lesson-link has-quiz" data-lesson="30">
+          <p class="ll-tag">Lesson 7.1</p>
+          <p class="ll-title">The Through-Line: What All Six Modules Were Really About</p>
+          <p class="ll-meta">One argument, plainly stated</p>
+        </a>
+        <a href="Module%207%20-%20Putting%20It%20Together/your-action-plan.html" class="lesson-link" data-lesson="31">
+          <p class="ll-tag">Lesson 7.2</p>
+          <p class="ll-title">Your Action Plan</p>
+          <p class="ll-meta">This week, this month, this quarter <span>+ Real commitments in real tools</span></p>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Track visited lessons via localStorage
+const STORAGE_KEY = 'aim-cpd-progress';
+let visited = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function updateProgress() {
+  const total = 31;
+  const count = Object.keys(visited).length;
+  const pct = Math.round((count / total) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = count + ' / ' + total + ' lessons';
+  document.querySelectorAll('.lesson-link').forEach(link => {
+    const lesson = link.dataset.lesson;
+    if (visited[lesson]) link.classList.add('completed');
+  });
+}
+
+document.querySelectorAll('.lesson-link').forEach(link => {
+  link.addEventListener('click', function() {
+    const lesson = this.dataset.lesson;
+    if (lesson) { visited[lesson] = true; localStorage.setItem(STORAGE_KEY, JSON.stringify(visited)); }
+  });
+});
+
+updateProgress();
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

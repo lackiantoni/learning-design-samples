@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting for People Management</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.pattern-cards{display:flex;flex-direction:column;gap:20px;margin-top:32px}
+.pcard{background:#fff;border-radius:var(--radius-card);padding:28px 24px;border-left:5px solid;transition:transform .2s,box-shadow .2s}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(99,102,241,0.1)}
+.pcard:nth-child(1){border-color:#ff6b35}
+.pcard:nth-child(2){border-color:#6366f1}
+.pcard:nth-child(3){border-color:#22c55e}
+.pcard:nth-child(4){border-color:#f59e0b}
+.pcard h3{font-size:22px;font-weight:700;margin-bottom:10px}
+.pcard:nth-child(1) h3{color:#c9460f}
+.pcard:nth-child(2) h3{color:#4338ca}
+.pcard:nth-child(3) h3{color:#15803d}
+.pcard:nth-child(4) h3{color:#b45309}
+.pcard .prompt{font-size:22px;color:#4a4a6a;line-height:1.7;font-style:italic;background:rgba(99,102,241,0.06);border-radius:8px;padding:14px 16px;margin-top:8px}
+.privacy-box{background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(99,102,241,0.12));border:1.5px solid rgba(239,68,68,0.3);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.privacy-label{font-size:17px;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.privacy-box p{font-size:22px;color:#fff;line-height:1.75}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">People Management</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Prompting for <span style="color:#ff6b35">People Management</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">People management is where prompting pays off daily and where the stakes of getting it wrong are highest. One-on-ones, feedback, development questions, career conversations: recurring, text-heavy, and currently eating your evenings. Good prompts here save real hours. Bad prompts here produce feedback that is generic, unfair, or tone-deaf.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Four Patterns</p>
+      <h2>Prompt Templates for Your Most Common People Tasks</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">The thread through all four: AI drafts the preparation, never the delivery. The conversation is yours.</p>
+    </div>
+    <div class="pattern-cards">
+      <div class="pcard reveal">
+        <h3>One-on-one prep</h3>
+        <p class="prompt">"Here are my sanitized notes from the last three sessions with a direct report. Identify the recurring pattern and give me three coaching questions that help them find the root cause themselves."</p>
+        <p style="font-size:22px;color:#4a4a6a;margin-top:10px;line-height:1.6">Working from your own notes keeps hallucination risk low. The AI surfaces patterns. You add context and adapt the questions to the actual person.</p>
+      </div>
+      <div class="pcard reveal">
+        <h3>Written feedback (SBI)</h3>
+        <p class="prompt">"Draft feedback for a mid-level analyst who missed a project deadline by three days. Context: scope crept and neither side flagged it early. Use the SBI structure: Situation, Behavior, Impact. Factual and behavior-focused, three to four sentences."</p>
+        <p style="font-size:22px;color:#4a4a6a;margin-top:10px;line-height:1.6">SBI structures feedback as Situation, Behavior, Impact, which keeps it anchored to actions rather than character and reduces defensiveness.</p>
+      </div>
+      <div class="pcard reveal">
+        <h3>Development questions</h3>
+        <p class="prompt">"My report wants to grow toward a senior role. Generate ten open questions I could ask to understand their goals and gaps, ranging from motivation to specific skills."</p>
+        <p style="font-size:22px;color:#4a4a6a;margin-top:10px;line-height:1.6">AI generates a wide set fast. You select the subset that actually fits this person, this moment, and the direction they want to go.</p>
+      </div>
+      <div class="pcard reveal">
+        <h3>Career conversations</h3>
+        <p class="prompt">"Help me prepare for a career conversation. Here is the role they are in and the direction they are interested in. What questions help us map which of their current skills transfer and which need building?"</p>
+        <p style="font-size:22px;color:#4a4a6a;margin-top:10px;line-height:1.6">Skill adjacency mapping turns a vague "where do you want to go?" into a structured, forward-looking conversation. The decision still happens together, in the room.</p>
+      </div>
+    </div>
+    <div class="privacy-box reveal">
+      <p class="privacy-label">Privacy Checkpoint (every time)</p>
+      <p>Every prompt above says "sanitized" for a reason. Before you paste people notes into a commercial AI tool, strip names and identifying details and describe behavior generically ("a mid-level analyst," not a name). This is the rule we formalize in the final module, and it applies on every task.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Sam's story</p>
+      <p>Sam preps for a one-on-one with a report who keeps missing documentation deadlines. Sam sanitizes six months of notes, pastes them in, and asks for the pattern plus three root-cause questions. The AI spots it (recurring low urgency, no personal tracking system) and offers good questions. Sam adds the missing context (this report is overloaded covering a vacancy) and reshapes the questions to open a conversation about workload rather than to corner someone about discipline. The AI prepped Sam. Sam will run the conversation.</p>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Sanitize and prompt for your next one-on-one</h3>
+      <p>Sanitize your notes for one upcoming one-on-one and prompt for the pattern plus three questions. Edit before you use it. Confirm there are no names or identifying details in what you pasted.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which people task is currently costing you the most prep time?</li>
+        <li>What did you have to add or change in the AI's questions to make them fit the actual person?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

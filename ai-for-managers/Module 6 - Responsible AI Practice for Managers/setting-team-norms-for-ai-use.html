@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Team Norms for AI Use</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.convo-steps{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.cs{background:#fff;border-radius:var(--radius-card);padding:24px;border-left:5px solid;transition:transform .2s,box-shadow .2s}
+.cs:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(99,102,241,0.1)}
+.cs:nth-child(1){border-color:#ff6b35}
+.cs:nth-child(2){border-color:#6366f1}
+.cs:nth-child(3){border-color:#22c55e}
+.cs:nth-child(4){border-color:#f59e0b}
+.cs-time{font-size:17px;font-weight:600;margin-bottom:6px}
+.cs:nth-child(1) .cs-time{color:#c9460f}
+.cs:nth-child(2) .cs-time{color:#4338ca}
+.cs:nth-child(3) .cs-time{color:#15803d}
+.cs:nth-child(4) .cs-time{color:#b45309}
+.cs h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.cs p{font-size:22px;color:#4a4a6a;line-height:1.7}
+.cs .example{font-size:22px;font-style:italic;color:#6366f1;background:rgba(99,102,241,0.06);border-radius:8px;padding:10px 14px;margin-top:8px;line-height:1.6}
+/* Knowledge Check */
+.q-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-bottom:20px}
+.q-text{font-size:22px;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.6}
+.q-context{font-size:22px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:16px;padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:10px}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:22px;color:#fff;cursor:pointer;text-align:left;transition:background .2s,border-color .2s;min-height:54px;line-height:1.5}
+.q-opt:hover{background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.35)}
+.q-opt:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:12px}
+.q-opt.correct{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#86efac}
+.q-opt.wrong{background:rgba(239,68,68,0.12);border-color:#ef4444;color:#fca5a5}
+.q-opt.reveal-correct{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#86efac}
+.q-opt:disabled{cursor:default}
+.q-feedback{font-size:22px;color:#86efac;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 20px;margin-top:14px;display:none;line-height:1.6}
+.q-feedback.wrong{color:#fca5a5;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2)}
+.q-feedback.visible{display:block}
+.quiz-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;margin-bottom:24px}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Team Norms</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Setting Team Norms <span style="color:#ff6b35">for AI Use</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Everything in this course lands or dies at the level of team norms. A norm your team genuinely shares does more than any policy document, because it lives in the daily work. Establishing it does not require a workshop or a policy rollout. It takes one fifteen-minute conversation, run well, and then your consistent follow-through.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The 15-Minute Conversation</p>
+      <h2>A Real Conversation to Hold With Your Actual Team</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">This is not a simulation. Schedule it on your real calendar with your real team. The structure below takes fifteen minutes and changes actual behavior.</p>
+    </div>
+    <div class="convo-steps">
+      <div class="cs reveal">
+        <p class="cs-time">3 minutes: Opening question</p>
+        <h3>What feels useful, and what feels uncertain?</h3>
+        <p>"When you think about using AI tools for your work, what feels useful, and what feels uncertain or risky to you?" Let people actually answer. Do not fill the silence.</p>
+      </div>
+      <div class="cs reveal">
+        <p class="cs-time">5 minutes: Three ground rules</p>
+        <h3>The non-negotiables</h3>
+        <p>Share three non-negotiables:</p>
+        <p class="example">1. No employee personal data in public AI tools, ever.<br>2. No AI-generated content shared externally without a human review pass.<br>3. No AI recommendation acted on without stating what human check was applied.</p>
+      </div>
+      <div class="cs reveal">
+        <p class="cs-time">5 minutes: Agreement question</p>
+        <h3>One clear "yes" and one clear "human decides"</h3>
+        <p>"What is one situation where we agree AI is clearly helpful, and one where we agree a human should always decide?" Capture both answers on a shared page. Two clear answers beat a long policy nobody remembers.</p>
+      </div>
+      <div class="cs reveal">
+        <p class="cs-time">2 minutes: Closing commitment</p>
+        <h3>Permission to ask first</h3>
+        <p>"If you are ever unsure whether an AI use is appropriate, ask me before, not after." This one sentence does more than the rest of the conversation, because it makes uncertainty safe to surface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Sam's story</p>
+      <p>Sam holds the fifteen-minute conversation with the team. The opening question surfaces something Sam did not know: two people were already pasting meeting notes with names into a public tool, not out of carelessness but because nobody had ever said not to. The ground rules fix it on the spot, without blame. The team agrees on one clear "AI is helpful here" (first drafts of routine docs) and one clear "human decides here" (anything about a person's rating or role). It took fifteen minutes and changed the team's actual behavior, which a policy document never had.</p>
+    </div>
+
+    <!-- Policy application knowledge check -->
+    <div style="margin-top:40px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Policy Application</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:rgba(255,255,255,0.8);line-height:1.75;max-width:720px;margin-bottom:28px">For each situation, select the right action.</p>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager wants to draft a PIP for an employee who has been missing deadlines. They have detailed performance notes including the employee's full name and a personal health issue the employee disclosed.</p>
+      <p class="q-text">What is the right approach?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt" data-correct="true">Use AI with sanitization: paste only generic behavioral description and structural requirements. Leave all identity-bearing details and personal disclosures in the HR system, not the AI tool.</button>
+        <button class="q-opt">Use freely: PIP drafting is a low-stakes task</button>
+        <button class="q-opt">Do not use AI at all for any HR documents</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager wants to summarize anonymous employee satisfaction survey data to identify themes for a team discussion.</p>
+      <p class="q-text">What is the right approach?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt" data-correct="true">Use freely: anonymized survey data contains no personal identifiers. AI summarization is appropriate and low-risk here.</button>
+        <button class="q-opt">Do not use without HR review: all employee data requires HR approval</button>
+        <button class="q-opt">Do not use: employee feedback is always confidential</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager has interview notes for three promotion candidates and wants to use AI to synthesize which candidate performed best.</p>
+      <p class="q-text">What is the right approach?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Use freely: synthesizing notes is a standard AI task</button>
+        <button class="q-opt" data-correct="true">Do not use without HR review and bias verification: promotion decisions are high-stakes people decisions requiring AI bias checks (stereotype language, shifting criteria, faithfulness) plus manager-owned final call and documentation.</button>
+        <button class="q-opt">Do not use AI at all for any decision involving names</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager wants to generate a set of structured interview questions for an upcoming software engineering hire.</p>
+      <p class="q-text">What is the right approach?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt" data-correct="true">Use freely with a review pass: generating interview question sets is low-risk and appropriate for AI. Review the output to check for questions that are inadvertently discriminatory before using them.</button>
+        <button class="q-opt">Do not use: all hiring materials must be HR-approved without AI input</button>
+        <button class="q-opt">Use without any review: AI-generated questions are automatically compliant</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager has a 45-minute client call recording and wants to summarize key decisions and action items.</p>
+      <p class="q-text">What is the right approach?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Use freely with no restrictions: client calls are external, not employee data</button>
+        <button class="q-opt" data-correct="true">Use with sanitization (or approved enterprise tool): the recording contains client names and confidential business information. Use an enterprise-approved tool or sanitize before pasting. Spot-check the summary before sharing.</button>
+        <button class="q-opt">Do not use: all client information is permanently off-limits for AI</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div style="margin-top:48px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Check Your Understanding</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">1. The "noticeboard test" for AI privacy says:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Always post your AI prompts publicly</button>
+        <button class="q-opt" data-correct="true">If you would not post the information on a public noticeboard, do not paste it into a public AI tool</button>
+        <button class="q-opt">Only use AI on a public computer</button>
+        <button class="q-opt">Anonymize nothing if the tool is popular</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">2. AI-assisted people decisions can reproduce bias because:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">AI is programmed to discriminate on purpose</button>
+        <button class="q-opt" data-correct="true">AI learns from historical data that encodes historical discrimination and amplifies those patterns</button>
+        <button class="q-opt">Bias only happens when a human is involved</button>
+        <button class="q-opt">AI output is always neutral and objective</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">3. Research on AI transparency shows that disclosing AI use:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Always increases trust, no matter how it is framed</button>
+        <button class="q-opt">Always decreases trust, so AI use should be hidden</button>
+        <button class="q-opt" data-correct="true">Can increase or decrease trust depending on framing, so managers should explain why AI is used and what it is not deciding</button>
+        <button class="q-opt">Has no effect on trust</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">4. Which is one of the three non-negotiable ground rules in the 15-minute team norms conversation?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Always use the newest AI tool available</button>
+        <button class="q-opt" data-correct="true">No employee personal data in public AI tools</button>
+        <button class="q-opt">Never tell the team you use AI</button>
+        <button class="q-opt">Accept AI recommendations without checking to save time</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">5. Why is the manager described as the "accountability layer" for AI?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Because managers write the company's AI policy</button>
+        <button class="q-opt" data-correct="true">Because organizational AI principles only become real practice when managers operationalize them in daily work</button>
+        <button class="q-opt">Because only managers are allowed to use AI</button>
+        <button class="q-opt">Because AI governance is legally assigned to managers</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Schedule the team norms conversation for real</h3>
+      <p>Open your calendar right now and block fifteen minutes with your actual team this week or next. Use the four-part structure above. This is a real conversation, not a simulation.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>What is one AI behavior already happening on your team that a quick norms conversation would surface?</li>
+        <li>What is the one "human always decides" situation your team most needs to agree on?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const policyExp = [
+  { c: "PIP drafting is appropriate with sanitization. The behavioral structure goes in. Names and personal disclosures stay in the HR system.", w: "PIPs can be drafted with AI help, but only with sanitized input. Names, personal disclosures, and confidential details must never enter a public AI tool." },
+  { c: "Anonymized survey data contains no personal identifiers, so AI summarization is appropriate and low-risk.", w: "Anonymized survey data is safe for AI summarization. No personal identifiers means no privacy risk." },
+  { c: "Promotion decisions are high-stakes people decisions. They require bias verification (stereotype, shifting criteria, faithfulness checks) and manager-owned final call, not AI recommendation accepted without review.", w: "Synthesizing promotion candidate notes requires bias verification and HR awareness. This is not a 'use freely' situation." },
+  { c: "Generating interview questions is low-risk AI use. A review pass to check for inadvertently discriminatory questions is the appropriate lightweight check.", w: "Generating interview questions is appropriate for AI. A human review pass to check for discriminatory content is the right safeguard." },
+  { c: "Client recordings contain confidential business information and potentially client personal data. Use an enterprise tool or sanitize before pasting, and spot-check the output.", w: "Client call recordings contain confidential business information. They require an enterprise tool or sanitization before AI processing." }
+];
+const modExp = [
+  { c: "The noticeboard test is the practical rule: if you would not post it publicly, do not paste it into a public AI tool.", w: "The noticeboard test applies the privacy principle in a memorable, practical form." },
+  { c: "AI learns from historical data that encoded historical patterns, including discrimination. It amplifies those patterns rather than correcting them.", w: "AI reproduces bias from its training data. It does not correct for historical discrimination; it amplifies it." },
+  { c: "Transparency can build or erode trust depending on how it is framed. The 'what it does not decide' framing is what converts a potential trust hit into a trust builder.", w: "Research shows framing matters. Explaining what AI does not decide is the key to making transparency work." },
+  { c: "No employee personal data in public AI tools is the first and most critical ground rule. The other two are: no external sharing without review, and no AI recommendation without stating the human check.", w: "The three ground rules are: no personal data in public tools, no external sharing without review, and no recommendation without stating the human check." },
+  { c: "Organizational AI principles only become real practice when managers operationalize them in daily workflows. That gap between policy and practice is exactly what the manager's accountability layer closes.", w: "Managers are the accountability layer because they are the only people positioned to turn principles into daily practice on their teams." }
+];
+
+let idx = 0;
+document.querySelectorAll('.q-block').forEach(block => {
+  const i = idx++;
+  const exp = i < 5 ? policyExp[i] : modExp[i - 5];
+  const opts = block.querySelectorAll('.q-opt');
+  const fb = block.querySelector('.q-feedback');
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (block.dataset.answered) return;
+      block.dataset.answered = '1';
+      const ok = opt.dataset.correct === 'true';
+      opts.forEach(o => { o.disabled = true; if (o.dataset.correct === 'true') o.classList.add('reveal-correct'); });
+      opt.classList.add(ok ? 'correct' : 'wrong');
+      fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (exp ? (ok ? exp.c : exp.w) : '');
+      fb.className = 'q-feedback visible' + (ok ? '' : ' wrong');
+    });
+  });
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

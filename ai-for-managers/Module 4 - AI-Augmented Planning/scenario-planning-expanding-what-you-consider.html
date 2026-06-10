@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenario Planning: Expanding What You Consider</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.steps-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.step-row{display:flex;gap:20px;align-items:flex-start;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:24px;transition:border-color .2s}
+.step-row:hover{border-color:rgba(255,107,53,0.35)}
+.step-badge{background:#ff6b35;color:#fff;font-size:17px;font-weight:800;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.step-who{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.step-row h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px}
+.step-row p{font-size:22px;color:rgba(255,255,255,0.75);line-height:1.6}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Scenario Planning</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Scenario Planning: <span style="color:#ff6b35">Expanding What You Consider</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Most plans are built for the future you expect, which is exactly why they break when a different future arrives. Scenario planning used to be a luxury you skipped under time pressure. AI makes it something you can run in under an hour.</p>
+    </div>
+  </div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Four-Step Exercise</p>
+      <h2>Under an Hour, Every Planning Cycle</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">Scenario planning was formalized by Pierre Wack at Shell in 1971 and used to outperform competitors through the 1973 oil crisis. The technique: develop plausible future states, test your plan against each. AI accelerates the slow part.</p>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="steps-list reveal">
+      <div class="step-row">
+        <div class="step-badge">1</div>
+        <div>
+          <p class="step-who">AI (a few minutes)</p>
+          <h3>Generate the scenarios</h3>
+          <p>"Generate four plausible scenarios for how [situation] could evolve over the next two quarters: one optimistic, one pessimistic, one disrupted by a competitor, one disrupted by internal resourcing."</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge">2</div>
+        <div>
+          <p class="step-who">You (fifteen minutes)</p>
+          <h3>Annotate with what you know</h3>
+          <p>Mark each scenario with what you actually know about current conditions. Add signal you have that supports or contradicts each future. This is your judgment, not the AI's.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge">3</div>
+        <div>
+          <p class="step-who">AI (a few minutes)</p>
+          <h3>Find the fragile assumption</h3>
+          <p>"For each scenario, identify the one assumption in my current plan that would break first." Each scenario gets one critical assumption surfaced.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge">4</div>
+        <div>
+          <p class="step-who">You (the rest)</p>
+          <h3>Decide and adjust</h3>
+          <p>Pick the most likely scenario based on what you know. Adjust the plan. This step is entirely yours. AI informed it; you own it.</p>
+        </div>
+      </div>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Practical example</p>
+      <p>A product manager has 45 minutes to finalize a Q3 roadmap. She prompts AI for four scenarios for how customer adoption could evolve and gets them in two minutes. She spends fifteen minutes annotating each with what she knows, then prompts for the first assumption that would break in each. The AI returns four critical assumptions. She identifies the resourcing scenario as most likely and adjusts the roadmap accordingly. Total: roughly twenty minutes of AI interaction plus twenty-five minutes of her judgment. Without AI, she would have skipped the exercise entirely.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run the four-scenario prompt on one real plan</h3>
+      <p>On one real plan, run the four-scenario prompt and then ask which assumption breaks first in each. Adjust one thing based on what you find.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>What future is your current plan quietly assuming will happen?</li>
+        <li>Which scenario, if it arrived, would hurt the most, and have you planned for it at all?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

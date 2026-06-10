@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Four Failure Modes Every Manager Must Recognize</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero{background:var(--bg-dark)}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.hero h1{font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px}
+.hero h1 span{color:#ff6b35}
+.hero-lead{font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light);color:var(--text-body)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--text-body)}
+.dark h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#fff}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.modes-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.mode-card{background:#fff;border-radius:var(--radius-card);padding:28px 24px;border-left:5px solid;display:flex;gap:20px;align-items:flex-start;transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s}
+.mode-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(99,102,241,0.1)}
+.mode-card:nth-child(1){border-color:#ff6b35}
+.mode-card:nth-child(2){border-color:#6366f1}
+.mode-card:nth-child(3){border-color:#ef4444}
+.mode-card:nth-child(4){border-color:#f59e0b}
+.mode-num{font-size:22px;font-weight:800;color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.mode-card:nth-child(1) .mode-num{background:#ff6b35}
+.mode-card:nth-child(2) .mode-num{background:#6366f1}
+.mode-card:nth-child(3) .mode-num{background:#ef4444}
+.mode-card:nth-child(4) .mode-num{background:#f59e0b}
+.mode-body h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.mode-body p{font-size:22px;color:#4a4a6a;line-height:1.7}
+.mode-body .rate{font-size:17px;font-weight:600;margin-top:8px}
+.mode-card:nth-child(1) .rate{color:#c9460f}
+.mode-card:nth-child(2) .rate{color:#4338ca}
+.mode-card:nth-child(3) .rate{color:#b91c1c}
+.mode-card:nth-child(4) .rate{color:#b45309}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Risk Recognition</p>
+      <h1>The Four Failure Modes <span>Every Manager Must Recognize</span></h1>
+      <p class="hero-lead">Most AI mistakes in management are not random. They fall into four recognizable patterns. Once you can name them, you can catch them before they reach a real employee or a real decision. This is the single most protective lesson in the module, because it turns "AI sometimes gets things wrong" into a specific checklist you can run.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE FOUR MODES -->
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Framework</p>
+      <h2>Four Patterns, Not Random Errors</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="modes-list">
+      <div class="mode-card reveal">
+        <div class="mode-num">1</div>
+        <div class="mode-body">
+          <h3>Hallucination</h3>
+          <p>The model confidently generates false information, including fake facts, fake citations, and fake quotes. This is common, not rare. Even the best LLMs hallucinate somewhere between 4% and 86% of generated facts depending on the domain and task, with higher rates on novel, niche, or interpersonal topics.</p>
+          <p class="rate">Risk zone: facts, statistics, citations, people-specific claims</p>
+        </div>
+      </div>
+      <div class="mode-card reveal">
+        <div class="mode-num">2</div>
+        <div class="mode-body">
+          <h3>Automation Bias</h3>
+          <p>You over-rely on the AI's output and accept it without enough independent checking, especially when you are busy. This is a structural feature of attention under load, not a personal weakness. It gets a full lesson in a later module.</p>
+          <p class="rate">Risk zone: every decision made under time pressure</p>
+        </div>
+      </div>
+      <div class="mode-card reveal">
+        <div class="mode-num">3</div>
+        <div class="mode-body">
+          <h3>Representational Bias</h3>
+          <p>The output systematically skews because the training data was skewed. This shows up most dangerously in people decisions: hiring, performance, promotion. The model can reproduce historical discrimination and present it as neutral analysis.</p>
+          <p class="rate">Risk zone: any decision involving people</p>
+        </div>
+      </div>
+      <div class="mode-card reveal">
+        <div class="mode-num">4</div>
+        <div class="mode-body">
+          <h3>Context Blindness</h3>
+          <p>The model only knows what you put in front of it, and even then, when the input gets long, it can silently drop earlier parts. You experience this as the AI "forgetting" something you told it earlier in the conversation.</p>
+          <p class="rate">Risk zone: long inputs, complex conversations, multi-part documents</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIO -->
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In Practice</p>
+      <h2>Reza Tests the Machine</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="scenario reveal">
+      <p class="scenario-label">Reza's story</p>
+      <p>Reza, who is skeptical by nature, runs a test. He asks an AI tool to recommend an approach to a team restructure and to back it up with examples. The output is polished and includes a named case study of a company that reorganized exactly this way with great results. Reza tries to find that case study. It does not exist. That is hallucination, the fabricated citation, and it is the moment Reza's skepticism becomes a skill rather than a posture: the answer was useful as a starting frame and worthless as evidence, and he now knows which is which.</p>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Verify one citation</h3>
+      <p>The next time an AI gives you a fact, statistic, or citation you would actually act on, verify one of them against a real source. Notice how often the "source" is vague, unverifiable, or wrong.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which of the four failure modes is most dangerous in your specific role, and why?</li>
+        <li>Have you already been on the receiving end of one of these without naming it at the time?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synthesizing Large Inputs With Verification Discipline</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:32px}
+.card{background:#fff;border-radius:var(--radius-card);padding:28px 22px;border-top:4px solid;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(99,102,241,0.12)}
+.card:nth-child(1){border-color:#22c55e}
+.card:nth-child(2){border-color:#ef4444}
+.card h3{font-size:22px;font-weight:700;margin-bottom:10px}
+.card:nth-child(1) h3{color:#15803d}
+.card:nth-child(2) h3{color:#b91c1c}
+.card p{font-size:22px;color:#4a4a6a;line-height:1.6}
+.warning-box{background:rgba(239,68,68,0.1);border:1.5px solid rgba(239,68,68,0.3);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.warning-label{font-size:17px;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.warning-box p{font-size:22px;color:#fff;line-height:1.75}
+/* Knowledge Check */
+.q-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-bottom:20px}
+.q-text{font-size:22px;font-weight:600;color:#fff;margin-bottom:20px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:22px;color:#fff;cursor:pointer;text-align:left;transition:background .2s,border-color .2s;min-height:54px;line-height:1.5}
+.q-opt:hover{background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.35)}
+.q-opt:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:12px}
+.q-opt.correct{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#86efac}
+.q-opt.wrong{background:rgba(239,68,68,0.12);border-color:#ef4444;color:#fca5a5}
+.q-opt.reveal-correct{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#86efac}
+.q-opt:disabled{cursor:default}
+.q-feedback{font-size:22px;color:#86efac;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 20px;margin-top:14px;display:none;line-height:1.6}
+.q-feedback.wrong{color:#fca5a5;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2)}
+.q-feedback.visible{display:block}
+.quiz-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;margin-bottom:24px}
+.privacy-box{background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(99,102,241,0.12));border:1.5px solid rgba(239,68,68,0.3);border-radius:var(--radius-card);padding:24px;margin-top:32px}
+.privacy-label{font-size:17px;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.privacy-box p{font-size:22px;color:#fff;line-height:1.75}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Verification Discipline</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Synthesizing Large Inputs <span style="color:#ff6b35">With Verification Discipline</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">You drown in inputs: long documents, hour-long transcripts, scattered feedback. AI can compress all of it fast. The payoff is large and the trap is specific: AI summaries quietly drop things, usually from the middle, and if you act on the summary without a spot-check, you act on a gap you cannot see.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Trade-off</p>
+      <h2>The Payoff and the Discipline</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cards-grid">
+      <div class="card reveal">
+        <h3>The payoff (real)</h3>
+        <p>AI summarization saves substantial reading time on long inputs. Meeting transcripts, planning documents, feedback batches: all compress fast, freeing you for judgment instead of reading.</p>
+      </div>
+      <div class="card reveal">
+        <h3>The trap (also real)</h3>
+        <p>Models tend to weight information at the beginning and end of a long input more heavily than the middle. This "lost in the middle" effect means important content from mid-document is most likely to be silently dropped.</p>
+      </div>
+    </div>
+    <div class="warning-box reveal">
+      <p class="warning-label">The Verification Rule (non-negotiable)</p>
+      <p>Always spot-check an AI summary against the original before you act on it, paying special attention to mid-document content. The summary saves substantial reading time. The remaining 5-minute spot-check is the price of not acting on an invisible omission. It is not optional, and it is cheap.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="privacy-box reveal">
+      <p class="privacy-label">Privacy Checkpoint</p>
+      <p>When the input is a meeting transcript or document containing people's names, performance details, or confidential business information, sanitize before pasting into a commercial tool, or use an approved enterprise tool. Synthesizing employee notes is convenient. Doing it carelessly is a data-protection problem.</p>
+    </div>
+
+    <div class="scenario reveal" style="margin-top:32px">
+      <p class="scenario-label">Dana's story</p>
+      <p>Dana uses AI to summarize a 45-minute planning-call transcript and pull action items. The summary nails the first 30 minutes. But a teammate raised an important risk flag at minute 35, mid-transcript, lower weight in the model's processing, and the summary drops it. Dana, having internalized the discipline, scans the original for five minutes and catches the missing flag. The colleague who skips the spot-check ships a plan blind to a known risk. The summary did the substantial reading work. The five-minute check did the part that mattered.</p>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div style="margin-top:40px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Match the Planning Move</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:rgba(255,255,255,0.8);line-height:1.75;max-width:720px;margin-bottom:28px">For each planning situation, select which AI-augmented approach best fits.</p>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">A manager needs to present four distinct options for restructuring a team workflow, each with different tradeoffs, to a leadership meeting in two hours.</p>
+      <div class="q-options" role="group">
+        <button class="q-opt" data-correct="true">Blank-page draft: prompt AI for four options each with a different tradeoff, then evaluate and select which to present</button>
+        <button class="q-opt">Risk enumeration: list all the ways the current workflow could fail</button>
+        <button class="q-opt">Stakeholder communication: draft the message announcing the restructure</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">A manager has a 60-page vendor proposal and needs to identify the three decisions that still require internal approval before the meeting tomorrow.</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Scenario generation: develop plausible outcomes of the vendor relationship</button>
+        <button class="q-opt" data-correct="true">Synthesis with verification: summarize the document, extract the open decisions, then spot-check the mid-document section before acting</button>
+        <button class="q-opt">Risk enumeration only: list all ways the vendor could fail to deliver</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">A manager is finalizing a new team structure and wants to stress-test it against unexpected changes in headcount before committing.</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Blank-page draft: generate a first version of the org chart</button>
+        <button class="q-opt" data-correct="true">Scenario generation: prompt for plausible futures (headcount cut, team growth, key person leaving) and test which assumption in the current structure would break first in each</button>
+        <button class="q-opt">Stakeholder draft: write the email announcing the new structure</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div style="margin-top:48px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Check Your Understanding</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">1. According to McKinsey (2023), AI primarily improves planning by:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Making the final decision for the manager</button>
+        <button class="q-opt" data-correct="true">Expanding the breadth of options and the speed of synthesis, while the choice quality still depends on human judgment</button>
+        <button class="q-opt">Eliminating the need for plans</button>
+        <button class="q-opt">Guaranteeing the plan will succeed</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">2. In AI-assisted scenario planning, which step belongs to the manager rather than the AI?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Generating the initial set of plausible futures</button>
+        <button class="q-opt">Producing the scenarios in seconds</button>
+        <button class="q-opt" data-correct="true">Judging which scenarios are actually plausible and deciding how to adjust the plan</button>
+        <button class="q-opt">Listing the four scenario types</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">3. The "lost in the middle" effect means a manager should:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Trust AI summaries completely to save time</button>
+        <button class="q-opt" data-correct="true">Spot-check AI summaries against the original, especially mid-document content</button>
+        <button class="q-opt">Only summarize short documents</button>
+        <button class="q-opt">Never use AI for summarization</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">4. When drafting OKRs with AI, what must the manager supply that the AI cannot?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">The measurable structure of key results</button>
+        <button class="q-opt">A fast first draft</button>
+        <button class="q-opt" data-correct="true">The judgment about whether the objective reflects what actually matters for the strategy and team capacity</button>
+        <button class="q-opt">The list of candidate objectives</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">5. The verification discipline for AI summaries exists because:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">AI summaries are always wrong</button>
+        <button class="q-opt" data-correct="true">AI can silently omit content, particularly from the middle of long inputs</button>
+        <button class="q-opt">Summaries take longer than reading the original</button>
+        <button class="q-opt">Spot-checking is required by law</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run the 5-minute spot-check</h3>
+      <p>The next time you use AI to summarize a long document or transcript, do the 5-minute spot-check against the middle of the original. See whether anything was dropped.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Where have you acted on a summary, AI or human, that turned out to be missing something?</li>
+        <li>What is one long input this week that AI could compress, and what is your spot-check plan?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const qExp = [
+  { c: "Option generation is the right tool here: AI produces the breadth of options fast. The manager evaluates and selects which to present.", w: "When you need multiple options each with different tradeoffs, option generation is the approach. Risk enumeration is for stress-testing a chosen option." },
+  { c: "Long document with embedded decisions needs synthesis plus verification. The spot-check of mid-document content is the non-negotiable step.", w: "Summarizing a long document to extract open decisions is the synthesis task. Spot-checking the middle is essential because of the 'lost in the middle' effect." },
+  { c: "Stress-testing against unexpected futures is scenario planning. Generate plausible adverse scenarios, find the fragile assumption in each, then decide whether to adjust.", w: "Testing a plan against unexpected headcount changes is exactly the scenario planning use case, not a blank-page draft or stakeholder message." }
+];
+const modExp = [
+  { c: "AI expands breadth and speed of synthesis. The quality of the choice still requires human judgment about priorities, context, and what actually matters.", w: "McKinsey's finding: AI expands option breadth and synthesis speed. Human judgment still determines whether the right option is chosen." },
+  { c: "Judging which scenarios are plausible and deciding how to adjust the plan are human steps. AI generates the scenarios and surfaces fragile assumptions; the manager evaluates and decides.", w: "Generating scenarios and surfacing assumptions are AI contributions. Judging plausibility and adjusting the plan are human judgments." },
+  { c: "The 'lost in the middle' effect means models weight early and late content more heavily. Spot-checking the middle is how you catch what was dropped.", w: "The 'lost in the middle' effect specifically affects mid-document content. Spot-checking is aimed at exactly that section." },
+  { c: "Whether the objective reflects what actually matters for strategy and capacity is organizational judgment the AI cannot make. Structure and breadth are AI's contribution.", w: "AI drafts OKR structure. The manager judges whether the objective is strategically right for this team at this moment." },
+  { c: "AI can silently omit content from the middle of long inputs due to how models weight different sections. Spot-checking is the remedy.", w: "The verification discipline exists because AI summaries silently drop content, especially from the middle. Spot-checking catches invisible omissions." }
+];
+
+let idx = 0;
+document.querySelectorAll('.q-block').forEach(block => {
+  const i = idx++;
+  const exp = i < 3 ? qExp[i] : modExp[i - 3];
+  const opts = block.querySelectorAll('.q-opt');
+  const fb = block.querySelector('.q-feedback');
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (block.dataset.answered) return;
+      block.dataset.answered = '1';
+      const ok = opt.dataset.correct === 'true';
+      opts.forEach(o => { o.disabled = true; if (o.dataset.correct === 'true') o.classList.add('reveal-correct'); });
+      opt.classList.add(ok ? 'correct' : 'wrong');
+      fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (exp ? (ok ? exp.c : exp.w) : '');
+      fb.className = 'q-feedback visible' + (ok ? '' : ' wrong');
+    });
+  });
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Large Language Models Work</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--text-muted:#8b8fba;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero{background:var(--bg-dark)}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.hero h1{font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px}
+.hero h1 span{color:#ff6b35}
+.hero-lead{font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light);color:var(--text-body)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--text-body)}
+.dark h2{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#fff}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+/* Flip cards */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px}
+.flip-card{perspective:1000px;cursor:pointer}
+.flip-card:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:var(--radius-card)}
+.flip-inner{display:grid;min-height:220px;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;border-radius:var(--radius-card)}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-card);padding:28px 24px;display:flex;flex-direction:column;justify-content:center}
+.flip-front{background:#fff;border:2px solid rgba(99,102,241,0.2);align-items:center;text-align:center}
+.flip-front .flip-icon{font-size:28px;font-weight:800;color:#ff6b35;background:rgba(255,107,53,0.1);width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.flip-front h3{font-size:22px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.flip-front p{font-size:17px;color:#8b8fba;line-height:1.5}
+.flip-back{background:linear-gradient(135deg,#1c1c42,#12122e);border:2px solid rgba(255,107,53,0.25);transform:rotateY(180deg)}
+.flip-back h3{font-size:22px;font-weight:700;color:#ff6b35;margin-bottom:12px}
+.flip-back p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.7}
+/* Stat block */
+.stat-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:32px}
+.stat-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:32px 24px;text-align:center;transition:transform .25s,border-color .25s}
+.stat-card:hover{transform:translateY(-5px);border-color:rgba(255,107,53,0.4)}
+.stat-num{font-size:clamp(36px,10vw,55px);font-weight:800;color:#ff6b35;line-height:1;margin-bottom:8px}
+.stat-label{font-size:17px;color:rgba(255,255,255,0.7);line-height:1.5}
+/* Scenario */
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+/* Apply + Reflect */
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.hint{font-size:17px;color:rgba(255,255,255,0.4);margin-top:16px;text-align:center}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Mental Model</p>
+      <h1>How Large Language Models Work: <span>The Version That Matters for Managers</span></h1>
+      <p class="hero-lead">You just watched AI help and stumble in the same ten minutes. Now you will understand why, at a level that changes how you prompt and when you trust the output. You do not need the math. You need one accurate mental model that explains the confident wrong answers, the same-question-different-answer weirdness, and why the tool reflects the past.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE MODEL -->
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Concept</p>
+      <h2>One Sentence That Changes Everything</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">A large language model generates text by predicting the next word, over and over, based on patterns it learned from a huge body of training text. It is not looking up a fact in a database. It is producing the most statistically likely continuation of whatever you wrote. Three consequences follow directly, and all three matter for your work.</p>
+    </div>
+    <p class="hint reveal" style="color:#8b8fba;font-size:17px;margin-top:24px">Flip each card to understand the consequence.</p>
+    <div class="flip-grid">
+      <div class="flip-card reveal" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Confident and Wrong">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-icon">1</div>
+            <h3>Confident and Wrong</h3>
+            <p>Tap to understand why</p>
+          </div>
+          <div class="flip-back">
+            <h3>Fluency is not accuracy</h3>
+            <p>The model is optimized to produce fluent, well-formatted text, not accurate text. It has no internal signal that says "I am not sure about this." Confidence is a property of the format, not of the truth.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card reveal" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Variable Answers">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-icon">2</div>
+            <h3>Variable Answers</h3>
+            <p>Tap to understand why</p>
+          </div>
+          <div class="flip-back">
+            <h3>Sampling, not retrieval</h3>
+            <p>The process samples from a probability distribution rather than retrieving one stored answer. The same prompt can give different answers on different days. This is normal, not a bug, but it means you cannot treat AI output as a fixed reference.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card reveal" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Reflects the Past">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-icon">3</div>
+            <h3>Reflects the Past</h3>
+            <p>Tap to understand why</p>
+          </div>
+          <div class="flip-back">
+            <h3>Training data is history</h3>
+            <p>Because it learned from past text, it mirrors what was common in that text, including outdated assumptions and bias. This shows up most dangerously in people decisions, where historical discrimination gets encoded and presented as neutral analysis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE STAKES -->
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Why This Matters Now</p>
+      <h2>Management Work Has Changed</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="stat-bar">
+      <div class="stat-card reveal">
+        <div class="stat-num">16%</div>
+        <div class="stat-label">automation potential for management tasks in 2017 (McKinsey)</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-num">49%</div>
+        <div class="stat-label">automation potential for management tasks in 2023 (McKinsey)</div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px">
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75;max-width:720px">That is not a reason to panic, and it is not a reason to hand work over. It is a reason to learn to direct the tool well, because it is now genuinely capable of touching the core of your job. The accurate mental model above tells you exactly when to trust AI output, when to verify it, and when to keep it out of the room entirely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIO -->
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In Practice</p>
+      <h2>Dana and the Invented Policy</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="scenario reveal" style="background:rgba(99,102,241,0.07);border-color:#6366f1;border-radius:var(--radius-card);padding:28px">
+      <p class="scenario-label" style="color:#6366f1">Dana's story</p>
+      <p style="color:#4a4a6a">Dana asks an AI tool, "What are our company's headcount planning guidelines for Q3?" The model returns a specific, professional-sounding answer with clear policy language. It is completely made up. The model has no access to Dana's company policy, so it produced the most likely-sounding generic HR text instead. This is the canonical hallucination: the model cannot tell the difference between "what I learned about HR in general" and "what this organization's actual policy is," and it will never warn you which one you are getting.</p>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Test the confidence directly</h3>
+      <p>Ask an AI tool one factual question you already know the answer to: a company-specific detail, a number, a policy. Notice how confidently it answers, whether it is right or not. That confidence is a property of the format, not of the truth.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Where in your week are you most tempted to treat AI output as a lookup rather than a draft?</li>
+        <li>Which of the three consequences (confident wrong, variable answers, reflects the past) is most likely to affect you in your role?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.flip-card').forEach(card => {
+  function toggle() {
+    const flipped = card.classList.toggle('flipped');
+    card.setAttribute('aria-pressed', flipped);
+  }
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

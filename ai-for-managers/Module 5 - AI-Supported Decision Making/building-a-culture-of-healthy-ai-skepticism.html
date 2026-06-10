@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Team Culture of Healthy AI Skepticism</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.moves-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.move-card{background:#fff;border-radius:var(--radius-card);padding:28px 24px;border-left:5px solid;transition:transform .2s,box-shadow .2s}
+.move-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(99,102,241,0.1)}
+.move-card:nth-child(1){border-color:#ff6b35}
+.move-card:nth-child(2){border-color:#6366f1}
+.move-card:nth-child(3){border-color:#22c55e}
+.move-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.move-card:nth-child(1) h3{color:#c9460f}
+.move-card:nth-child(2) h3{color:#4338ca}
+.move-card:nth-child(3) h3{color:#15803d}
+.move-card p{font-size:22px;color:#4a4a6a;line-height:1.7}
+/* Decision audit quiz */
+.q-block{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-bottom:20px}
+.q-text{font-size:22px;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.6}
+.q-context{font-size:22px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:16px;padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:10px}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:22px;color:#fff;cursor:pointer;text-align:left;transition:background .2s,border-color .2s;min-height:54px;line-height:1.5}
+.q-opt:hover{background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.35)}
+.q-opt:focus-visible{outline:3px solid #ff6b35;outline-offset:3px;border-radius:12px}
+.q-opt.correct{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#86efac}
+.q-opt.wrong{background:rgba(239,68,68,0.12);border-color:#ef4444;color:#fca5a5}
+.q-opt.reveal-correct{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#86efac}
+.q-opt:disabled{cursor:default}
+.q-feedback{font-size:22px;color:#86efac;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 20px;margin-top:14px;display:none;line-height:1.6}
+.q-feedback.wrong{color:#fca5a5;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2)}
+.q-feedback.visible{display:block}
+.quiz-badge{display:inline-block;background:rgba(99,102,241,0.2);color:#a5b4fc;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;margin-bottom:24px}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Team Culture</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Building a Team Culture of <span style="color:#ff6b35">Healthy AI Skepticism</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Your habits set the team's. If you visibly treat AI output as authority, your team will too, and automation bias spreads from one person to a whole group's decisions. If you visibly verify, question, and name the human input, you build a team that uses AI as a tool rather than an oracle. Culture is downstream of what you model.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Three Moves</p>
+      <h2>Build the Habit Without Building Resistance</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="moves-list">
+      <div class="move-card reveal">
+        <h3>Role-model critical evaluation</h3>
+        <p>Out loud, show your work: "The AI suggested this, here is what I verified, here is the context I added." Make the verification visible so the team learns the habit by watching. It takes one sentence per meeting to model this consistently.</p>
+      </div>
+      <div class="move-card reveal">
+        <h3>Create verification norms</h3>
+        <p>A simple team expectation: no AI recommendation gets acted on without stating what human check was applied. This makes verification a default, not an afterthought, and gives everyone permission to ask "what did we verify?"</p>
+      </div>
+      <div class="move-card reveal">
+        <h3>Name the drift</h3>
+        <p>The risk is gradual: AI slowly becoming a source of authority rather than a thinking tool. Name that drift when you see it, gently, so the team stays aware that fluency is not the same as truth. "Good starting point: what did we verify?" is the reflex to build.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Dana's story</p>
+      <p>Dana notices a teammate citing "the AI said so" as the basis for a recommendation in a planning meeting. Rather than scolding, Dana models the better move: "Good starting point: what did you verify, and what context did you add?" Over a few weeks, that question becomes the team's reflex. People start volunteering their verification before being asked. The norm stuck because Dana modeled it consistently, not because Dana wrote a policy.</p>
+    </div>
+
+    <!-- Decision Audit Knowledge Check -->
+    <div style="margin-top:40px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">The Decision Audit</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:rgba(255,255,255,0.8);line-height:1.75;max-width:720px;margin-bottom:28px">The scenario below contains three embedded errors. Identify each one.</p>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-context">A manager is deciding which of two candidates to promote to a senior role. She asks an AI tool to summarize both candidates' performance reviews from the past year and make a recommendation. The AI returns: "Based on the reviews, Candidate A consistently outperformed Candidate B. A Stanford study found that AI-assisted promotion decisions increase equity by 23%. I recommend promoting Candidate A." The manager is pressed for time, reads the summary, and sends the promotion request based on the AI recommendation without reviewing the original performance reviews.</p>
+      <p class="q-text">Which of the following best identifies the hallucination in this scenario?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt" data-correct="true">The citation "Stanford study found that AI-assisted promotion decisions increase equity by 23%" is a fabricated reference. The manager should have verified it before treating it as evidence.</button>
+        <button class="q-opt">The AI incorrectly summarized the performance reviews</button>
+        <button class="q-opt">The manager chose the wrong candidate</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">Which of the following best identifies the automation bias moment?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">The manager asked the AI to make a recommendation at all</button>
+        <button class="q-opt" data-correct="true">The manager sent the promotion request without reviewing the original performance reviews, accepting the AI's summary and recommendation because she was pressed for time. That is the textbook automation bias pattern: under load, output accepted without independent checking.</button>
+        <button class="q-opt">The AI had access to both candidates' reviews</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">Which of the following best identifies the missing human input?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">The manager should have asked more candidates</button>
+        <button class="q-opt">The AI needed access to more documents</button>
+        <button class="q-opt" data-correct="true">Ethical accountability for the promotion decision: the manager delegated the recommendation to the AI without supplying organizational context, relationship dynamics, or bias verification. A high-stakes people decision requires the manager to own the call.</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- Knowledge Check -->
+    <div style="margin-top:48px" class="reveal">
+      <p class="quiz-badge">Knowledge Check</p>
+      <h2 style="color:#fff;margin-bottom:8px">Check Your Understanding</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">1. Automation bias is best described as:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">A personality flaw in inexperienced people</button>
+        <button class="q-opt" data-correct="true">A structural tendency to over-rely on automated output, affecting both novices and experts, especially under cognitive load</button>
+        <button class="q-opt">A problem only in self-driving cars</button>
+        <button class="q-opt">Something awareness alone reliably prevents</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">2. In the three-tier risk lens, a decision about which candidate to advance to a final round is:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Low-stakes, reversible</button>
+        <button class="q-opt">Medium-stakes, operational</button>
+        <button class="q-opt" data-correct="true">High-stakes, people or legal, requiring the manager to own the decision and check for bias</button>
+        <button class="q-opt">Not a decision AI should ever inform in any way</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">3. Why does the course frame the four decision patterns as cognitive discipline rather than AI tools?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Because AI invented them</button>
+        <button class="q-opt" data-correct="true">Because they are established decision-quality techniques that AI only makes faster, which keeps the human in charge</button>
+        <button class="q-opt">Because they only work without AI</button>
+        <button class="q-opt">Because they replace the need for human judgment</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">4. Which of these is one of the four human inputs AI cannot provide in a decision?</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">A fast first draft of options</button>
+        <button class="q-opt" data-correct="true">Ethical accountability for the outcome</button>
+        <button class="q-opt">A summary of a long document</button>
+        <button class="q-opt">A list of generic risks</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="q-block reveal">
+      <p class="q-text">5. The three-question trust calibration before acting on an AI recommendation asks whether the domain is well-documented, whether the output is low-stakes, and:</p>
+      <div class="q-options" role="group">
+        <button class="q-opt">Whether the AI used nice formatting</button>
+        <button class="q-opt" data-correct="true">Whether you are under time pressure</button>
+        <button class="q-opt">Whether the AI sounded confident</button>
+        <button class="q-opt">How long the answer is</button>
+      </div>
+      <div class="q-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Model the verification habit in your next meeting</h3>
+      <p>In your next meeting where AI output comes up, ask one question out loud: "What did we verify, and what context did we add?" Model the habit you want the team to copy.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>What does your current behavior teach your team about how much to trust AI?</li>
+        <li>Where is your team at risk of treating AI as authority rather than as a tool?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const auditExp = [
+  { c: "Fabricated citations are the hallucination pattern. The AI produced a plausible-sounding statistic with a real-sounding source that does not exist. Verifying citations is non-optional before acting on them.", w: "The embedded hallucination is the fabricated Stanford citation. The AI invented a specific statistic and a plausible academic source. This is the canonical hallucination pattern." },
+  { c: "Accepting the AI's recommendation under time pressure without checking the source material is automation bias in its purest form. Time pressure is exactly when the bias hits hardest.", w: "The automation bias moment is accepting the recommendation without reviewing the originals because of time pressure. That is the structural mechanism the research describes." },
+  { c: "The manager delegated ethical accountability to the AI for a high-stakes people decision. Ownership of the call, bias verification, and organizational context all had to come from the manager.", w: "Ethical accountability is a human input that cannot be delegated. A promotion decision requires the manager to own the call, not accept an AI recommendation." }
+];
+const modExp = [
+  { c: "Automation bias is a structural feature of attention under load, affecting novices and experts alike. Awareness does not fix it; procedural habits do.", w: "Automation bias is structural, not a personality flaw. It affects experienced experts as much as novices, especially under cognitive load." },
+  { c: "Candidate advancement is a high-stakes people decision: hard to reverse, accountability-heavy, and requiring bias checking. It sits in the highest verification tier.", w: "Deciding which candidate to advance is high-stakes and people-related. It requires the manager to own the decision and verify for bias." },
+  { c: "Option generation, pre-mortem, devil's advocate, and assumption audit are all established decision-quality techniques. AI makes them faster to run without changing what they are.", w: "These are established techniques AI accelerates, not AI inventions. That distinction keeps the human in the decision-making role." },
+  { c: "Ethical accountability is the responsibility for the outcome. It cannot be delegated to a tool regardless of how confident the tool's output sounds.", w: "Ethical accountability belongs to the manager. It is one of four human inputs AI cannot substitute for, regardless of output quality." },
+  { c: "Time pressure is the third calibration question, and it is the most important: time pressure is precisely when automation bias strikes hardest. Flagging it deliberately is the countermeasure.", w: "The third question is: am I under time pressure? Time pressure is the trigger condition for automation bias and must be named to counter it." }
+];
+
+let idx = 0;
+document.querySelectorAll('.q-block').forEach(block => {
+  const i = idx++;
+  const exp = i < 3 ? auditExp[i] : modExp[i - 3];
+  const opts = block.querySelectorAll('.q-opt');
+  const fb = block.querySelector('.q-feedback');
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (block.dataset.answered) return;
+      block.dataset.answered = '1';
+      const ok = opt.dataset.correct === 'true';
+      opts.forEach(o => { o.disabled = true; if (o.dataset.correct === 'true') o.classList.add('reveal-correct'); });
+      opt.classList.add(ok ? 'correct' : 'wrong');
+      fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (exp ? (ok ? exp.c : exp.w) : '');
+      fb.className = 'q-feedback visible' + (ok ? '' : ' wrong');
+    });
+  });
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

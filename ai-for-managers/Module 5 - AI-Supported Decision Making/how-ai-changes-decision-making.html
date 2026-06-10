@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How AI Changes the Decision-Making Environment</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.def-box{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px;margin-top:32px}
+.def-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.def-box p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.stat-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:32px}
+.stat-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px 22px;text-align:center;transition:transform .25s,border-color .25s}
+.stat-card:hover{transform:translateY(-5px);border-color:rgba(255,107,53,0.4)}
+.stat-num{font-size:clamp(36px,8vw,48px);font-weight:800;color:#ff6b35;line-height:1;margin-bottom:8px}
+.stat-label{font-size:17px;color:rgba(255,255,255,0.7);line-height:1.5}
+.mechanism{background:#fff;border-radius:var(--radius-card);padding:28px 24px;margin-top:32px;border-left:5px solid #6366f1}
+.mechanism h3{font-size:22px;font-weight:700;color:#4338ca;margin-bottom:10px}
+.mechanism p{font-size:22px;color:#4a4a6a;line-height:1.7}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style></head><body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="container"><div class="reveal">
+    <p class="hero-tag">Decision Risk</p>
+    <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">How AI Changes the Decision-Making Environment <span style="color:#ff6b35">and the Risk It Creates</span></h1>
+    <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">AI does not just speed up decisions. It changes the environment you decide in. It floods you with more information, all of it fluent and confident. That feels like better decision support. The hidden cost is a specific, well-documented cognitive trap that gets worse the more you rely on the tool, and even careful, experienced managers fall into it.</p>
+  </div></div>
+</section>
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Central Risk</p>
+      <h2>Automation Bias: What It Is and Why It Matters</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:#4a4a6a;line-height:1.75;max-width:720px">Automation bias is the tendency to over-rely on automated systems, accepting their output without enough independent verification, especially under cognitive load. The landmark research established that this is not a training failure or a personality flaw, it is a structural feature of how human attention is allocated when cognitive resources are stretched.</p>
+    </div>
+    <div class="stat-bar" style="margin-top:24px">
+      <div class="stat-card reveal" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="stat-num" style="color:#6366f1">28</div>
+        <div class="stat-label" style="color:#4a4a6a">studies across aviation, medicine, and industrial control found automation bias present in the majority (Cummings, 2011)</div>
+      </div>
+      <div class="stat-card reveal" style="background:#fff;border:1.5px solid rgba(99,102,241,0.2)">
+        <div class="stat-num" style="color:#6366f1">100%</div>
+        <div class="stat-label" style="color:#4a4a6a">awareness does not fix automation bias. Countermeasure is procedural habit, not good intentions</div>
+      </div>
+    </div>
+    <div class="mechanism reveal">
+      <h3>Why fluent output disarms you</h3>
+      <p>Kahneman's dual-process model explains it: AI output arrives formatted, fluent, and confident, which is precisely the signal that tells System 1 (fast, automatic cognition) "this is reliable." The risk is applying fast acceptance to output that needed slow scrutiny (Kahneman, 2011). The decision patterns in the next lesson work by forcing a System 2 override.</p>
+    </div>
+  </div>
+</section>
+<section class="dark">
+  <div class="container">
+    <div class="scenario reveal">
+      <p class="scenario-label">Reza's story</p>
+      <p>Reza, the skeptic, assumes skepticism protects him. Then he notices a pattern in himself: when he is busy, he accepts the AI's first analysis on routine operational calls without checking, because it looks complete. That is automation bias arriving precisely where Reza thought he was immune: under load, on the calls that feel low-stakes enough not to scrutinize. The lesson is humbling and useful: skepticism is not a personality trait you have, it is a habit you run, or fail to run, in the moment.</p>
+    </div>
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Catch automation bias in real time</h3>
+      <p>Notice one decision today where you accepted AI output (or any tool's output) without checking it, simply because it looked complete and you were busy. That is automation bias in real time.</p>
+    </div>
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>When are you most likely to over-trust AI output: when fresh or when under load?</li>
+        <li>What decision have you made faster because of AI that you should have made slower?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script></body></html>

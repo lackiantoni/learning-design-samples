@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting for Planning and Decisions</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg-dark:#12122e;--bg-card:#1c1c42;--bg-light:#f5f6ff;--accent:#ff6b35;--purple:#6366f1;--text-body:#1a1a2e;--border:rgba(255,255,255,0.1);--radius-card:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#12122e;color:#fff;line-height:1.7;font-size:22px}
+section{padding:64px 24px;position:relative;overflow:hidden}
+.container{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(255,107,53,0.18);color:#ff6b35;font-size:17px;font-weight:600;padding:6px 18px;border-radius:100px;letter-spacing:.04em;margin-bottom:24px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb1{width:420px;height:420px;background:rgba(99,102,241,0.18);top:-80px;right:-100px;animation:float1 7s ease-in-out infinite}
+.orb2{width:280px;height:280px;background:rgba(255,107,53,0.12);bottom:-60px;left:-60px;animation:float2 9s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(0.95)}}
+.light{background:var(--bg-light)}
+.dark{background:var(--bg-dark)}
+.light h2{font-size:28px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.dark h2{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.section-label{font-size:17px;font-weight:600;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.divider{width:48px;height:4px;background:#ff6b35;border-radius:4px;margin:12px 0 32px}
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:32px}
+.pcard{background:#fff;border-radius:var(--radius-card);padding:28px 22px;border-top:4px solid;transition:transform .2s,box-shadow .2s}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(99,102,241,0.12)}
+.pcard:nth-child(1){border-color:#ff6b35}
+.pcard:nth-child(2){border-color:#6366f1}
+.pcard:nth-child(3){border-color:#22c55e}
+.pcard h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.pcard:nth-child(1) h3{color:#c9460f}
+.pcard:nth-child(2) h3{color:#4338ca}
+.pcard:nth-child(3) h3{color:#15803d}
+.pcard .prompt{font-size:22px;color:#4a4a6a;font-style:italic;background:rgba(99,102,241,0.05);border-radius:8px;padding:12px 14px;margin:10px 0;line-height:1.6}
+.pcard p{font-size:22px;color:#4a4a6a;line-height:1.6}
+/* Decision patterns (dark) */
+.dec-cards{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.dec-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:28px 24px;transition:border-color .25s,transform .25s}
+.dec-card:hover{border-color:rgba(255,107,53,0.35);transform:translateY(-2px)}
+.dec-card-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.dec-card h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:10px}
+.dec-card .prompt{font-size:22px;color:rgba(255,255,255,0.75);font-style:italic;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;margin:8px 0;line-height:1.6}
+.dec-card p{font-size:22px;color:rgba(255,255,255,0.7);line-height:1.6}
+.citation{font-size:17px;color:rgba(255,255,255,0.45);margin-top:6px}
+.scenario{background:rgba(99,102,241,0.12);border-left:4px solid #6366f1;border-radius:0 var(--radius-card) var(--radius-card) 0;padding:24px 28px;margin:32px 0}
+.scenario-label{font-size:17px;font-weight:600;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.scenario p{font-size:22px;color:rgba(255,255,255,0.85);line-height:1.75}
+.apply-section{background:linear-gradient(135deg,#1c1c42,#12122e);border:1.5px solid var(--border);border-radius:var(--radius-card);padding:36px 32px;margin-top:40px}
+.apply-label{font-size:17px;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.apply-section h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px}
+.apply-section p{font-size:22px;color:rgba(255,255,255,0.82);line-height:1.75}
+.reflect-list{margin-top:20px;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.reflect-list li{position:relative;padding-left:28px;font-size:22px;color:rgba(255,255,255,0.82);line-height:1.7}
+.reflect-list li::before{content:'';position:absolute;left:0;top:10px;width:10px;height:10px;border-radius:50%;background:#ff6b35}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:640px){section{padding:48px 16px}}
+</style>
+</head>
+<body>
+<section class="dark" style="position:relative;overflow:hidden;padding:64px 24px">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="container">
+    <div class="reveal">
+      <p class="hero-tag">Planning and Decisions</p>
+      <h1 style="font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.2;margin-bottom:20px">Prompting for <span style="color:#ff6b35">Planning and Decisions</span></h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.82);max-width:720px;line-height:1.75">Planning and decisions are where AI's breadth genuinely helps: more options, faster drafts, blind spots surfaced. But only if you prompt for thinking rather than for answers. The patterns here are not "AI tools." They are established decision-quality techniques that AI makes faster to run.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Planning Prompts</p>
+      <h2>Breadth and Structure First, Judgment Second</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="pattern-grid">
+      <div class="pcard reveal">
+        <h3>Options generation</h3>
+        <p class="prompt">"Generate four distinct approaches to [goal], each with a different tradeoff. Do not recommend one yet."</p>
+        <p>AI widens your option set before you commit. The "do not recommend" instruction keeps it in the breadth role.</p>
+      </div>
+      <div class="pcard reveal">
+        <h3>Risk enumeration</h3>
+        <p class="prompt">"List the ways this plan could fail and which assumption would break first."</p>
+        <p>AI surfaces risks you missed under time pressure. You judge which are real and which are generic.</p>
+      </div>
+      <div class="pcard reveal">
+        <h3>Summary and synthesis</h3>
+        <p class="prompt">"Summarize this long document and pull out the three decisions that still need to be made."</p>
+        <p>Spot-check the summary against the original, especially mid-document content. That verification habit is covered in depth in the planning module.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Decision Prompts</p>
+      <h2>Force the Slow Thinking That Confidence Skips</h2>
+      <div class="divider"></div>
+      <p style="font-size:22px;color:rgba(255,255,255,0.8);line-height:1.75;max-width:720px">These three patterns force the deliberate reasoning that confident AI output tends to short-circuit. Note that none of them asks the AI to decide. Each asks it to make your own thinking better.</p>
+    </div>
+    <div class="dec-cards">
+      <div class="dec-card reveal">
+        <p class="dec-card-label">Pattern 1</p>
+        <h3>Devil's Advocate</h3>
+        <p class="prompt">"I am about to recommend [decision]. Argue the strongest possible case against it. Focus on risks specific to this situation, not generic concerns."</p>
+        <p>A deliberate System 2 override against your own confirmation bias. Most useful when you are already sure you are right.</p>
+      </div>
+      <div class="dec-card reveal">
+        <p class="dec-card-label">Pattern 2</p>
+        <h3>Pre-Mortem</h3>
+        <p class="prompt">"Assume this decision failed badly six months from now. List the most likely reasons why."</p>
+        <p>Prospective hindsight (assuming the failure already happened) increased accurate risk identification by roughly 30% in Gary Klein's research (HBR, 2007). AI makes this exercise fast enough to actually run.</p>
+        <p class="citation">Klein, "Performing a Project Premortem," HBR 2007</p>
+      </div>
+      <div class="dec-card reveal">
+        <p class="dec-card-label">Pattern 3</p>
+        <h3>Reframe</h3>
+        <p class="prompt">"Restate this problem from the perspective of [a different stakeholder, a customer, a skeptical executive, the affected team]. What looks different from there?"</p>
+        <p>Changes the frame without changing the facts. Often surfaces the concern you had been quietly avoiding.</p>
+      </div>
+    </div>
+
+    <div class="scenario reveal" style="margin-top:40px">
+      <p class="scenario-label">Reza's story</p>
+      <p>Reza is about to recommend promoting a strong, well-liked individual contributor to a first-time team lead role. Instead of asking AI whether to do it, Reza prompts for the devil's advocate: "Argue the strongest case against this promotion, focused on risks specific to the IC-to-manager transition." The AI returns sharp, specific dissent: the risk that technical excellence does not predict management skill, the loss of a top contributor, the support this person would need that the team cannot currently give. None of it is a verdict. All of it makes Reza's decision better.</p>
+    </div>
+
+    <div class="apply-section reveal">
+      <p class="apply-label">Apply It Today</p>
+      <h3>Run the devil's advocate on one real decision</h3>
+      <p>Take one real decision you are sitting on and run the devil's advocate prompt on it. Notice whether it surfaces a risk you were quietly avoiding.</p>
+    </div>
+
+    <div class="apply-section reveal" style="margin-top:24px">
+      <p class="apply-label">Reflect</p>
+      <ul class="reflect-list">
+        <li>Which planning bottleneck (blank page, narrow options, unseen risks) costs you the most?</li>
+        <li>On your last big decision, would a pre-mortem have changed anything?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
