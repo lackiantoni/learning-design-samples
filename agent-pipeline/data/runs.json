@@ -1,0 +1,2380 @@
+{
+  "summary": {
+    "runs_total": 30,
+    "runs_complete": 30,
+    "runs_with_synthesis": 30,
+    "coverage_note": "Metrics are reported only over the runs where the underlying file actually exists. Counts differ per metric on purpose.",
+    "reviewer_findings_per_run": {
+      "n": 30,
+      "min": 28,
+      "median": 57.0,
+      "mean": 55.8,
+      "max": 77,
+      "total": 1673
+    },
+    "must_fix_items_per_run": {
+      "n": 30,
+      "min": 10,
+      "median": 21.5,
+      "mean": 22.5,
+      "max": 48,
+      "total": 676
+    },
+    "consensus_findings_per_run": {
+      "n": 30,
+      "min": 7,
+      "median": 11.0,
+      "mean": 12.6,
+      "max": 24,
+      "total": 377
+    },
+    "agreement_histogram_reviewers_per_finding": {
+      "1": 0,
+      "2": 20,
+      "3": 116,
+      "4": 103,
+      "5": 74,
+      "6": 36,
+      "7": 28
+    },
+    "findings_confirmed_by_2_or_more": 377,
+    "findings_confirmed_by_4_or_more": 241,
+    "fan_out_span_seconds": {
+      "n": 30,
+      "min": 46.3,
+      "median": 118.0,
+      "mean": 123.1,
+      "max": 297.3,
+      "total": 3693.0
+    }
+  },
+  "runs": [
+    {
+      "slug": "bezsennosc",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1137,
+          "numbered_findings": 11,
+          "mtime": 1778933127.7475765
+        },
+        "client-avatar": {
+          "words": 1889,
+          "numbered_findings": 7,
+          "mtime": 1778933189.8649614
+        },
+        "copy-coach": {
+          "words": 1564,
+          "numbered_findings": 5,
+          "mtime": 1778933169.8522904
+        },
+        "seo-reviewer": {
+          "words": 2345,
+          "numbered_findings": 11,
+          "mtime": 1778933206.1847777
+        },
+        "fact-checker": {
+          "words": 1976,
+          "numbered_findings": 5,
+          "mtime": 1778933328.8936055
+        },
+        "brand-voice": {
+          "words": 1820,
+          "numbered_findings": 8,
+          "mtime": 1778933204.9923465
+        },
+        "hook-coach": {
+          "words": 1701,
+          "numbered_findings": 10,
+          "mtime": 1778933180.359636
+        }
+      },
+      "fan_out_span_seconds": 201.1,
+      "reviewer_findings_total": 57,
+      "reviewer_words_total": 12432,
+      "synthesis_lag_seconds": 780.6,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1774,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 12,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 18,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "coaching",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1241,
+          "numbered_findings": 7,
+          "mtime": 1779029583.312483
+        },
+        "client-avatar": {
+          "words": 1467,
+          "numbered_findings": 6,
+          "mtime": 1779029607.752937
+        },
+        "copy-coach": {
+          "words": 2618,
+          "numbered_findings": 5,
+          "mtime": 1779029648.7909868
+        },
+        "seo-reviewer": {
+          "words": 1904,
+          "numbered_findings": 11,
+          "mtime": 1779029623.0173771
+        },
+        "fact-checker": {
+          "words": 1062,
+          "numbered_findings": 5,
+          "mtime": 1779029629.449352
+        },
+        "brand-voice": {
+          "words": 1492,
+          "numbered_findings": 5,
+          "mtime": 1779029635.5005114
+        },
+        "hook-coach": {
+          "words": 1218,
+          "numbered_findings": 0,
+          "mtime": 1779029601.2267127
+        }
+      },
+      "fan_out_span_seconds": 65.5,
+      "reviewer_findings_total": 39,
+      "reviewer_words_total": 11002,
+      "synthesis_lag_seconds": 451.0,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 2276,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 15,
+        "findings_with_majority_agreement": 7,
+        "must_fix_rows": 20,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "cwiczenia-oddechowe",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1194,
+          "numbered_findings": 7,
+          "mtime": 1778933578.7905006
+        },
+        "client-avatar": {
+          "words": 1800,
+          "numbered_findings": 7,
+          "mtime": 1778933624.5860546
+        },
+        "copy-coach": {
+          "words": 2103,
+          "numbered_findings": 5,
+          "mtime": 1778933652.2129905
+        },
+        "seo-reviewer": {
+          "words": 2349,
+          "numbered_findings": 26,
+          "mtime": 1778933657.8072464
+        },
+        "fact-checker": {
+          "words": 1959,
+          "numbered_findings": 5,
+          "mtime": 1778933734.5688891
+        },
+        "brand-voice": {
+          "words": 1599,
+          "numbered_findings": 8,
+          "mtime": 1778933643.6355398
+        },
+        "hook-coach": {
+          "words": 1404,
+          "numbered_findings": 5,
+          "mtime": 1778933613.3915484
+        }
+      },
+      "fan_out_span_seconds": 155.8,
+      "reviewer_findings_total": 63,
+      "reviewer_words_total": 12408,
+      "synthesis_lag_seconds": 17890.1,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2294,
+        "consensus_counts": [
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          7
+        ],
+        "findings_with_multi_reviewer_agreement": 15,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 26,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "drzemki",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1402,
+          "numbered_findings": 7,
+          "mtime": 1778933071.7823024
+        },
+        "client-avatar": {
+          "words": 1494,
+          "numbered_findings": 7,
+          "mtime": 1778933079.2985868
+        },
+        "copy-coach": {
+          "words": 2242,
+          "numbered_findings": 5,
+          "mtime": 1778933106.6682997
+        },
+        "seo-reviewer": {
+          "words": 2091,
+          "numbered_findings": 19,
+          "mtime": 1778933110.4462562
+        },
+        "fact-checker": {
+          "words": 1366,
+          "numbered_findings": 5,
+          "mtime": 1778933118.0631952
+        },
+        "brand-voice": {
+          "words": 1365,
+          "numbered_findings": 8,
+          "mtime": 1778933085.620052
+        },
+        "hook-coach": {
+          "words": 1234,
+          "numbered_findings": 0,
+          "mtime": 1778933080.4296224
+        }
+      },
+      "fan_out_span_seconds": 46.3,
+      "reviewer_findings_total": 51,
+      "reviewer_words_total": 11194,
+      "synthesis_lag_seconds": 940.5,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1558,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 7,
+        "must_fix_rows": 10,
+        "divergences_resolved": 5
+      }
+    },
+    {
+      "slug": "fazy-snu",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1048,
+          "numbered_findings": 7,
+          "mtime": 1778933490.443808
+        },
+        "client-avatar": {
+          "words": 1587,
+          "numbered_findings": 0,
+          "mtime": 1778933533.1825366
+        },
+        "copy-coach": {
+          "words": 1921,
+          "numbered_findings": 5,
+          "mtime": 1778933555.3325307
+        },
+        "seo-reviewer": {
+          "words": 1916,
+          "numbered_findings": 20,
+          "mtime": 1778933544.742773
+        },
+        "fact-checker": {
+          "words": 1836,
+          "numbered_findings": 5,
+          "mtime": 1778933662.3903298
+        },
+        "brand-voice": {
+          "words": 1751,
+          "numbered_findings": 13,
+          "mtime": 1778933557.2801178
+        },
+        "hook-coach": {
+          "words": 1543,
+          "numbered_findings": 5,
+          "mtime": 1778933529.5025685
+        }
+      },
+      "fan_out_span_seconds": 171.9,
+      "reviewer_findings_total": 55,
+      "reviewer_words_total": 11602,
+      "synthesis_lag_seconds": 549.8,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2591,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 13,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 24,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "feedback-co-to",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1171,
+          "numbered_findings": 11,
+          "mtime": 1778932114.5528328
+        },
+        "client-avatar": {
+          "words": 1302,
+          "numbered_findings": 0,
+          "mtime": 1778932121.3725398
+        },
+        "copy-coach": {
+          "words": 3127,
+          "numbered_findings": 5,
+          "mtime": 1778932206.9888117
+        },
+        "seo-reviewer": {
+          "words": 2136,
+          "numbered_findings": 28,
+          "mtime": 1778932170.602633
+        },
+        "fact-checker": {
+          "words": 1290,
+          "numbered_findings": 5,
+          "mtime": 1778932192.1237357
+        },
+        "brand-voice": {
+          "words": 1637,
+          "numbered_findings": 5,
+          "mtime": 1778932174.3961902
+        },
+        "hook-coach": {
+          "words": 1229,
+          "numbered_findings": 0,
+          "mtime": 1778932138.1818383
+        }
+      },
+      "fan_out_span_seconds": 92.4,
+      "reviewer_findings_total": 54,
+      "reviewer_words_total": 11892,
+      "synthesis_lag_seconds": 311.9,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1630,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 12,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 12,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "gleboki-sen",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1326,
+          "numbered_findings": 7,
+          "mtime": 1778951830.4834692
+        },
+        "client-avatar": {
+          "words": 1513,
+          "numbered_findings": 6,
+          "mtime": 1778951853.2254155
+        },
+        "copy-coach": {
+          "words": 1905,
+          "numbered_findings": 5,
+          "mtime": 1778951869.001011
+        },
+        "seo-reviewer": {
+          "words": 2302,
+          "numbered_findings": 44,
+          "mtime": 1778951899.5030234
+        },
+        "fact-checker": {
+          "words": 1840,
+          "numbered_findings": 5,
+          "mtime": 1778951966.209307
+        },
+        "brand-voice": {
+          "words": 1604,
+          "numbered_findings": 5,
+          "mtime": 1778951871.0287995
+        },
+        "hook-coach": {
+          "words": 1813,
+          "numbered_findings": 5,
+          "mtime": 1778951907.4050531
+        }
+      },
+      "fan_out_span_seconds": 135.7,
+      "reviewer_findings_total": 77,
+      "reviewer_words_total": 12303,
+      "synthesis_lag_seconds": 275.7,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2269,
+        "consensus_counts": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 7,
+        "findings_with_majority_agreement": 5,
+        "must_fix_rows": 18,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "higiena-snu",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1313,
+          "numbered_findings": 10,
+          "mtime": 1778933168.5857441
+        },
+        "client-avatar": {
+          "words": 1508,
+          "numbered_findings": 6,
+          "mtime": 1778933191.0926943
+        },
+        "copy-coach": {
+          "words": 2380,
+          "numbered_findings": 5,
+          "mtime": 1778933244.4330451
+        },
+        "seo-reviewer": {
+          "words": 2031,
+          "numbered_findings": 17,
+          "mtime": 1778933218.591312
+        },
+        "fact-checker": {
+          "words": 1799,
+          "numbered_findings": 5,
+          "mtime": 1778933304.1023598
+        },
+        "brand-voice": {
+          "words": 1907,
+          "numbered_findings": 5,
+          "mtime": 1778933232.4782279
+        },
+        "hook-coach": {
+          "words": 1363,
+          "numbered_findings": 10,
+          "mtime": 1778933179.6369743
+        }
+      },
+      "fan_out_span_seconds": 135.5,
+      "reviewer_findings_total": 58,
+      "reviewer_words_total": 12301,
+      "synthesis_lag_seconds": 832.1,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1922,
+        "consensus_counts": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 6,
+        "must_fix_rows": 21,
+        "divergences_resolved": 5
+      }
+    },
+    {
+      "slug": "jak-nie-zasnac",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1111,
+          "numbered_findings": 7,
+          "mtime": 1778933080.479156
+        },
+        "client-avatar": {
+          "words": 1602,
+          "numbered_findings": 7,
+          "mtime": 1778933118.1657891
+        },
+        "copy-coach": {
+          "words": 2763,
+          "numbered_findings": 5,
+          "mtime": 1778933175.9129944
+        },
+        "seo-reviewer": {
+          "words": 1772,
+          "numbered_findings": 5,
+          "mtime": 1778933120.0213895
+        },
+        "fact-checker": {
+          "words": 1807,
+          "numbered_findings": 5,
+          "mtime": 1778933203.0808184
+        },
+        "brand-voice": {
+          "words": 1354,
+          "numbered_findings": 9,
+          "mtime": 1778933120.6385953
+        },
+        "hook-coach": {
+          "words": 1424,
+          "numbered_findings": 0,
+          "mtime": 1778933104.6436608
+        }
+      },
+      "fan_out_span_seconds": 122.6,
+      "reviewer_findings_total": 38,
+      "reviewer_words_total": 11833,
+      "synthesis_lag_seconds": 930.0,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2058,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 8,
+        "findings_with_majority_agreement": 6,
+        "must_fix_rows": 23,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "jak-zasnac",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1190,
+          "numbered_findings": 7,
+          "mtime": 1778933488.775578
+        },
+        "client-avatar": {
+          "words": 1710,
+          "numbered_findings": 10,
+          "mtime": 1778933523.542733
+        },
+        "copy-coach": {
+          "words": 1854,
+          "numbered_findings": 5,
+          "mtime": 1778933533.1674762
+        },
+        "seo-reviewer": {
+          "words": 2359,
+          "numbered_findings": 25,
+          "mtime": 1778933546.9306822
+        },
+        "fact-checker": {
+          "words": 1651,
+          "numbered_findings": 5,
+          "mtime": 1778933579.3635561
+        },
+        "brand-voice": {
+          "words": 1803,
+          "numbered_findings": 14,
+          "mtime": 1778933543.1398017
+        },
+        "hook-coach": {
+          "words": 1688,
+          "numbered_findings": 11,
+          "mtime": 1778933521.109416
+        }
+      },
+      "fan_out_span_seconds": 90.6,
+      "reviewer_findings_total": 77,
+      "reviewer_words_total": 12255,
+      "synthesis_lag_seconds": 603.1,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2565,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 15,
+        "findings_with_majority_agreement": 11,
+        "must_fix_rows": 30,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "joga-nidra",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1493,
+          "numbered_findings": 7,
+          "mtime": 1778951918.5708756
+        },
+        "client-avatar": {
+          "words": 1483,
+          "numbered_findings": 5,
+          "mtime": 1778951934.1604517
+        },
+        "copy-coach": {
+          "words": 2492,
+          "numbered_findings": 5,
+          "mtime": 1778951989.8706214
+        },
+        "seo-reviewer": {
+          "words": 2241,
+          "numbered_findings": 30,
+          "mtime": 1778951957.9214485
+        },
+        "fact-checker": {
+          "words": 1579,
+          "numbered_findings": 5,
+          "mtime": 1778952004.6628819
+        },
+        "brand-voice": {
+          "words": 1388,
+          "numbered_findings": 5,
+          "mtime": 1778951947.5869546
+        },
+        "hook-coach": {
+          "words": 1254,
+          "numbered_findings": 0,
+          "mtime": 1778951948.3128595
+        }
+      },
+      "fan_out_span_seconds": 86.1,
+      "reviewer_findings_total": 57,
+      "reviewer_words_total": 11930,
+      "synthesis_lag_seconds": 566.4,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2978,
+        "consensus_counts": [
+          7,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 13,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 26,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "kim-zostac-w-przyszlosci",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1143,
+          "numbered_findings": 10,
+          "mtime": 1779004103.4351246
+        },
+        "client-avatar": {
+          "words": 1474,
+          "numbered_findings": 6,
+          "mtime": 1779004133.2700996
+        },
+        "copy-coach": {
+          "words": 2435,
+          "numbered_findings": 5,
+          "mtime": 1779004180.8288407
+        },
+        "seo-reviewer": {
+          "words": 2056,
+          "numbered_findings": 19,
+          "mtime": 1779004168.775571
+        },
+        "fact-checker": {
+          "words": 1189,
+          "numbered_findings": 5,
+          "mtime": 1779004165.0431645
+        },
+        "brand-voice": {
+          "words": 2075,
+          "numbered_findings": 15,
+          "mtime": 1779004199.2086046
+        },
+        "hook-coach": {
+          "words": 1456,
+          "numbered_findings": 10,
+          "mtime": 1779004143.2152302
+        }
+      },
+      "fan_out_span_seconds": 95.8,
+      "reviewer_findings_total": 70,
+      "reviewer_words_total": 11828,
+      "synthesis_lag_seconds": 203.5,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 2090,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 12,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 14,
+        "divergences_resolved": 3
+      }
+    },
+    {
+      "slug": "kortyzol-jak-obnizyc",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1068,
+          "numbered_findings": 7,
+          "mtime": 1778933543.450783
+        },
+        "client-avatar": {
+          "words": 2716,
+          "numbered_findings": 10,
+          "mtime": 1778933662.9563212
+        },
+        "copy-coach": {
+          "words": 1808,
+          "numbered_findings": 5,
+          "mtime": 1778933601.9254262
+        },
+        "seo-reviewer": {
+          "words": 2363,
+          "numbered_findings": 33,
+          "mtime": 1778933635.0211146
+        },
+        "fact-checker": {
+          "words": 2080,
+          "numbered_findings": 5,
+          "mtime": 1778933840.7777934
+        },
+        "brand-voice": {
+          "words": 1728,
+          "numbered_findings": 8,
+          "mtime": 1778933618.8366797
+        },
+        "hook-coach": {
+          "words": 1241,
+          "numbered_findings": 0,
+          "mtime": 1778933568.1353624
+        }
+      },
+      "fan_out_span_seconds": 297.3,
+      "reviewer_findings_total": 68,
+      "reviewer_words_total": 13004,
+      "synthesis_lag_seconds": 17316.7,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1838,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 14,
+        "findings_with_majority_agreement": 11,
+        "must_fix_rows": 25,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "koszmary",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1199,
+          "numbered_findings": 7,
+          "mtime": 1778933100.8815808
+        },
+        "client-avatar": {
+          "words": 1658,
+          "numbered_findings": 5,
+          "mtime": 1778933136.1371126
+        },
+        "copy-coach": {
+          "words": 2647,
+          "numbered_findings": 5,
+          "mtime": 1778933191.629357
+        },
+        "seo-reviewer": {
+          "words": 2376,
+          "numbered_findings": 17,
+          "mtime": 1778933174.5473516
+        },
+        "fact-checker": {
+          "words": 1288,
+          "numbered_findings": 5,
+          "mtime": 1778933183.1035004
+        },
+        "brand-voice": {
+          "words": 1481,
+          "numbered_findings": 8,
+          "mtime": 1778933153.2644792
+        },
+        "hook-coach": {
+          "words": 1239,
+          "numbered_findings": 0,
+          "mtime": 1778933125.880837
+        }
+      },
+      "fan_out_span_seconds": 90.7,
+      "reviewer_findings_total": 47,
+      "reviewer_words_total": 11888,
+      "synthesis_lag_seconds": 900.1,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1765,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 22,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "lek-a-sen",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1272,
+          "numbered_findings": 7,
+          "mtime": 1779029623.9436014
+        },
+        "client-avatar": {
+          "words": 1853,
+          "numbered_findings": 0,
+          "mtime": 1779029666.244723
+        },
+        "copy-coach": {
+          "words": 2367,
+          "numbered_findings": 5,
+          "mtime": 1779029692.7496912
+        },
+        "seo-reviewer": {
+          "words": 2233,
+          "numbered_findings": 26,
+          "mtime": 1779029680.213373
+        },
+        "fact-checker": {
+          "words": 2445,
+          "numbered_findings": 5,
+          "mtime": 1779029831.851932
+        },
+        "brand-voice": {
+          "words": 1828,
+          "numbered_findings": 12,
+          "mtime": 1779029693.8356535
+        },
+        "hook-coach": {
+          "words": 1293,
+          "numbered_findings": 0,
+          "mtime": 1779029640.6414373
+        }
+      },
+      "fan_out_span_seconds": 207.9,
+      "reviewer_findings_total": 55,
+      "reviewer_words_total": 13291,
+      "synthesis_lag_seconds": 695.3,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 3025,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 48,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "lucid-dream",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1556,
+          "numbered_findings": 7,
+          "mtime": 1778926759.8558059
+        },
+        "client-avatar": {
+          "words": 1867,
+          "numbered_findings": 7,
+          "mtime": 1778926797.4138184
+        },
+        "copy-coach": {
+          "words": 3979,
+          "numbered_findings": 5,
+          "mtime": 1778926876.9057968
+        },
+        "seo-reviewer": {
+          "words": 1882,
+          "numbered_findings": 23,
+          "mtime": 1778926774.6111233
+        },
+        "fact-checker": {
+          "words": 1323,
+          "numbered_findings": 5,
+          "mtime": 1778926789.3968604
+        },
+        "brand-voice": {
+          "words": 2097,
+          "numbered_findings": 5,
+          "mtime": 1778926829.457044
+        },
+        "hook-coach": {
+          "words": 1503,
+          "numbered_findings": 0,
+          "mtime": 1778926770.822559
+        }
+      },
+      "fan_out_span_seconds": 117.0,
+      "reviewer_findings_total": 52,
+      "reviewer_words_total": 14207,
+      "synthesis_lag_seconds": 412.5,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1921,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 9,
+        "findings_with_majority_agreement": 7,
+        "must_fix_rows": 10,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "marzenia-senne",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1505,
+          "numbered_findings": 7,
+          "mtime": 1778959475.077203
+        },
+        "client-avatar": {
+          "words": 1601,
+          "numbered_findings": 6,
+          "mtime": 1778959484.8894413
+        },
+        "copy-coach": {
+          "words": 2632,
+          "numbered_findings": 5,
+          "mtime": 1778959548.9962404
+        },
+        "seo-reviewer": {
+          "words": 1940,
+          "numbered_findings": 27,
+          "mtime": 1778959499.0737731
+        },
+        "fact-checker": {
+          "words": 1936,
+          "numbered_findings": 5,
+          "mtime": 1778959602.7441447
+        },
+        "brand-voice": {
+          "words": 1593,
+          "numbered_findings": 12,
+          "mtime": 1778959497.412384
+        },
+        "hook-coach": {
+          "words": 1252,
+          "numbered_findings": 5,
+          "mtime": 1778959461.7462595
+        }
+      },
+      "fan_out_span_seconds": 141.0,
+      "reviewer_findings_total": 67,
+      "reviewer_words_total": 12459,
+      "synthesis_lag_seconds": 40166.1,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2262,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 22,
+        "divergences_resolved": 6
+      }
+    },
+    {
+      "slug": "plytki-oddech",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1209,
+          "numbered_findings": 7,
+          "mtime": 1778999971.3369305
+        },
+        "client-avatar": {
+          "words": 1803,
+          "numbered_findings": 7,
+          "mtime": 1779000022.9263246
+        },
+        "copy-coach": {
+          "words": 1984,
+          "numbered_findings": 5,
+          "mtime": 1779000011.4860182
+        },
+        "seo-reviewer": {
+          "words": 1914,
+          "numbered_findings": 22,
+          "mtime": 1779000006.6561484
+        },
+        "fact-checker": {
+          "words": 1664,
+          "numbered_findings": 5,
+          "mtime": 1779000085.0674033
+        },
+        "brand-voice": {
+          "words": 1521,
+          "numbered_findings": 5,
+          "mtime": 1779000004.2264621
+        },
+        "hook-coach": {
+          "words": 1469,
+          "numbered_findings": 10,
+          "mtime": 1778999992.2015078
+        }
+      },
+      "fan_out_span_seconds": 113.7,
+      "reviewer_findings_total": 61,
+      "reviewer_words_total": 11564,
+      "synthesis_lag_seconds": 281.2,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 2417,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 20,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 21,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "pozycja-do-spania",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1061,
+          "numbered_findings": 7,
+          "mtime": 1778999409.5323932
+        },
+        "client-avatar": {
+          "words": 1396,
+          "numbered_findings": 8,
+          "mtime": 1778999447.6280208
+        },
+        "copy-coach": {
+          "words": 1728,
+          "numbered_findings": 5,
+          "mtime": 1778999476.989323
+        },
+        "seo-reviewer": {
+          "words": 2292,
+          "numbered_findings": 10,
+          "mtime": 1778999500.7200844
+        },
+        "fact-checker": {
+          "words": 1735,
+          "numbered_findings": 5,
+          "mtime": 1778999536.7945294
+        },
+        "brand-voice": {
+          "words": 1279,
+          "numbered_findings": 5,
+          "mtime": 1778999453.5229778
+        },
+        "hook-coach": {
+          "words": 1195,
+          "numbered_findings": 0,
+          "mtime": 1778999435.1724734
+        }
+      },
+      "fan_out_span_seconds": 127.3,
+      "reviewer_findings_total": 40,
+      "reviewer_words_total": 10686,
+      "synthesis_lag_seconds": 1093.9,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 2983,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 18,
+        "findings_with_majority_agreement": 12,
+        "must_fix_rows": 34,
+        "divergences_resolved": 6
+      }
+    },
+    {
+      "slug": "praca-przez-internet",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1329,
+          "numbered_findings": 10,
+          "mtime": 1778932150.8732522
+        },
+        "client-avatar": {
+          "words": 1538,
+          "numbered_findings": 8,
+          "mtime": 1778932174.0630903
+        },
+        "copy-coach": {
+          "words": 2168,
+          "numbered_findings": 5,
+          "mtime": 1778932196.9074783
+        },
+        "seo-reviewer": {
+          "words": 2393,
+          "numbered_findings": 26,
+          "mtime": 1778932211.0144463
+        },
+        "fact-checker": {
+          "words": 1457,
+          "numbered_findings": 5,
+          "mtime": 1778932276.4903982
+        },
+        "brand-voice": {
+          "words": 1960,
+          "numbered_findings": 5,
+          "mtime": 1778932220.156877
+        },
+        "hook-coach": {
+          "words": 1320,
+          "numbered_findings": 0,
+          "mtime": 1778932167.497856
+        }
+      },
+      "fan_out_span_seconds": 125.6,
+      "reviewer_findings_total": 59,
+      "reviewer_words_total": 12165,
+      "synthesis_lag_seconds": 220.7,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1976,
+        "consensus_counts": [
+          7,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 2,
+        "must_fix_rows": 26,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "sen-kompletny-przewodnik",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1483,
+          "numbered_findings": 7,
+          "mtime": 1778959443.224291
+        },
+        "client-avatar": {
+          "words": 1750,
+          "numbered_findings": 8,
+          "mtime": 1778959466.5208795
+        },
+        "copy-coach": {
+          "words": 2166,
+          "numbered_findings": 5,
+          "mtime": 1778959480.5711691
+        },
+        "seo-reviewer": {
+          "words": 2423,
+          "numbered_findings": 15,
+          "mtime": 1778959486.672157
+        },
+        "fact-checker": {
+          "words": 1676,
+          "numbered_findings": 5,
+          "mtime": 1778959534.5646973
+        },
+        "brand-voice": {
+          "words": 1686,
+          "numbered_findings": 6,
+          "mtime": 1778959477.4787621
+        },
+        "hook-coach": {
+          "words": 1549,
+          "numbered_findings": 0,
+          "mtime": 1778959457.3316305
+        }
+      },
+      "fan_out_span_seconds": 91.3,
+      "reviewer_findings_total": 46,
+      "reviewer_words_total": 12733,
+      "synthesis_lag_seconds": 39933.8,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2226,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          6,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 14,
+        "findings_with_majority_agreement": 10,
+        "must_fix_rows": 10,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "sen-polifazowy",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1241,
+          "numbered_findings": 7,
+          "mtime": 1778932071.9212785
+        },
+        "client-avatar": {
+          "words": 1357,
+          "numbered_findings": 7,
+          "mtime": 1778932091.1470013
+        },
+        "copy-coach": {
+          "words": 3403,
+          "numbered_findings": 5,
+          "mtime": 1778932190.9425483
+        },
+        "seo-reviewer": {
+          "words": 2064,
+          "numbered_findings": 0,
+          "mtime": 1778932123.2999094
+        },
+        "fact-checker": {
+          "words": 1458,
+          "numbered_findings": 5,
+          "mtime": 1778932162.4953783
+        },
+        "brand-voice": {
+          "words": 1323,
+          "numbered_findings": 5,
+          "mtime": 1778932093.9510572
+        },
+        "hook-coach": {
+          "words": 1247,
+          "numbered_findings": 10,
+          "mtime": 1778932084.013685
+        }
+      },
+      "fan_out_span_seconds": 119.0,
+      "reviewer_findings_total": 39,
+      "reviewer_words_total": 12093,
+      "synthesis_lag_seconds": 315.4,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2638,
+        "consensus_counts": [
+          7,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 6,
+        "must_fix_rows": 37,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "sen-rem",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1167,
+          "numbered_findings": 7,
+          "mtime": 1778951848.8501117
+        },
+        "client-avatar": {
+          "words": 1517,
+          "numbered_findings": 6,
+          "mtime": 1778951870.1074648
+        },
+        "copy-coach": {
+          "words": 2042,
+          "numbered_findings": 5,
+          "mtime": 1778951899.2343793
+        },
+        "seo-reviewer": {
+          "words": 2218,
+          "numbered_findings": 21,
+          "mtime": 1778951903.518536
+        },
+        "fact-checker": {
+          "words": 1768,
+          "numbered_findings": 5,
+          "mtime": 1778951964.926149
+        },
+        "brand-voice": {
+          "words": 1623,
+          "numbered_findings": 8,
+          "mtime": 1778951904.8143191
+        },
+        "hook-coach": {
+          "words": 1513,
+          "numbered_findings": 10,
+          "mtime": 1778951881.5049105
+        }
+      },
+      "fan_out_span_seconds": 116.1,
+      "reviewer_findings_total": 62,
+      "reviewer_words_total": 11848,
+      "synthesis_lag_seconds": 290.8,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1879,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 9,
+        "findings_with_majority_agreement": 6,
+        "must_fix_rows": 16,
+        "divergences_resolved": 3
+      }
+    },
+    {
+      "slug": "swiadomy-sen",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1277,
+          "numbered_findings": 7,
+          "mtime": 1778933525.1034498
+        },
+        "client-avatar": {
+          "words": 1615,
+          "numbered_findings": 7,
+          "mtime": 1778933558.6992347
+        },
+        "copy-coach": {
+          "words": 2359,
+          "numbered_findings": 12,
+          "mtime": 1778933619.7688706
+        },
+        "seo-reviewer": {
+          "words": 1965,
+          "numbered_findings": 19,
+          "mtime": 1778933579.596192
+        },
+        "fact-checker": {
+          "words": 1647,
+          "numbered_findings": 5,
+          "mtime": 1778933648.33813
+        },
+        "brand-voice": {
+          "words": 1784,
+          "numbered_findings": 5,
+          "mtime": 1778933592.0537038
+        },
+        "hook-coach": {
+          "words": 1525,
+          "numbered_findings": 5,
+          "mtime": 1778933566.8606553
+        }
+      },
+      "fan_out_span_seconds": 123.2,
+      "reviewer_findings_total": 60,
+      "reviewer_words_total": 12172,
+      "synthesis_lag_seconds": 549.0,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2086,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 7,
+        "must_fix_rows": 22,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "team-building",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1214,
+          "numbered_findings": 12,
+          "mtime": 1779017391.0404387
+        },
+        "client-avatar": {
+          "words": 1509,
+          "numbered_findings": 6,
+          "mtime": 1779017411.3011873
+        },
+        "copy-coach": {
+          "words": 2434,
+          "numbered_findings": 5,
+          "mtime": 1779017463.8897223
+        },
+        "seo-reviewer": {
+          "words": 2282,
+          "numbered_findings": 29,
+          "mtime": 1779017452.7258832
+        },
+        "fact-checker": {
+          "words": 1185,
+          "numbered_findings": 5,
+          "mtime": 1779017467.561987
+        },
+        "brand-voice": {
+          "words": 1552,
+          "numbered_findings": 5,
+          "mtime": 1779017436.2763984
+        },
+        "hook-coach": {
+          "words": 1295,
+          "numbered_findings": 0,
+          "mtime": 1779017404.3073473
+        }
+      },
+      "fan_out_span_seconds": 76.5,
+      "reviewer_findings_total": 62,
+      "reviewer_words_total": 11471,
+      "synthesis_lag_seconds": 328.8,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 1954,
+        "consensus_counts": [
+          7,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 5,
+        "must_fix_rows": 21,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "temperatura-do-spania",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1205,
+          "numbered_findings": 7,
+          "mtime": 1778999401.747839
+        },
+        "client-avatar": {
+          "words": 1671,
+          "numbered_findings": 7,
+          "mtime": 1778999438.5811036
+        },
+        "copy-coach": {
+          "words": 1726,
+          "numbered_findings": 5,
+          "mtime": 1778999431.579584
+        },
+        "seo-reviewer": {
+          "words": 1569,
+          "numbered_findings": 22,
+          "mtime": 1778999424.1886954
+        },
+        "fact-checker": {
+          "words": 1691,
+          "numbered_findings": 5,
+          "mtime": 1778999542.2088313
+        },
+        "brand-voice": {
+          "words": 1325,
+          "numbered_findings": 5,
+          "mtime": 1778999430.5461113
+        },
+        "hook-coach": {
+          "words": 1343,
+          "numbered_findings": 10,
+          "mtime": 1778999449.0752664
+        }
+      },
+      "fan_out_span_seconds": 140.5,
+      "reviewer_findings_total": 61,
+      "reviewer_words_total": 10530,
+      "synthesis_lag_seconds": 731.8,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 1827,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 11,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 21,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "webinarium",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1155,
+          "numbered_findings": 7,
+          "mtime": 1779017410.654699
+        },
+        "client-avatar": {
+          "words": 1615,
+          "numbered_findings": 6,
+          "mtime": 1779017445.4474752
+        },
+        "copy-coach": {
+          "words": 2644,
+          "numbered_findings": 5,
+          "mtime": 1779017486.6058652
+        },
+        "seo-reviewer": {
+          "words": 1869,
+          "numbered_findings": 24,
+          "mtime": 1779017447.9800181
+        },
+        "fact-checker": {
+          "words": 1224,
+          "numbered_findings": 5,
+          "mtime": 1779017492.6411996
+        },
+        "brand-voice": {
+          "words": 1631,
+          "numbered_findings": 5,
+          "mtime": 1779017464.0606406
+        },
+        "hook-coach": {
+          "words": 1310,
+          "numbered_findings": 10,
+          "mtime": 1779017437.4776719
+        }
+      },
+      "fan_out_span_seconds": 82.0,
+      "reviewer_findings_total": 62,
+      "reviewer_words_total": 11448,
+      "synthesis_lag_seconds": 394.6,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 3042,
+        "consensus_counts": [
+          7,
+          6,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 24,
+        "findings_with_majority_agreement": 15,
+        "must_fix_rows": 30,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "wim-hof",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1206,
+          "numbered_findings": 7,
+          "mtime": 1778951880.0184684
+        },
+        "client-avatar": {
+          "words": 1337,
+          "numbered_findings": 6,
+          "mtime": 1778951895.655779
+        },
+        "copy-coach": {
+          "words": 1813,
+          "numbered_findings": 5,
+          "mtime": 1778951919.3798504
+        },
+        "seo-reviewer": {
+          "words": 1859,
+          "numbered_findings": 0,
+          "mtime": 1778951916.092101
+        },
+        "fact-checker": {
+          "words": 2173,
+          "numbered_findings": 5,
+          "mtime": 1778952014.9712434
+        },
+        "brand-voice": {
+          "words": 1613,
+          "numbered_findings": 5,
+          "mtime": 1778951934.588289
+        },
+        "hook-coach": {
+          "words": 1354,
+          "numbered_findings": 0,
+          "mtime": 1778951900.8305955
+        }
+      },
+      "fan_out_span_seconds": 135.0,
+      "reviewer_findings_total": 28,
+      "reviewer_words_total": 11355,
+      "synthesis_lag_seconds": 283.2,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 2175,
+        "consensus_counts": [
+          7,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 7,
+        "must_fix_rows": 20,
+        "divergences_resolved": 3
+      }
+    },
+    {
+      "slug": "wypalenie-zawodowe",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1026,
+          "numbered_findings": 7,
+          "mtime": 1778932082.799686
+        },
+        "client-avatar": {
+          "words": 1601,
+          "numbered_findings": 6,
+          "mtime": 1778932121.9854891
+        },
+        "copy-coach": {
+          "words": 2066,
+          "numbered_findings": 5,
+          "mtime": 1778932138.6435657
+        },
+        "seo-reviewer": {
+          "words": 1909,
+          "numbered_findings": 25,
+          "mtime": 1778932135.2470436
+        },
+        "fact-checker": {
+          "words": 1170,
+          "numbered_findings": 5,
+          "mtime": 1778932164.375515
+        },
+        "brand-voice": {
+          "words": 1660,
+          "numbered_findings": 5,
+          "mtime": 1778932147.8085203
+        },
+        "hook-coach": {
+          "words": 1114,
+          "numbered_findings": 0,
+          "mtime": 1778932103.654655
+        }
+      },
+      "fan_out_span_seconds": 81.6,
+      "reviewer_findings_total": 53,
+      "reviewer_words_total": 10546,
+      "synthesis_lag_seconds": 327.5,
+      "run_date": "2026-05-16",
+      "synthesis": {
+        "words": 1916,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "findings_with_multi_reviewer_agreement": 10,
+        "findings_with_majority_agreement": 8,
+        "must_fix_rows": 13,
+        "divergences_resolved": 4
+      }
+    },
+    {
+      "slug": "zatkany-nos-w-nocy",
+      "reviewers_present": [
+        "brand-voice",
+        "client-avatar",
+        "copy-coach",
+        "devils-advocate",
+        "fact-checker",
+        "hook-coach",
+        "seo-reviewer"
+      ],
+      "reviewer_count": 7,
+      "complete": true,
+      "reviewers": {
+        "devils-advocate": {
+          "words": 1051,
+          "numbered_findings": 12,
+          "mtime": 1778999925.8208551
+        },
+        "client-avatar": {
+          "words": 1468,
+          "numbered_findings": 7,
+          "mtime": 1778999956.5867803
+        },
+        "copy-coach": {
+          "words": 1849,
+          "numbered_findings": 5,
+          "mtime": 1778999992.3786154
+        },
+        "seo-reviewer": {
+          "words": 2212,
+          "numbered_findings": 21,
+          "mtime": 1778999997.117157
+        },
+        "fact-checker": {
+          "words": 1596,
+          "numbered_findings": 5,
+          "mtime": 1779000033.8404362
+        },
+        "brand-voice": {
+          "words": 1252,
+          "numbered_findings": 5,
+          "mtime": 1778999967.182144
+        },
+        "hook-coach": {
+          "words": 1496,
+          "numbered_findings": 0,
+          "mtime": 1778999963.3022258
+        }
+      },
+      "fan_out_span_seconds": 108.0,
+      "reviewer_findings_total": 55,
+      "reviewer_words_total": 10924,
+      "synthesis_lag_seconds": 297.9,
+      "run_date": "2026-05-17",
+      "synthesis": {
+        "words": 2017,
+        "consensus_counts": [
+          7,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "findings_with_multi_reviewer_agreement": 21,
+        "findings_with_majority_agreement": 9,
+        "must_fix_rows": 36,
+        "divergences_resolved": 4
+      }
+    }
+  ]
+}

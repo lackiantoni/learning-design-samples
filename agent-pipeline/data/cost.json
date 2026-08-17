@@ -1,0 +1,652 @@
+{
+  "summary": {
+    "method": "Reconstruction from measured artifact sizes, priced at published Claude Opus 5 API rates ($5.00 in / $25.00 out per million tokens). Not a metered invoice: these runs executed inside Claude Code on a subscription.",
+    "chars_per_token_band": [
+      2.8,
+      3.6
+    ],
+    "input_is_a_floor": "Harness system prompt and tool-call overhead are not on disk and are not counted. Real input tokens are higher than reported here.",
+    "runs_total": 30,
+    "runs_priced": 30,
+    "runs_without_source_article": [],
+    "agent_calls_per_run": 8,
+    "usd_per_run": {
+      "low": {
+        "min": 0.9913,
+        "median": 1.2043,
+        "max": 1.5733
+      },
+      "high": {
+        "min": 1.2745,
+        "median": 1.5483,
+        "max": 2.0228
+      }
+    },
+    "input_tokens_per_run": {
+      "low": {
+        "min": 57937,
+        "median": 72159.0,
+        "max": 108147
+      },
+      "high": {
+        "min": 74490,
+        "median": 92776.0,
+        "max": 139046
+      }
+    },
+    "output_tokens_per_run": {
+      "low": {
+        "min": 28064,
+        "median": 34158.0,
+        "max": 41301
+      },
+      "high": {
+        "min": 36082,
+        "median": 43917.5,
+        "max": 53102
+      }
+    }
+  },
+  "runs": [
+    {
+      "slug": "bezsennosc",
+      "article_chars": 19281,
+      "v2_chars": 24806,
+      "input_chars_floor": 275886,
+      "output_chars": 123362,
+      "input_tokens_band": [
+        76635,
+        98531
+      ],
+      "output_tokens_band": [
+        34267,
+        44058
+      ],
+      "usd_band": [
+        1.2398,
+        1.5941
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "coaching",
+      "article_chars": 12384,
+      "v2_chars": 20501,
+      "input_chars_floor": 210421,
+      "output_chars": 111812,
+      "input_tokens_band": [
+        58450,
+        75150
+      ],
+      "output_tokens_band": [
+        31059,
+        39933
+      ],
+      "usd_band": [
+        1.0687,
+        1.3741
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "cwiczenia-oddechowe",
+      "article_chars": 33371,
+      "v2_chars": 45245,
+      "input_chars_floor": 389328,
+      "output_chars": 148685,
+      "input_tokens_band": [
+        108147,
+        139046
+      ],
+      "output_tokens_band": [
+        41301,
+        53102
+      ],
+      "usd_band": [
+        1.5733,
+        2.0228
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "drzemki",
+      "article_chars": 12318,
+      "v2_chars": 16129,
+      "input_chars_floor": 208572,
+      "output_chars": 101031,
+      "input_tokens_band": [
+        57937,
+        74490
+      ],
+      "output_tokens_band": [
+        28064,
+        36082
+      ],
+      "usd_band": [
+        0.9913,
+        1.2745
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "fazy-snu",
+      "article_chars": 15449,
+      "v2_chars": 20394,
+      "input_chars_floor": 239183,
+      "output_chars": 117439,
+      "input_tokens_band": [
+        66440,
+        85422
+      ],
+      "output_tokens_band": [
+        32622,
+        41942
+      ],
+      "usd_band": [
+        1.1478,
+        1.4757
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "feedback-co-to",
+      "article_chars": 14139,
+      "v2_chars": 17148,
+      "input_chars_floor": 230712,
+      "output_chars": 110959,
+      "input_tokens_band": [
+        64087,
+        82397
+      ],
+      "output_tokens_band": [
+        30822,
+        39628
+      ],
+      "usd_band": [
+        1.091,
+        1.4027
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "gleboki-sen",
+      "article_chars": 16781,
+      "v2_chars": 21973,
+      "input_chars_floor": 253382,
+      "output_chars": 120801,
+      "input_tokens_band": [
+        70384,
+        90494
+      ],
+      "output_tokens_band": [
+        33556,
+        43143
+      ],
+      "usd_band": [
+        1.1908,
+        1.531
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "higiena-snu",
+      "article_chars": 29639,
+      "v2_chars": 34905,
+      "input_chars_floor": 357496,
+      "output_chars": 132243,
+      "input_tokens_band": [
+        99304,
+        127677
+      ],
+      "output_tokens_band": [
+        36734,
+        47230
+      ],
+      "usd_band": [
+        1.4149,
+        1.8191
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "jak-nie-zasnac",
+      "article_chars": 14115,
+      "v2_chars": 17686,
+      "input_chars_floor": 230624,
+      "output_chars": 113758,
+      "input_tokens_band": [
+        64062,
+        82366
+      ],
+      "output_tokens_band": [
+        31599,
+        40628
+      ],
+      "usd_band": [
+        1.1103,
+        1.4275
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "jak-zasnac",
+      "article_chars": 25260,
+      "v2_chars": 32072,
+      "input_chars_floor": 322565,
+      "output_chars": 133692,
+      "input_tokens_band": [
+        89601,
+        115202
+      ],
+      "output_tokens_band": [
+        37137,
+        47747
+      ],
+      "usd_band": [
+        1.3764,
+        1.7697
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "joga-nidra",
+      "article_chars": 21021,
+      "v2_chars": 22876,
+      "input_chars_floor": 286107,
+      "output_chars": 125750,
+      "input_tokens_band": [
+        79474,
+        102181
+      ],
+      "output_tokens_band": [
+        34931,
+        44911
+      ],
+      "usd_band": [
+        1.2706,
+        1.6337
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "kim-zostac-w-przyszlosci",
+      "article_chars": 15089,
+      "v2_chars": 29718,
+      "input_chars_floor": 236934,
+      "output_chars": 124129,
+      "input_tokens_band": [
+        65815,
+        84619
+      ],
+      "output_tokens_band": [
+        34480,
+        44332
+      ],
+      "usd_band": [
+        1.1911,
+        1.5314
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "kortyzol-jak-obnizyc",
+      "article_chars": 17665,
+      "v2_chars": 28241,
+      "input_chars_floor": 268080,
+      "output_chars": 131906,
+      "input_tokens_band": [
+        74467,
+        95743
+      ],
+      "output_tokens_band": [
+        36641,
+        47109
+      ],
+      "usd_band": [
+        1.2884,
+        1.6564
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "koszmary",
+      "article_chars": 12712,
+      "v2_chars": 14892,
+      "input_chars_floor": 219502,
+      "output_chars": 109391,
+      "input_tokens_band": [
+        60973,
+        78394
+      ],
+      "output_tokens_band": [
+        30386,
+        39068
+      ],
+      "usd_band": [
+        1.0645,
+        1.3687
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "lek-a-sen",
+      "article_chars": 19621,
+      "v2_chars": 32088,
+      "input_chars_floor": 284944,
+      "output_chars": 145250,
+      "input_tokens_band": [
+        79151,
+        101766
+      ],
+      "output_tokens_band": [
+        40347,
+        51875
+      ],
+      "usd_band": [
+        1.4044,
+        1.8057
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "lucid-dream",
+      "article_chars": 17130,
+      "v2_chars": 23036,
+      "input_chars_floor": 268426,
+      "output_chars": 131870,
+      "input_tokens_band": [
+        74563,
+        95866
+      ],
+      "output_tokens_band": [
+        36631,
+        47096
+      ],
+      "usd_band": [
+        1.2886,
+        1.6567
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "marzenia-senne",
+      "article_chars": 19791,
+      "v2_chars": 25434,
+      "input_chars_floor": 282681,
+      "output_chars": 129872,
+      "input_tokens_band": [
+        78522,
+        100958
+      ],
+      "output_tokens_band": [
+        36076,
+        46383
+      ],
+      "usd_band": [
+        1.2945,
+        1.6644
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "plytki-oddech",
+      "article_chars": 17960,
+      "v2_chars": 26111,
+      "input_chars_floor": 260730,
+      "output_chars": 123119,
+      "input_tokens_band": [
+        72425,
+        93118
+      ],
+      "output_tokens_band": [
+        34200,
+        43971
+      ],
+      "usd_band": [
+        1.2171,
+        1.5649
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "pozycja-do-spania",
+      "article_chars": 17518,
+      "v2_chars": 23130,
+      "input_chars_floor": 250678,
+      "output_chars": 118368,
+      "input_tokens_band": [
+        69633,
+        89528
+      ],
+      "output_tokens_band": [
+        32880,
+        42274
+      ],
+      "usd_band": [
+        1.1702,
+        1.5045
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "praca-przez-internet",
+      "article_chars": 18396,
+      "v2_chars": 25453,
+      "input_chars_floor": 266009,
+      "output_chars": 121628,
+      "input_tokens_band": [
+        73891,
+        95003
+      ],
+      "output_tokens_band": [
+        33786,
+        43439
+      ],
+      "usd_band": [
+        1.2141,
+        1.561
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "sen-kompletny-przewodnik",
+      "article_chars": 19512,
+      "v2_chars": 32987,
+      "input_chars_floor": 279190,
+      "output_chars": 135594,
+      "input_tokens_band": [
+        77553,
+        99711
+      ],
+      "output_tokens_band": [
+        37665,
+        48426
+      ],
+      "usd_band": [
+        1.3294,
+        1.7092
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "sen-polifazowy",
+      "article_chars": 13371,
+      "v2_chars": 16458,
+      "input_chars_floor": 227731,
+      "output_chars": 120123,
+      "input_tokens_band": [
+        63259,
+        81332
+      ],
+      "output_tokens_band": [
+        33368,
+        42901
+      ],
+      "usd_band": [
+        1.1505,
+        1.4792
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "sen-rem",
+      "article_chars": 17492,
+      "v2_chars": 24337,
+      "input_chars_floor": 255109,
+      "output_chars": 116619,
+      "input_tokens_band": [
+        70864,
+        91110
+      ],
+      "output_tokens_band": [
+        32394,
+        41650
+      ],
+      "usd_band": [
+        1.1642,
+        1.4968
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "swiadomy-sen",
+      "article_chars": 21269,
+      "v2_chars": 28620,
+      "input_chars_floor": 291147,
+      "output_chars": 128082,
+      "input_tokens_band": [
+        80874,
+        103981
+      ],
+      "output_tokens_band": [
+        35578,
+        45744
+      ],
+      "usd_band": [
+        1.2938,
+        1.6635
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "team-building",
+      "article_chars": 18808,
+      "v2_chars": 29144,
+      "input_chars_floor": 266978,
+      "output_chars": 123795,
+      "input_tokens_band": [
+        74161,
+        95349
+      ],
+      "output_tokens_band": [
+        34388,
+        44212
+      ],
+      "usd_band": [
+        1.2305,
+        1.582
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "temperatura-do-spania",
+      "article_chars": 18600,
+      "v2_chars": 26604,
+      "input_chars_floor": 258655,
+      "output_chars": 113527,
+      "input_tokens_band": [
+        71849,
+        92377
+      ],
+      "output_tokens_band": [
+        31535,
+        40545
+      ],
+      "usd_band": [
+        1.1476,
+        1.4755
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "webinarium",
+      "article_chars": 14754,
+      "v2_chars": 23993,
+      "input_chars_floor": 233922,
+      "output_chars": 125205,
+      "input_tokens_band": [
+        64978,
+        83544
+      ],
+      "output_tokens_band": [
+        34779,
+        44716
+      ],
+      "usd_band": [
+        1.1944,
+        1.5356
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "wim-hof",
+      "article_chars": 18513,
+      "v2_chars": 29927,
+      "input_chars_floor": 261858,
+      "output_chars": 122819,
+      "input_tokens_band": [
+        72738,
+        93521
+      ],
+      "output_tokens_band": [
+        34116,
+        43864
+      ],
+      "usd_band": [
+        1.2166,
+        1.5642
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "wypalenie-zawodowe",
+      "article_chars": 15040,
+      "v2_chars": 20520,
+      "input_chars_floor": 228886,
+      "output_chars": 107038,
+      "input_tokens_band": [
+        63579,
+        81745
+      ],
+      "output_tokens_band": [
+        29733,
+        38228
+      ],
+      "usd_band": [
+        1.0612,
+        1.3644
+      ],
+      "agent_calls": 8
+    },
+    {
+      "slug": "zatkany-nos-w-nocy",
+      "article_chars": 18424,
+      "v2_chars": 31266,
+      "input_chars_floor": 258814,
+      "output_chars": 120116,
+      "input_tokens_band": [
+        71893,
+        92434
+      ],
+      "output_tokens_band": [
+        33366,
+        42899
+      ],
+      "usd_band": [
+        1.1936,
+        1.5346
+      ],
+      "agent_calls": 8
+    }
+  ]
+}

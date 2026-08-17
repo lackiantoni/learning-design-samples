@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-agent review pipeline · Case study · Antoni Lacki</title>
+  <meta name="description" content="A production multi-agent review pipeline: seven independent reviewers plus a synthesiser, measured across 30 real runs. Architecture, code, agreement data, and cost per run.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#1E293B; --navy-deep:#0F172A; --teal:#14B8A6; --teal-text:#0F766E;
+      --teal-bar:#0D9488; --teal-bright:#2DD4BF; --bg:#F8FAFC; --card:#FFFFFF;
+      --border:#E2E8F0; --muted:#64748B; --secondary:#334155; --soft:#E6FAF7;
+      --amber:#B45309; --amber-soft:#FEF3C7; --amber-border:#FDE68A;
+      --fh:'Poppins',sans-serif; --fb:'Open Sans',sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--fb);background:var(--bg);color:#0F172A;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:880px;margin:0 auto;padding:0 22px;}
+    a{color:var(--teal-text);}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 65%,#243449 100%);color:#E2E8F0;padding:52px 0 44px;}
+    .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#94A3B8;text-decoration:none;margin-bottom:20px;}
+    .back:hover{color:var(--teal-bright);}
+    .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-bright);border:1px solid #2D3F57;border-radius:999px;padding:5px 13px;margin-bottom:18px;}
+    h1{font-family:var(--fh);font-weight:700;font-size:38px;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:14px;}
+    .hero .lede{font-size:16.5px;color:#CBD5E1;max-width:660px;}
+    .hero-stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:30px;padding-top:26px;border-top:1px solid #2D3F57;}
+    .hs .n{font-family:var(--fh);font-weight:700;font-size:30px;color:var(--teal-bright);line-height:1;}
+    .hs .l{font-size:12.5px;color:#94A3B8;margin-top:5px;}
+
+    /* ── SECTIONS ── */
+    section{padding:40px 0 8px;}
+    .kicker{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-text);margin-bottom:10px;}
+    h2{font-family:var(--fh);font-weight:700;font-size:25px;color:var(--navy);letter-spacing:-.01em;line-height:1.25;margin-bottom:14px;}
+    h3{font-family:var(--fh);font-weight:600;font-size:16.5px;color:var(--navy);margin:24px 0 8px;}
+    p{margin-bottom:14px;color:var(--secondary);font-size:15.5px;}
+    p strong{color:#0F172A;}
+    ul{margin:0 0 14px 0;padding-left:0;list-style:none;}
+    li{position:relative;padding-left:17px;margin-bottom:7px;color:var(--secondary);font-size:15.5px;}
+    li::before{content:'';position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--teal);}
+    li strong{color:#0F172A;}
+
+    /* ── PANELS ── */
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin:18px 0 22px;}
+    .panel.flag{background:var(--amber-soft);border-color:var(--amber-border);}
+    .panel.flag .panel-title{color:var(--amber);}
+    .panel-title{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:10px;}
+    .panel p:last-child,.panel ul:last-child{margin-bottom:0;}
+
+    /* ── FIGURE / DIAGRAM ── */
+    figure{margin:22px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 22px 18px;max-width:100%;}
+    figcaption{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;}
+    /* The diagram needs 640px to stay legible. Give it its own scroll container
+       so a narrow viewport scrolls the figure, not the whole document. */
+    .scroll-x{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    svg.diagram{display:block;min-width:640px;width:100%;height:auto;}
+
+    /* ── CHART ── */
+    .chart{margin-top:4px;}
+    .row{display:grid;grid-template-columns:88px 1fr 46px;align-items:center;gap:12px;margin-bottom:6px;}
+    .row .bin{font-size:13px;color:var(--secondary);text-align:right;font-variant-numeric:tabular-nums;}
+    .track{background:#F1F5F9;border-radius:4px;height:22px;position:relative;}
+    .bar{background:var(--teal-bar);height:22px;border-radius:4px;transition:background .2s;}
+    .row:hover .bar{background:var(--teal-text);}
+    .row .v{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--navy);font-variant-numeric:tabular-nums;}
+    .chart-title{font-family:var(--fh);font-weight:600;font-size:15px;color:var(--navy);margin-bottom:14px;}
+
+    /* ── TABLES ── */
+    table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px;}
+    caption{text-align:left;font-family:var(--fh);font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px;}
+    th,td{text-align:left;padding:9px 12px 9px 0;border-bottom:1px solid var(--border);vertical-align:top;}
+    th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+    td.num{font-family:var(--fh);font-weight:700;color:var(--navy);white-space:nowrap;font-variant-numeric:tabular-nums;}
+    tbody tr:last-child td{border-bottom:none;}
+
+    /* ── CODE ── */
+    pre{background:var(--navy-deep);color:#E2E8F0;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:6px 0 6px;font-size:12.5px;line-height:1.6;}
+    code{font-family:var(--fm);}
+    .code-label{font-size:12.5px;color:var(--muted);margin:18px 0 6px;font-family:var(--fm);}
+    .c-key{color:var(--teal-bright);}
+    .c-str{color:#FCD34D;}
+    .c-com{color:#7C8DA6;}
+
+    /* ── BEFORE / AFTER ── */
+    .ba{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0 20px;background:var(--card);}
+    .ba-head{padding:13px 18px;background:#F1F5F9;border-bottom:1px solid var(--border);}
+    .ba-head .t{font-family:var(--fh);font-weight:600;font-size:14.5px;color:var(--navy);}
+    .ba-head .who{font-size:12px;color:var(--muted);margin-top:2px;}
+    .ba-body{padding:6px 18px 14px;}
+    .ba-row{padding:11px 0;border-bottom:1px dashed var(--border);}
+    .ba-row:last-child{border-bottom:none;}
+    .ba-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-bottom:6px;}
+    .ba-tag.b{background:#FEE2E2;color:#991B1B;}
+    .ba-tag.a{background:var(--soft);color:var(--teal-text);}
+    .ba-row p{font-size:14.5px;margin:0;color:var(--secondary);}
+
+    footer{background:var(--navy-deep);color:#94A3B8;padding:28px 0;font-size:14px;margin-top:42px;}
+    footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;}
+    footer a{color:var(--teal-bright);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+
+    @media (max-width:640px){
+      h1{font-size:28px;} h2{font-size:21px;}
+      .hero-stats{gap:22px;} .hs .n{font-size:24px;}
+      .row{grid-template-columns:74px 1fr 38px;gap:8px;}
+      .panel,figure{padding:18px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="../index.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to samples
+    </a>
+    <span class="eyebrow">Case study · AI systems</span>
+    <h1>A review pipeline built to disagree with itself</h1>
+    <p class="lede">Eight agents review every article before it publishes: seven independent reviewers who never see each other's verdicts, and a synthesiser that resolves the conflicts. This page reports what 30 production runs actually produced, including what the system fails to do.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="n">30</div><div class="l">production runs measured</div></div>
+      <div class="hs"><div class="n">8</div><div class="l">agent calls per run</div></div>
+      <div class="hs"><div class="n">377</div><div class="l">findings with independent corroboration</div></div>
+      <div class="hs"><div class="n">~$1.20</div><div class="l">reconstructed cost per run</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The problem</div>
+    <h2>One model, one pass, one confident answer</h2>
+    <p>Ask a language model to review a draft and it will tell you the draft is good. Ask it to be critical and it will find three things, phrase them well, and stop. The failure is not that the output looks wrong. The failure is that it looks right: fluent, structured, and quietly missing the claim that has no source behind it.</p>
+    <p>The specific risk I care about is publishing a number I cannot defend. My articles cite studies, effect sizes, and statistics. A single-pass review catches the obvious problems and leaves the ones that require actually checking a citation against a source.</p>
+    <p><strong>So the design question was not how to get a better review. It was how to get a review whose agreement means something.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>Fan out to seven, converge through one</h2>
+
+    <figure>
+      <div class="scroll-x">
+      <svg class="diagram" viewBox="0 0 720 300" role="img" aria-labelledby="diagTitle diagDesc">
+        <title id="diagTitle">Pipeline architecture</title>
+        <desc id="diagDesc">An article fans out to seven independent reviewer agents running in parallel, whose outputs converge on a synthesiser agent, which produces a synthesis and a rewritten version two of the article for human approval.</desc>
+        <defs>
+          <marker id="ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+            <polygon points="0 0, 7 3.5, 0 7" fill="#94A3B8"/>
+          </marker>
+        </defs>
+        <!-- input -->
+        <rect x="6" y="126" width="104" height="48" rx="8" fill="#0F172A"/>
+        <text x="58" y="147" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="12.5" font-weight="600">Article</text>
+        <text x="58" y="163" text-anchor="middle" fill="#94A3B8" font-family="Open Sans,sans-serif" font-size="10.5">draft .md</text>
+
+        <!-- reviewers -->
+        <g font-family="Open Sans,sans-serif" font-size="11" fill="#0F172A">
+          <rect x="212" y="8"   width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="27">devil's advocate</text>
+          <rect x="212" y="46"  width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="65">fact-checker · web search</text>
+          <rect x="212" y="84"  width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="103">target-reader avatar</text>
+          <rect x="212" y="122" width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="141">copy coach</text>
+          <rect x="212" y="160" width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="179">brand voice</text>
+          <rect x="212" y="198" width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="217">SEO reviewer</text>
+          <rect x="212" y="236" width="176" height="30" rx="6" fill="#fff" stroke="#0D9488" stroke-width="1.5"/><text x="226" y="255">hook coach</text>
+        </g>
+        <text x="300" y="288" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="10.5" fill="#64748B">7 in parallel · isolated context · median 118s wall clock</text>
+
+        <!-- fan-out lines -->
+        <g stroke="#94A3B8" stroke-width="1.3" fill="none" marker-end="url(#ah)">
+          <path d="M110 150 C 160 150, 165 23,  206 23"/>
+          <path d="M110 150 C 160 150, 165 61,  206 61"/>
+          <path d="M110 150 C 160 150, 165 99,  206 99"/>
+          <path d="M110 150 L 206 137"/>
+          <path d="M110 150 C 160 150, 165 175, 206 175"/>
+          <path d="M110 150 C 160 150, 165 213, 206 213"/>
+          <path d="M110 150 C 160 150, 165 251, 206 251"/>
+        </g>
+        <!-- converge lines -->
+        <g stroke="#94A3B8" stroke-width="1.3" fill="none" marker-end="url(#ah)">
+          <path d="M388 23  C 430 23,  436 150, 470 150"/>
+          <path d="M388 61  C 430 61,  436 150, 470 150"/>
+          <path d="M388 99  C 430 99,  436 150, 470 150"/>
+          <path d="M388 137 L 470 148"/>
+          <path d="M388 175 C 430 175, 436 150, 470 150"/>
+          <path d="M388 213 C 430 213, 436 150, 470 150"/>
+          <path d="M388 251 C 430 251, 436 150, 470 150"/>
+        </g>
+
+        <!-- synthesiser -->
+        <rect x="476" y="120" width="118" height="60" rx="8" fill="#0D9488"/>
+        <text x="535" y="145" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="12.5" font-weight="600">Synthesiser</text>
+        <text x="535" y="162" text-anchor="middle" fill="#CCFBF1" font-family="Open Sans,sans-serif" font-size="10.5">resolves conflicts</text>
+
+        <line x1="594" y1="150" x2="640" y2="150" stroke="#94A3B8" stroke-width="1.3" marker-end="url(#ah)"/>
+
+        <!-- outputs -->
+        <g font-family="Open Sans,sans-serif" font-size="10.5">
+          <rect x="646" y="106" width="68" height="34" rx="6" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="680" y="127" text-anchor="middle" fill="#0F172A">synthesis</text>
+          <rect x="646" y="160" width="68" height="34" rx="6" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="680" y="181" text-anchor="middle" fill="#0F172A">v2 article</text>
+        </g>
+        <text x="680" y="216" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="10.5" fill="#64748B">human approves</text>
+      </svg>
+      </div>
+      <figcaption>Orchestration is deterministic. The fan-out, the ordering, and the merge are code; the models only do what models are good at. The original article is never overwritten, so every run leaves a before and an after on disk.</figcaption>
+    </figure>
+
+    <h3>Why seven reviewers instead of one longer prompt</h3>
+    <ul>
+      <li><strong>One lens each.</strong> A reviewer that is only looking for factual errors does not trade a factual finding away against a stylistic one. Bundle seven jobs into one prompt and the model silently budgets across them.</li>
+      <li><strong>No shared context.</strong> Reviewers never see each other's output. Two reviewers landing on the same issue is therefore evidence, not an echo. This is the property the whole design exists to buy.</li>
+      <li><strong>Different tools per role.</strong> The fact-checker has web search and is instructed to verify rather than assess. The other six do not have it and cannot substitute plausibility for a source.</li>
+      <li><strong>Different models per role.</strong> Reviewers run on a cheaper tier; the synthesiser, which has to hold seven documents and an article in context and resolve conflicts, runs on the strongest one.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The code</div>
+    <h2>Three pieces that make it work</h2>
+
+    <p class="code-label">1 — a reviewer is a role brief plus a tool grant. The fact-checker is the only one with search.</p>
+<pre><code><span class="c-com">---</span>
+<span class="c-key">name</span>: blog-pl-fact-checker
+<span class="c-key">description</span>: Verifies factual claims - cited studies, statistics, dates,
+  names, scientific assertions. Uses WebSearch + WebFetch when needed.
+<span class="c-key">tools</span>: Read, Write, Glob, Grep, WebSearch, WebFetch
+<span class="c-key">model</span>: sonnet
+<span class="c-com">---</span>
+
+<span class="c-com"># What you verify</span>
+
+<span class="c-str">Every cited study</span> - does it exist, does the date match, is the
+conclusion distorted. <span class="c-str">Every researcher name</span> - does the person
+exist, did they actually work on this. <span class="c-str">Every institution and
+journal</span> - correct spelling, does it exist.
+
+You do not guess. You verify.</code></pre>
+
+    <p class="code-label">2 — the orchestrator fans out in a single message, so the seven run concurrently rather than in sequence.</p>
+<pre><code><span class="c-com">## Step 2 - dispatch all 7 reviewers IN PARALLEL</span>
+
+In a single message, dispatch 7 Agent calls in parallel.
+Each agent gets:
+  - subagent_type: the agent name
+  - prompt: full path to the article + full path to the reviews
+    folder + "write your review to &lt;folder&gt;/&lt;role&gt;.md"
+
+<span class="c-com">## Step 3 - run the synthesizer</span>
+
+Once all 7 reviewers finish, dispatch the synthesizer with the
+article path and the reviews folder.</code></pre>
+
+    <p class="code-label">3 — the synthesiser's contract. Point 5 is the one that makes the whole thing auditable.</p>
+<pre><code><span class="c-key">model</span>: opus
+
+<span class="c-com"># Role</span>
+
+1. Read the 7 review files for this article.
+2. Extract a <span class="c-str">prioritised</span> list of changes (must-fix vs nice-to-have).
+3. Write <span class="c-str">_synthesis.md</span> with that list.
+4. Take the original, apply the must-fix changes, save as <span class="c-str">&lt;slug&gt;-v2.md</span>.
+5. <span class="c-str">NEVER overwrite the original.</span></code></pre>
+
+    <div class="panel">
+      <div class="panel-title">Why point 5 matters</div>
+      <p>Because the original survives, every run is reproducible after the fact. The numbers on this page were not logged while the pipeline ran. They were reconstructed months later by parsing the artifacts it left behind, which is only possible because nothing overwrites its own input.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Results</div>
+    <h2>What 30 production runs produced</h2>
+    <p>These are real runs on real articles, not a benchmark built for this page. Every figure below is derived from the artifacts on disk by a script, and spot-checked by hand against the raw files on three randomly chosen runs.</p>
+
+    <div class="panel">
+      <table>
+        <caption>Across 30 complete runs</caption>
+        <thead><tr><th>Measure</th><th>Total</th><th>Median per run</th></tr></thead>
+        <tbody>
+          <tr><td>Runs with all 7 reviewers plus a synthesis</td><td class="num">30 / 30</td><td class="num">-</td></tr>
+          <tr><td>Individual findings raised by reviewers</td><td class="num">1,673</td><td class="num">57</td></tr>
+          <tr><td>Must-fix items after synthesis</td><td class="num">676</td><td class="num">21.5</td></tr>
+          <tr><td>Findings raised independently by 2+ reviewers</td><td class="num">377</td><td class="num">11</td></tr>
+          <tr><td>Findings raised independently by 4+ of 7</td><td class="num">241</td><td class="num">-</td></tr>
+          <tr><td>Wall clock for the 7-way fan-out</td><td class="num">-</td><td class="num">118s</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure>
+      <div class="chart">
+        <div class="chart-title">How many independent reviewers raised the same finding</div>
+        <div class="row"><div class="bin">2 of 7</div><div class="track"><div class="bar" style="width:17%"></div></div><div class="v">20</div></div>
+        <div class="row"><div class="bin">3 of 7</div><div class="track"><div class="bar" style="width:100%"></div></div><div class="v">116</div></div>
+        <div class="row"><div class="bin">4 of 7</div><div class="track"><div class="bar" style="width:89%"></div></div><div class="v">103</div></div>
+        <div class="row"><div class="bin">5 of 7</div><div class="track"><div class="bar" style="width:64%"></div></div><div class="v">74</div></div>
+        <div class="row"><div class="bin">6 of 7</div><div class="track"><div class="bar" style="width:31%"></div></div><div class="v">36</div></div>
+        <div class="row"><div class="bin">7 of 7</div><div class="track"><div class="bar" style="width:24%"></div></div><div class="v">28</div></div>
+      </div>
+      <figcaption><strong>Read this honestly:</strong> the chart has no "1 of 7" bar because the synthesiser only records findings that more than one reviewer raised. Single-reviewer findings are not missing from the system, they stay in that reviewer's own file and are part of the 1,673 total. The chart shows the shape of agreement, not the share of findings that achieved it. <strong>28 times, all seven reviewers independently landed on the same problem.</strong></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">One run under the microscope</div>
+    <h2>Five corrections that reached the reader as facts</h2>
+    <p>An article on sleeping positions, roughly 3,500 words with a reference list. It read fine. Below are five changes the pipeline forced before publication, each verified against the original and the rewritten version, both still on disk.</p>
+
+    <div class="ba">
+      <div class="ba-head">
+        <div class="t">1 · A statistic with no source, and the number was wrong</div>
+        <div class="who">raised independently by 7 of 7 reviewers</div>
+      </div>
+      <div class="ba-body">
+        <div class="ba-row"><span class="ba-tag b">Before</span><p>"About 60% of Poles sleep on their side, 25% on their back, 7% on their stomach."</p></div>
+        <div class="ba-row"><span class="ba-tag a">After</span><p>"According to Polish consumer reports (Pościel.to 2024) about 70% of Poles fall asleep on their side, 15% on their back, 7% on their stomach. In the 65+ group the side-sleeping share rises to 82%."</p></div>
+      </div>
+    </div>
+
+    <div class="ba">
+      <div class="ba-head">
+        <div class="t">2 · A real study, an invented effect size</div>
+        <div class="who">raised independently by 6 of 7 reviewers</div>
+      </div>
+      <div class="ba-body">
+        <div class="ba-row"><span class="ba-tag b">Before</span><p>"Worsens obstructive sleep apnoea by 30 to 80% compared with side sleeping (Cartwright 1984)."</p></div>
+        <div class="ba-row"><span class="ba-tag a">After</span><p>"In the classic Cartwright 1984 study the apnoea index (AHI) in the supine position was roughly 2x higher (~+100%) than lateral. The definition of positional OSA rests on exactly that ratio."</p></div>
+      </div>
+    </div>
+
+    <div class="ba">
+      <div class="ba-head">
+        <div class="t">3 · A rat study presented as human evidence</div>
+        <div class="who">raised by the fact-checker, confirmed by 3 others</div>
+      </div>
+      <div class="ba-body">
+        <div class="ba-row"><span class="ba-tag b">Before</span><p>"Lee 2015 suggests the side position is most effective for flushing metabolic waste from the brain."</p></div>
+        <div class="ba-row"><span class="ba-tag a">After</span><p>"May support glymphatic drainage (Lee/Nedergaard 2015: preliminary data in rats; the mechanism is plausible in humans but not clinically confirmed)." The reference list now carries the full author list, the journal, and the caveat.</p></div>
+      </div>
+    </div>
+
+    <div class="ba">
+      <div class="ba-head">
+        <div class="t">4 · A citation that could not be verified</div>
+        <div class="who">fact-checker only, top of its list</div>
+      </div>
+      <div class="ba-body">
+        <div class="ba-row"><span class="ba-tag b">Before</span><p>"Khoury R. et al. (2019). <em>Body position and obstructive sleep apnea</em>. Chest 156(5)."</p></div>
+        <div class="ba-row"><span class="ba-tag a">After</span><p>Replaced with a source that verifies: "Joosten S.A., Hamilton G.S., Naughton M.T. (2014). <em>Supine position related obstructive sleep apnea in adults</em>. Sleep Medicine Reviews 18(1):7-17."</p></div>
+      </div>
+    </div>
+
+    <div class="ba">
+      <div class="ba-head">
+        <div class="t">5 · A myth the article was passing on</div>
+        <div class="who">fact-checker, plus devil's advocate</div>
+      </div>
+      <div class="ba-body">
+        <div class="ba-row"><span class="ba-tag b">Before</span><p>"After 21 to 30 days the new position becomes the default."</p></div>
+        <div class="ba-row"><span class="ba-tag a">After</span><p>"After 21 to 30 days the new position usually becomes the default (the '21 days to a habit' claim is a simplification; Lally 2010 reports a mean of 66 days, range 18 to 254)."</p></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">The one that justifies the architecture</div>
+      <p>Item 4 is the reason seven reviewers exist. Six of them read that citation and had no reason to doubt it: correct format, plausible journal, plausible year. Only the reviewer whose single job was verification, and who had a search tool, went and looked. <strong>Agreement is the signal for most findings. For that one, isolation was.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Economics</div>
+    <h2>What a run costs, and how that number was produced</h2>
+    <p>Cheap models for mechanical stages, the strong model for judgement and synthesis. Eight agent calls per run.</p>
+
+    <div class="panel">
+      <table>
+        <caption>Per run, median across 30 runs</caption>
+        <thead><tr><th>Measure</th><th>Median</th><th>Range across runs</th></tr></thead>
+        <tbody>
+          <tr><td>Agent calls</td><td class="num">8</td><td class="num">8</td></tr>
+          <tr><td>Input tokens</td><td class="num">72k - 93k</td><td class="num">58k - 139k</td></tr>
+          <tr><td>Output tokens</td><td class="num">34k - 44k</td><td class="num">30k - 53k</td></tr>
+          <tr><td>Cost at published API rates</td><td class="num">$1.20 - $1.55</td><td class="num">$0.99 - $2.02</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel flag">
+      <div class="panel-title">Two things this number is not</div>
+      <ul>
+        <li><strong>It is not an invoice.</strong> These runs executed on a subscription, so no per-token bill exists for them. This is a reconstruction from measured artifact sizes, priced at published rates. The method and the script are in the repository.</li>
+        <li><strong>The input figure is a floor, not a total.</strong> The harness system prompt and tool-call overhead are not on disk and are not counted. Real input tokens are higher than reported here.</li>
+      </ul>
+      <p style="margin-top:10px;">Every figure is a band rather than a point, because the source text is Polish and does not tokenise at a fixed rate. The band spans 2.8 to 3.6 characters per token, and the expensive end of the band is the one quoted first.</p>
+    </div>
+
+    <p>The reason the cost is worth stating at all: it is the number that decides whether this runs on every article or only on the important ones. At roughly a dollar-something per run it runs on everything, which is why there are 30 runs to report instead of three.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Limitations</div>
+    <h2>What this system does not do</h2>
+    <p>Written first, not last, because a case study that only lists strengths is a brochure.</p>
+    <ul>
+      <li><strong>It is not an automated eval harness.</strong> There are no numeric pass/fail thresholds and no gate that blocks publication programmatically. It is a panel of reviewers, a synthesiser, and a human who approves. Calling it "evals" would oversell it.</li>
+      <li><strong>Agreement is not correctness.</strong> Seven reviewers sharing a wrong prior will agree confidently. Agreement narrows the search space for a human; it does not replace one.</li>
+      <li><strong>The fact-checker inherits the web's errors.</strong> It verifies that a source exists and says what the article claims it says. It does not evaluate whether the study is any good.</li>
+      <li><strong>No production monitoring.</strong> There is no alerting, no retry policy, and no dashboard. Failures show up as a missing file in the output folder, which I notice because the run is in front of me.</li>
+      <li><strong>Measurement was retrofitted.</strong> Nothing logged tokens or timings while these runs happened. Everything on this page was reconstructed afterwards from artifacts, which is why timings come from file timestamps and cost comes from a model rather than a meter.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Stack and reuse</div>
+    <h2>Where else this pattern runs</h2>
+    <p>Claude Code with subagents and MCP servers, orchestrated by a slash command; Python for the artifact analysis; plain HTML for this page. No framework, nothing to install.</p>
+    <p>The same fan-out-and-synthesise shape now runs three other jobs: a market-research sweep where each agent searches a different source type, a job-market pipeline where every posting is verified against the employer's own applicant-tracking API before it is trusted, and a documentation review where the lenses are correctness, completeness, and the reader who has never seen the product.</p>
+    <p><strong>The transferable part is not the seven roles. It is the discipline of paying for independence and then measuring whether it bought you anything.</strong></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Antoni Lacki · AI GTM Engineer</span>
+    <span><a href="mailto:al@antonilacki.com">al@antonilacki.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/antonilacki">linkedin.com/in/antonilacki</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
