@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document to narrated video · Case study · Antoni Lacki</title>
+  <meta name="description" content="A pipeline that turns a source document into a narrated, animated training video. The animation is anchored to the voiceover, not to a hand-authored timeline. Real code, real frames, and the finished video.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#1E293B; --navy-deep:#0F172A; --teal:#14B8A6; --teal-text:#0F766E;
+      --teal-bar:#0D9488; --teal-bright:#2DD4BF; --bg:#F8FAFC; --card:#FFFFFF;
+      --border:#E2E8F0; --muted:#64748B; --secondary:#334155; --soft:#E6FAF7;
+      --amber:#B45309; --amber-soft:#FEF3C7; --amber-border:#FDE68A;
+      --fh:'Poppins',sans-serif; --fb:'Open Sans',sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--fb);background:var(--bg);color:#0F172A;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:880px;margin:0 auto;padding:0 22px;}
+    a{color:var(--teal-text);}
+
+    .hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 65%,#243449 100%);color:#E2E8F0;padding:52px 0 44px;}
+    .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#94A3B8;text-decoration:none;margin-bottom:20px;}
+    .back:hover{color:var(--teal-bright);}
+    .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-bright);border:1px solid #2D3F57;border-radius:999px;padding:5px 13px;margin-bottom:18px;}
+    h1{font-family:var(--fh);font-weight:700;font-size:38px;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:14px;}
+    .hero .lede{font-size:16.5px;color:#CBD5E1;max-width:660px;}
+    .hero-stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:30px;padding-top:26px;border-top:1px solid #2D3F57;}
+    .hs .n{font-family:var(--fh);font-weight:700;font-size:30px;color:var(--teal-bright);line-height:1;}
+    .hs .l{font-size:12.5px;color:#94A3B8;margin-top:5px;}
+
+    section{padding:40px 0 8px;}
+    .kicker{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-text);margin-bottom:10px;}
+    h2{font-family:var(--fh);font-weight:700;font-size:25px;color:var(--navy);letter-spacing:-.01em;line-height:1.25;margin-bottom:14px;}
+    h3{font-family:var(--fh);font-weight:600;font-size:16.5px;color:var(--navy);margin:26px 0 8px;}
+    p{margin-bottom:14px;color:var(--secondary);font-size:15.5px;}
+    p strong{color:#0F172A;}
+    ul{margin:0 0 14px 0;padding-left:0;list-style:none;}
+    li{position:relative;padding-left:17px;margin-bottom:7px;color:var(--secondary);font-size:15.5px;}
+    li::before{content:'';position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--teal);}
+    li strong{color:#0F172A;}
+
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin:18px 0 22px;}
+    .panel.flag{background:var(--amber-soft);border-color:var(--amber-border);}
+    .panel.flag .panel-title{color:var(--amber);}
+    .panel-title{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:10px;}
+    .panel p:last-child,.panel ul:last-child{margin-bottom:0;}
+
+    figure{margin:22px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 20px 16px;max-width:100%;}
+    figcaption{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;}
+    .scroll-x{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    svg.diagram{display:block;min-width:680px;width:100%;height:auto;}
+
+    /* ── PROOF BLOCK ── */
+    .proof{border:1px solid var(--border);border-radius:12px;background:var(--card);margin:16px 0 24px;overflow:hidden;}
+    .proof-head{padding:14px 20px;background:#F1F5F9;border-bottom:1px solid var(--border);}
+    .proof-head .t{font-family:var(--fh);font-weight:600;font-size:15px;color:var(--navy);}
+    .proof-head .m{font-size:12.5px;color:var(--muted);margin-top:2px;font-family:var(--fm);}
+    .proof-body{padding:16px 20px 18px;}
+    .trip{margin-bottom:12px;}
+    .trip .lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+    .trip code{display:block;background:var(--navy-deep);color:#E2E8F0;padding:9px 13px;border-radius:7px;font-size:12px;overflow-x:auto;white-space:pre;}
+    .shots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
+    .shot img{width:100%;height:auto;display:block;border-radius:7px;border:1px solid var(--border);}
+    .shot .cap{font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--fm);}
+    .shot.solo{grid-column:1 / -1;}
+
+    table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px;}
+    caption{text-align:left;font-family:var(--fh);font-weight:600;font-size:15px;color:var(--navy);margin-bottom:12px;}
+    th,td{text-align:left;padding:9px 12px 9px 0;border-bottom:1px solid var(--border);vertical-align:top;}
+    th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+    td.num{font-family:var(--fh);font-weight:700;color:var(--navy);white-space:nowrap;font-variant-numeric:tabular-nums;}
+    tbody tr:last-child td{border-bottom:none;}
+
+    pre{background:var(--navy-deep);color:#E2E8F0;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:6px 0;font-size:12.5px;line-height:1.6;}
+    code{font-family:var(--fm);}
+    .code-label{font-size:12.5px;color:var(--muted);margin:18px 0 6px;font-family:var(--fm);}
+    .c-key{color:var(--teal-bright);}
+    .c-str{color:#FCD34D;}
+    .c-com{color:#7C8DA6;}
+
+    video{width:100%;height:auto;display:block;border-radius:10px;background:#000;}
+
+    footer{background:var(--navy-deep);color:#94A3B8;padding:28px 0;font-size:14px;margin-top:42px;}
+    footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;}
+    footer a{color:var(--teal-bright);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+
+    @media (max-width:640px){
+      h1{font-size:28px;} h2{font-size:21px;}
+      .hero-stats{gap:22px;} .hs .n{font-size:24px;}
+      .shots{grid-template-columns:1fr;}
+      .panel,figure{padding:18px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="../index.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to samples
+    </a>
+    <span class="eyebrow">Case study · Production pipeline</span>
+    <h1>The animation is anchored to the voice</h1>
+    <p class="lede">A pipeline that turns a source document into a narrated, animated training video. The interesting part is not that it renders a video. It is that no timing in the composition was typed by a human: the voiceover generates the timings, and the animation binds to them by name.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="n">1:43</div><div class="l">finished video, rendered</div></div>
+      <div class="hs"><div class="n">24</div><div class="l">narration sentences</div></div>
+      <div class="hs"><div class="n">19</div><div class="l">named beats</div></div>
+      <div class="hs"><div class="n">0</div><div class="l">hand-timed content cues</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The problem</div>
+    <h2>Training video ages faster than it can be re-edited</h2>
+    <p>A product changes, one sentence in the script is now wrong, and the fix means opening an edit timeline and dragging every keyframe after the change. The cost of a correction is high enough that the correction usually does not happen, so the video quietly drifts out of date while still being the thing new hires watch.</p>
+    <p>That is a timing-architecture problem, not a video problem. If every visual cue is pinned to a hand-placed position on a timeline, the timeline is what you maintain. <strong>So the pipeline pins the visuals to the narration instead, and lets the narration own the clock.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The chain</div>
+    <h2>From a document to a hosted video</h2>
+
+    <figure>
+      <div class="scroll-x">
+        <svg class="diagram" viewBox="0 0 760 200" role="img" aria-labelledby="dTitle dDesc">
+          <title id="dTitle">Pipeline stages</title>
+          <desc id="dDesc">A source document becomes a script, the script becomes a voiceover, the voiceover generates a timing file, the composition binds to those timings, and the result is rendered and hosted. The source document stage is not published.</desc>
+          <defs>
+            <marker id="a2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#94A3B8"/>
+            </marker>
+          </defs>
+          <g font-family="Open Sans,sans-serif" font-size="11.5">
+            <!-- stage 1: not published -->
+            <rect x="4" y="62" width="104" height="52" rx="8" fill="#fff" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="56" y="83" text-anchor="middle" fill="#64748B" font-weight="600">source doc</text>
+            <text x="56" y="99" text-anchor="middle" fill="#94A3B8" font-size="10">not published</text>
+
+            <rect x="136" y="62" width="104" height="52" rx="8" fill="#0F172A"/>
+            <text x="188" y="83" text-anchor="middle" fill="#fff" font-weight="600">script</text>
+            <text x="188" y="99" text-anchor="middle" fill="#94A3B8" font-size="10">24 sentences</text>
+
+            <rect x="268" y="62" width="104" height="52" rx="8" fill="#0F172A"/>
+            <text x="320" y="83" text-anchor="middle" fill="#fff" font-weight="600">voiceover</text>
+            <text x="320" y="99" text-anchor="middle" fill="#94A3B8" font-size="10">ElevenLabs</text>
+
+            <rect x="400" y="62" width="112" height="52" rx="8" fill="#0D9488"/>
+            <text x="456" y="83" text-anchor="middle" fill="#fff" font-weight="600">timing.js</text>
+            <text x="456" y="99" text-anchor="middle" fill="#CCFBF1" font-size="10">generated</text>
+
+            <rect x="540" y="62" width="104" height="52" rx="8" fill="#0F172A"/>
+            <text x="592" y="83" text-anchor="middle" fill="#fff" font-weight="600">composition</text>
+            <text x="592" y="99" text-anchor="middle" fill="#94A3B8" font-size="10">HyperFrames</text>
+
+            <rect x="672" y="62" width="84" height="52" rx="8" fill="#0F172A"/>
+            <text x="714" y="83" text-anchor="middle" fill="#fff" font-weight="600">render</text>
+            <text x="714" y="99" text-anchor="middle" fill="#94A3B8" font-size="10">1080p mp4</text>
+          </g>
+          <g stroke="#94A3B8" stroke-width="1.4" fill="none" marker-end="url(#a2)">
+            <line x1="110" y1="88" x2="130" y2="88" stroke-dasharray="4 3"/>
+            <line x1="242" y1="88" x2="262" y2="88"/>
+            <line x1="374" y1="88" x2="394" y2="88"/>
+            <line x1="514" y1="88" x2="534" y2="88"/>
+            <line x1="646" y1="88" x2="666" y2="88"/>
+          </g>
+          <text x="456" y="140" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="11" fill="#0F766E" font-weight="600">everything downstream of here inherits the voice's clock</text>
+          <path d="M456 122 L456 128" stroke="#0F766E" stroke-width="1.4"/>
+          <text x="380" y="170" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="10.5" fill="#64748B">the source document belongs to a client and is described rather than shown; everything from the script onward is on this page</text>
+        </svg>
+      </div>
+      <figcaption><strong>timing.js is the hinge.</strong> It is generated, never edited, and it carries five tables the rest of the build reads: the total length, 24 sentence cues, 19 named beats, 5 scene windows, and the chapter cards.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The proof</div>
+    <h2>Three moments, traced from voice to pixel</h2>
+    <p>Each block below shows the same thing from three angles: the narrated sentence with its timing, the beat the generator derived from it, the line of animation code that binds to that beat, and the frames from the rendered file on either side of it.</p>
+
+    <div class="proof">
+      <div class="proof-head">
+        <div class="t">1 · A rule card that arrives with the rule</div>
+        <div class="m">beat b0_rule · 49 ms after the sentence starts</div>
+      </div>
+      <div class="proof-body">
+        <div class="trip">
+          <div class="lbl">timing.js · the narration cue, generated from the voiceover</div>
+          <code>{"s": 12.401, "e": 16.144, "t": "pick one primary submission method per worker type."}</code>
+        </div>
+        <div class="trip">
+          <div class="lbl">timing.js · the named beat</div>
+          <code>"b0_rule": 12.45</code>
+        </div>
+        <div class="trip">
+          <div class="lbl">anim.js line 94 · the binding</div>
+          <code>tl.fromTo("#s0-rule", { opacity: 0, scale: 0.75 },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, T.b0_rule);</code>
+        </div>
+        <div class="shots">
+          <div class="shot">
+            <img src="media/rule-before.jpg" alt="Frame at 12.30 seconds: the layout is on screen but there is no rule card.">
+            <div class="cap">t = 12.30s · no card</div>
+          </div>
+          <div class="shot">
+            <img src="media/rule-after.jpg" alt="Frame at 12.95 seconds: a yellow card reading One primary method per worker type has appeared.">
+            <div class="cap">t = 12.95s · card present</div>
+          </div>
+        </div>
+        <p style="margin:14px 0 0;font-size:14.5px;">The card reads <em>One primary method per worker type</em>. The narrator says <em>pick one primary submission method per worker type</em>. Nobody typed 12.45 anywhere: the generator wrote it from where that sentence begins in the audio.</p>
+      </div>
+    </div>
+
+    <div class="proof">
+      <div class="proof-head">
+        <div class="t">2 · Seven day cells that stagger with the sentence</div>
+        <div class="m">beat b1_days · stagger derived, not drawn</div>
+      </div>
+      <div class="proof-body">
+        <div class="trip">
+          <div class="lbl">timing.js · the narration cue</div>
+          <code>{"s": 32.388, "e": 35.71, "t": "which days are working days, which are rest days."}</code>
+        </div>
+        <div class="trip">
+          <div class="lbl">anim.js lines 101 to 104 · five working days cascade, then the two rest days</div>
+          <code>tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35,
+          ease: "power2.out" }, T.b1_days + i * 0.12);
+tl.fromTo("#s1-d6", { ... }, T.b1_days + 0.7);
+tl.fromTo("#s1-d7", { ... }, T.b1_days + 0.82);</code>
+        </div>
+        <div class="shots">
+          <div class="shot solo">
+            <img src="media/schedule.jpg" alt="Frame at 33.70 seconds: a work schedule row showing Monday to Friday marked eight hours and Saturday and Sunday marked rest.">
+            <div class="cap">t = 33.70s · all seven cells in, weekdays and rest days visually distinct</div>
+          </div>
+        </div>
+        <p style="margin:14px 0 0;font-size:14.5px;">The five weekdays cascade at 120 ms apart from the beat. Saturday and Sunday are held back to +0.70s and +0.82s, which is where the sentence reaches <em>which are rest days</em>. The offsets are relative to the beat, so if the sentence moves, the whole cascade moves with it.</p>
+      </div>
+    </div>
+
+    <div class="proof">
+      <div class="proof-head">
+        <div class="t">3 · A three-step interface change from one beat</div>
+        <div class="m">beat b4_approve · cursor, then state, then badge</div>
+      </div>
+      <div class="proof-body">
+        <div class="trip">
+          <div class="lbl">timing.js · the narration cue</div>
+          <code>{"s": 89.376, "e": 94.282, "t": "As a manager, open the submitted timesheet, review it, and approve."}</code>
+        </div>
+        <div class="trip">
+          <div class="lbl">anim.js lines 129 to 131 · one beat, three sequenced consequences</div>
+          <code>moveClick(4, "#s4-approvebtn", T.b4_approve + 0.2, true);
+tl.to("#s4-pend", { opacity: 0, duration: 0.25 }, T.b4_approve + 0.5);
+tl.fromTo("#s4-appr", { opacity: 0, scale: 0.6 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, T.b4_approve + 0.6);</code>
+        </div>
+        <div class="shots">
+          <div class="shot">
+            <img src="media/approve-before.jpg" alt="Frame at 92.40 seconds: a timesheet row with a yellow Submitted badge and the cursor below the approve button.">
+            <div class="cap">t = 92.40s · Submitted, cursor approaching</div>
+          </div>
+          <div class="shot">
+            <img src="media/approve-after.jpg" alt="Frame at 93.70 seconds: the cursor is on the approve button and the badge now reads Approved in green.">
+            <div class="cap">t = 93.70s · cursor on the button, badge is Approved</div>
+          </div>
+        </div>
+        <p style="margin:14px 0 0;font-size:14.5px;">This is the one that shows the pattern properly. A simulated cursor travels and clicks, the pending state fades, and the approved badge pops, at +0.2s, +0.5s and +0.6s from a single anchor. The choreography is written as offsets from a spoken word, so it survives any change to what is said before it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The generated file</div>
+    <h2>What the voiceover produces</h2>
+    <p>One script runs the audio through transcription and writes the timing file. Its first line is an instruction to humans.</p>
+<pre><code><span class="c-com">// GENERATED by make_v2.py (sentence subs + title gaps) - do not edit</span>
+<span class="c-key">const</span> TOTAL = 103.0;
+
+<span class="c-key">const</span> SUBS = [                 <span class="c-com">// 24 sentence cues, start and end</span>
+  {<span class="c-str">"s"</span>: 12.401, <span class="c-str">"e"</span>: 16.144, <span class="c-str">"t"</span>: <span class="c-str">"pick one primary submission method per worker type."</span>},
+  ...
+];
+
+<span class="c-key">const</span> T = {                    <span class="c-com">// 19 named beats the animation binds to</span>
+  <span class="c-str">"b0_rule"</span>: 12.45,
+  <span class="c-str">"b1_days"</span>: 32.44,
+  <span class="c-str">"b4_approve"</span>: 92.59,
+  ...
+};
+
+<span class="c-key">const</span> SCENES = {               <span class="c-com">// 5 scene windows, with gaps left for chapter cards</span>
+  <span class="c-str">"sc00"</span>: { <span class="c-str">"s"</span>: 0.0,   <span class="c-str">"e"</span>: 22.01 },
+  <span class="c-str">"sc01"</span>: { <span class="c-str">"s"</span>: 25.01, <span class="c-str">"e"</span>: 46.24 },
+  ...
+};</code></pre>
+
+    <div class="panel">
+      <div class="panel-title">The honest version of "no hand timing"</div>
+      <p>The composition file makes 45 animation calls. Twenty-four bind directly to a named beat. The rest are either helper definitions that take the beat as an argument, or they read the subtitle and scene tables that the same voiceover produced.</p>
+      <p style="margin-bottom:0;"><strong>The only literal times typed into the file are 0 for initial states, 0.15s for the opening title, and four closing cues written as <code style="font-size:13px;">TOTAL</code> minus a fraction of a second, where <code style="font-size:13px;">TOTAL</code> is the length of the audio.</strong> So it is not that nothing was hand-timed. It is that nothing about the <em>content</em> was.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The output</div>
+    <h2>The finished video</h2>
+    <figure style="padding:16px;">
+      <video controls preload="metadata" poster="media/poster.jpg" playsinline>
+        <source src="media/time-tracking.mp4" type="video/mp4">
+        Your browser does not support embedded video. The file is at media/time-tracking.mp4
+      </video>
+      <figcaption>1:43, 1920x1080, AAC audio, faststart. Rendered from the composition above, then checked frame by frame for tearing (0 torn frames) and re-transcribed end to end to verify the audio.</figcaption>
+    </figure>
+
+    <div class="panel flag">
+      <div class="panel-title">What you are watching</div>
+      <p style="margin-bottom:0;">This is a de-branded portfolio cut of client work. The client's name, product name, URL and brand palette were replaced with my own studio's; the instructional design, the animated interface and the narration are the original. Every interface on screen was always drawn in HTML and CSS against invented sample data, so nothing here depicts a real product, and the on-screen footer says so. The source document that started the chain is not published.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Economics</div>
+    <h2>The number that matters is the cost of a change</h2>
+    <p>Production cost is the usual thing people quote, and it is the less interesting one. What this architecture actually buys is the cost of the second version.</p>
+
+    <div class="panel">
+      <table>
+        <caption>Changing one sentence of narration</caption>
+        <thead><tr><th>Step</th><th>Hand-timed edit</th><th>This pipeline</th></tr></thead>
+        <tbody>
+          <tr><td>Re-record or regenerate the line</td><td class="num">yes</td><td class="num">yes</td></tr>
+          <tr><td>Re-time every cue after the change</td><td class="num">by hand</td><td class="num">regenerated</td></tr>
+          <tr><td>Re-check every downstream animation</td><td class="num">by hand</td><td class="num">not needed</td></tr>
+          <tr><td>Re-render</td><td class="num">yes</td><td class="num">yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The middle two rows are the whole argument. In a hand-timed edit they scale with the length of the video and with how early in it the change lands. Here they cost nothing, because the animation never knew the numbers in the first place, only the names.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Limitations</div>
+    <h2>What this system does not do</h2>
+    <ul>
+      <li><strong>It does not write the script.</strong> A model drafts from the source document, and then a human rewrites it, because narration that has never been read aloud by its author sounds like narration.</li>
+      <li><strong>It does not design the scenes.</strong> Every interface in the composition is hand-built HTML and CSS. The pipeline times them; it does not invent them.</li>
+      <li><strong>Beat names are a manual mapping.</strong> The generator produces the cues automatically, but deciding that a beat called <code style="font-size:13px;">b4_approve</code> is the one worth anchoring a click to is an editorial judgement made once per video.</li>
+      <li><strong>It is not a service with an interface.</strong> It is a set of scripts I run. There is no queue, no retry policy, and no dashboard.</li>
+      <li><strong>The economics table above is reasoning, not a measured benchmark.</strong> I have not stopwatch-tested a hand-timed edit of the same video to compare against.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">One decision that paid off later</div>
+    <h2>Why this one could be published at all</h2>
+    <p>Every interface in these videos is drawn in HTML and CSS with invented data, rather than captured as screenshots. That was a production decision: drawn interfaces re-render at any resolution, animate natively, and never need a staging environment with realistic-looking data in it.</p>
+    <p>It turned out to be a decision about something else entirely. When the time came to make a portfolio cut, de-branding meant changing values in one block of design tokens. A sibling series in the same programme had embedded real screenshots, and de-branding that one meant rebuilding every screen from scratch, so it stayed unpublished.</p>
+    <p><strong>The constraint that makes a system maintainable and the constraint that makes its output shareable turned out to be the same constraint.</strong> That is worth knowing before you start, not after.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Antoni Lacki · AI GTM Engineer · Customer Education &amp; Enablement</span>
+    <span><a href="mailto:al@antonilacki.com">al@antonilacki.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/antonilacki">linkedin.com/in/antonilacki</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
