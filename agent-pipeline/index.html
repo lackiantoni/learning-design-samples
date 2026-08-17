@@ -231,7 +231,7 @@
     <div class="kicker">The code</div>
     <h2>Three pieces that make it work</h2>
 
-    <p class="code-label">1 — a reviewer is a role brief plus a tool grant. The fact-checker is the only one with search.</p>
+    <p class="code-label">1 · a reviewer is a role brief plus a tool grant. The fact-checker is the only one with search.</p>
 <pre><code><span class="c-com">---</span>
 <span class="c-key">name</span>: blog-pl-fact-checker
 <span class="c-key">description</span>: Verifies factual claims - cited studies, statistics, dates,
@@ -249,7 +249,7 @@ journal</span> - correct spelling, does it exist.
 
 You do not guess. You verify.</code></pre>
 
-    <p class="code-label">2 — the orchestrator fans out in a single message, so the seven run concurrently rather than in sequence.</p>
+    <p class="code-label">2 · the orchestrator fans out in a single message, so the seven run concurrently rather than in sequence.</p>
 <pre><code><span class="c-com">## Step 2 - dispatch all 7 reviewers IN PARALLEL</span>
 
 In a single message, dispatch 7 Agent calls in parallel.
@@ -263,7 +263,7 @@ Each agent gets:
 Once all 7 reviewers finish, dispatch the synthesizer with the
 article path and the reviews folder.</code></pre>
 
-    <p class="code-label">3 — the synthesiser's contract. Point 5 is the one that makes the whole thing auditable.</p>
+    <p class="code-label">3 · the synthesiser's contract. Point 5 is the one that makes the whole thing auditable.</p>
 <pre><code><span class="c-key">model</span>: opus
 
 <span class="c-com"># Role</span>
